@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Route for Customers
 Route::resource('customers', 'CustomerController');
+Route::resource('routes', 'RouteController');
+

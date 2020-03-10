@@ -12,9 +12,6 @@
                     <a href="/users" class="btn btn-primary">Manage Users</a>
                     <a href="/routes" class="btn btn-primary">Manage Routes</a>
                 </div>
-                <div class="card-body">
-                    <h3>Routes Quick View Here</h3>
-                </div>
             </div>
         </div>
     </div>

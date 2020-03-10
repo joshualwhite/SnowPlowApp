@@ -19,6 +19,15 @@
         {{Form::label('comments', 'Comments')}}
         {{Form::textArea('comments', '', ['class'=> 'form-control', 'placeholder'=>'Initial Comments'])}}
     </div>
+    <div class= "form-group">
+        @if(count($routes)>0)
+            <label for="route_select">Assign A Route</label><br>
+            @foreach($routes as $route)
+               {{Form::radio('route_select', $route->id)}}
+               {{$route->name}}
+            @endforeach 
+        @endif
+    </div>
     {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
     {!! Form::close() !!}
     <hr>

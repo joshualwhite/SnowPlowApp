@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 Use App\Customer;
+Use App\Route;
 
 class CustomerController extends Controller
 {
@@ -24,9 +25,15 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-     public function index()
+    public function index()
     {
         $customers = Customer::orderBy('created_at', 'desc')->paginate(20);
+        
+        //Temporarily replace route_id (in held memory, not on SQL) to the name of the corresponding route
+        foreach($customers as $customer) {
+            $route = Route::find($customer->route_id);
+            $customer->route_id = $route->name; 
+        }
         return view('customers.index')->with('customers', $customers);
     }
 
@@ -37,7 +44,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customers.create');
+        $routes = Route::all();
+        return view('customers.create')->with('routes', $routes);
     }
 
     /**
@@ -63,6 +71,7 @@ class CustomerController extends Controller
             $customer->comments = $request->input('comments');
         else $customer->comments = "";
         $customer->rating = 0;
+        $customer->route_id = $request->input('route_select');
         $customer->save();
 
         return redirect('/customers')->with('success', 'Customer Added');
@@ -76,8 +85,14 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::find($id);  
-        return view('customers.show')->with('customer', $customer);
+        $routes = Route::all();
+        $customer = Customer::find($id);
+
+        $data = [
+            'routes'=>$routes,
+            'customer'=>$customer
+        ];
+        return view('customers.show')->with('data', $data);
     }
 
     /**
@@ -120,6 +135,10 @@ class CustomerController extends Controller
         if($customer->rating > 0)
             $customer->rating = $customer->rating;
         else $customer->rating = 0;
+        
+        if($request->input('route_select') != $customer->route_id)
+            $customer->route_id = $request->input('route_select');
+        
         $customer->save();
         return redirect('/customers')->with('success', 'Post Updated');
     }

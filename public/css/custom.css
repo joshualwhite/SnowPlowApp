@@ -1,0 +1,71 @@
+.pill {
+    display: inline-block;
+    background-color: var(--light-color);
+    color: #333;
+    padding: 0.2rem 0.8rem;
+    font-size: 1rem;
+    border-radius: 15px 15px 15px 15px;
+    min-width: 7rem;
+    text-align: center;
+  }
+
+  .pill-primary
+  {
+    background:  #3490dc;
+    color: #fff;
+  }
+  
+
+  .pill-light {
+    background: #3490dc;
+    color: #333;
+  }
+  
+  .pill-dark{
+    background: #343a40;
+    color: #fff;
+  }
+
+  .pill-danger {
+    background: #e3342f;
+    color: #fff;
+  }
+  
+  .pill-success {
+    background: #38c172;
+    color: #fff;
+  }
+
+  .dashboard-list {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center
+  }
+
+  .dashboard-list {
+    vertical-align: bottom;
+    border-bottom: 0.1rem solid #dddddd;
+    display:flex;
+    margin-right: auto;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-end;
+  }
+
+  .justify-start {
+    margin-right: auto;
+  }
+
+  @media (max-width: 700px) {
+    .justify-start {
+      margin-right: 0;
+    }
+    .dashboard-list {
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center
+    }
+  }

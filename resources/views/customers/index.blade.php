@@ -12,15 +12,17 @@
                 <th>Name</th>
                 <th>Address</th>
                 <th>Phone Number</th>
+                <th>Assigned Route</th>
                 <th></th>
-                <th>Assinged Route</th>
             </tr>
             @foreach($customers as $customer)
                 <tr>
                     <td>{{$customer->name}}</td>
                     <td>{{$customer->address}}</td>
                     <td>{{$customer->phone_number}}</td>
+                    <td>{{$customer->route_id}}</td>
                     <td><a href="/customers/{{$customer->id}}">Details</a></td>
+
                 </tr>
             @endforeach
         </table>
