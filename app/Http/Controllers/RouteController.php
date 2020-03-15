@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Route;
+use App\Customer;
 
 class RouteController extends Controller
 {
@@ -36,7 +37,9 @@ class RouteController extends Controller
      */
     public function create()
     {
-        //
+        // 3 is the 'Unassigned' route
+        $customers = Customer::where('route_id', 3)->get();
+        return view('routes.create')->with('customers', $customers);
     }
 
     /**
@@ -47,7 +50,30 @@ class RouteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+        
+        $route = new Route;
+        $route->name = $request->input('name');
+        $route->save();
+        //$customers is an array of id's
+        $customers = $request->input('customers');
+        
+        //$route = Route::orderBy('created_at', 'desc')->get();
+        if($customers){
+            foreach($customers as $id){
+                $_customer = Customer::find($id);
+                $_customer->route_id = $route->id;
+                $_customer->save();
+            }
+        }
+        $routes = Route::all();
+        
+
+        //return $route->id;
+
+        return view('routes.index')->with('routes', $routes);
     }
 
     /**
@@ -58,7 +84,19 @@ class RouteController extends Controller
      */
     public function show($id)
     {
-        //
+        $route = Route::find($id);
+        
+
+        $customers = Customer::where('route_id', $route->id)->get();
+        $unassigned = Customer::where('route_id', 3)->get();
+
+        $data = [
+            'route'=> $route,
+            'customers'=> $customers,
+            'unassigned' => $unassigned
+        ];
+        //return $data;
+        return view('routes.show')->with('data', $data);
     }
 
     /**
@@ -81,7 +119,33 @@ class RouteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+        
+        $route = Route::find($id);
+        $route->name = $request->input('name');
+        $route->save();
+        //$customers is an array of id's
+        $customers = $request->input('customers');
+        
+        //$route = Route::orderBy('created_at', 'desc')->get();
+        if($customers){
+            foreach($customers as $id){
+                $_customer = Customer::find($id);
+                $_customer->route_id = $route->id;
+                $_customer->save();
+            }
+        }
+       
+        //  TODO remove unselected customers
+
+        $routes = Route::all();
+        
+
+        //return $route->id;
+
+        return view('routes.index')->with('routes', $routes);
     }
 
     /**
@@ -92,6 +156,21 @@ class RouteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $route = Route::find($id);
+
+        if($route->name == "Unassigned"){
+            return redirect('routes/'.$route->id)->with('error', 'Cannot Delete Default Route.');
+        }
+
+        /* Reassign Customers to default route */
+        $customers =  Customer::where('route_id', $id)->get();
+        foreach($customers as $customer){
+            $customer->route_id = 3;
+            $customer->route_position = 0;
+            $customer->save();
+        }   
+
+        $route->delete();
+        return redirect('/routes')->with('success', 'Route Removed');
     }
 }

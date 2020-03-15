@@ -22,7 +22,6 @@
                     <td>{{$customer->phone_number}}</td>
                     <td>{{$customer->route_id}}</td>
                     <td><a href="/customers/{{$customer->id}}">Details</a></td>
-
                 </tr>
             @endforeach
         </table>

@@ -4,7 +4,9 @@
     <a href = "/customers" class="btn btn-primary mb-2">Go Back</a>
     @if($data['customer'])
         <h1>{{$data['customer']->name}}</h1>
-        <span><h3>Rating: {{$data['customer']->rating}}</h3><h3>Status: {{$data['customer']->status}}</h3></span>
+        <h3>Rating: {{$data['customer']->rating}}</h3>
+        <div class="pill pill-primary m-1">{{$data['customer']->status}}</div>
+
         {!! Form::open(['action' => ['CustomerController@update', $data['customer']->id], 'method' => 'POST']) !!}
         <div class = "form-group">
             {{Form::label('name', 'Name')}}

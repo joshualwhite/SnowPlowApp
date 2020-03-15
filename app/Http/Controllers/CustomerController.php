@@ -30,11 +30,13 @@ class CustomerController extends Controller
         $customers = Customer::orderBy('created_at', 'desc')->paginate(20);
         
         //Temporarily replace route_id (in held memory, not on SQL) to the name of the corresponding route
+        /*
         foreach($customers as $customer) {
             $route = Route::find($customer->route_id);
             $customer->route_id = $route->name; 
-        }
+        } */
         return view('customers.index')->with('customers', $customers);
+        
     }
 
     /**
@@ -89,8 +91,8 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
 
         $data = [
-            'routes'=>$routes,
-            'customer'=>$customer
+            'routes'=> $routes,
+            'customer'=> $customer
         ];
         return view('customers.show')->with('data', $data);
     }

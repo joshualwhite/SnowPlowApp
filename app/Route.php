@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Route extends Model
 {
     public $primaryKey = 'id';
+    public $timestamps = false;
 
     //Return the customers assigned to a route
     public function customers() {
