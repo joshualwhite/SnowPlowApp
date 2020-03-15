@@ -24,3 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('customers', 'CustomerController');
 Route::resource('routes', 'RouteController');
 
+//Sort by button
+Route::post('/reset', 'RouteController@reset');
+Route::post('/sortBy', 'RouteController@sortBy');
+
