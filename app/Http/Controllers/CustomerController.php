@@ -29,12 +29,12 @@ class CustomerController extends Controller
     {
         $customers = Customer::orderBy('created_at', 'desc')->paginate(20);
         
-        //Temporarily replace route_id (in held memory, not on SQL) to the name of the corresponding route
-        /*
+        // Replaces "route_id" route->name to be user friendly
         foreach($customers as $customer) {
             $route = Route::find($customer->route_id);
             $customer->route_id = $route->name; 
-        } */
+        }
+
         return view('customers.index')->with('customers', $customers);
         
     }
@@ -65,6 +65,7 @@ class CustomerController extends Controller
         ]);
 
         $customer = new Customer;
+
         $customer->name = $request->input('name');
         $customer->address = $request->input('address');
         $customer->phone_number = $request->input('phone_number');
@@ -142,7 +143,7 @@ class CustomerController extends Controller
             $customer->route_id = $request->input('route_select');
         
         $customer->save();
-        return redirect('/customers')->with('success', 'Post Updated');
+        return redirect('/customers')->with('success', 'Customer Updated');
     }
 
     /**

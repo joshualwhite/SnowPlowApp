@@ -9,7 +9,6 @@
     <hr>
          @foreach($routes as $route)
             <h3 class="mt-4">{{$route->name}}</h3>
-            <h5> Assigned Employees </h4>
             <a class="mr-3" href="EMPLOYEE ID">Employee 1</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
             <a class="btn btn-success" href="/routes/{{$route->id}}">Edit Route</a>
             <div class="btn-group dropright">

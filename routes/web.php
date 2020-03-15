@@ -21,7 +21,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Route for Customers
-Route::get('routes', 'RouteController@index')->name('Manage Routes');
 Route::resource('customers', 'CustomerController');
 Route::resource('routes', 'RouteController');
 

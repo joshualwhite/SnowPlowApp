@@ -4,7 +4,7 @@
     <div class="container">
         <a href="/routes" class="btn btn-primary">Go Back</a>
         <h1>{{$data['route']->name}}</h1>
-        {!! Form::open(['action' => 'RouteController@store', 'method' => 'POST']) !!}
+        {!! Form::open(['action' => ['RouteController@update', $data['route']->id], 'method' => 'POST']) !!}
         <div class = "form-group">
             {{Form::label('name', 'Route Name')}}
             {{Form::text('name', $data['route']->name, ['class'=> 'form-control', 'placeholder'=>'Name'])}}
@@ -36,8 +36,10 @@
             </div>
         </div>
         <div>
+            {{Form::hidden('_method', 'PUT')}}
             {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
             {!! Form::close() !!}
+            
             @if($data['route']->name != 'Unassigned')
                 {!! Form::open(['action' => ['RouteController@destroy', $data['route']->id], 'method'=>'POST', 'class'=>'float-right']) !!}
                             {{  Form::hidden('_method', 'DELETE')  }}

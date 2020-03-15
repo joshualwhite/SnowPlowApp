@@ -68,8 +68,8 @@ class RouteController extends Controller
                 $_customer->save();
             }
         }
+
         $routes = Route::all();
-        
 
         //return $route->id;
 
