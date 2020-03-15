@@ -184,14 +184,12 @@ class RouteController extends Controller
         $result = (Route::get()[0]->sort_by === 1) ? 0 : 1;
         $statement = ($result == 1) ? 'Starting From Bottom' : 'Starting From Top';
 
-
+        
         $routes = Route::all();
         foreach($routes as $route){
             $route->sort_by = $result;
             $route->save();
         }
-        return $result;
         return redirect('/routes')->with($statement, 'Routes Reset');
-
     }
 }
