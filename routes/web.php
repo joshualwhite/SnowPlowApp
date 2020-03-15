@@ -17,6 +17,10 @@ Route::get('/', 'PagesController@index');
 Route::get('customers/index', 'PagesController@index');
 Auth::routes();
 
+Route::get('/', 'PagesController@index');
+Route::get('users/index', 'PagesController@index');
+
+
 // Home Controller is the dashboard
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -24,3 +28,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('customers', 'CustomerController');
 Route::resource('routes', 'RouteController');
 
+
+Route::resource('users', 'UserController');

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href = "/customers" class="btn btn-primary mb-2">Go Back</a>
+    <a href = "/users" class="btn btn-primary mb-2">Go Back</a>
     @if($data['customer'])
         <h1>{{$data['customer']->name}}</h1>
         <h3>Rating: {{$data['customer']->rating}}</h3>
