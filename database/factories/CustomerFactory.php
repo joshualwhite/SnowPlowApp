@@ -12,6 +12,7 @@ $factory->define(Customer::class, function (Faker $faker) {
         'phone_number' => $faker->phoneNumber(),
         'comments' => $faker->text($maxNbChars = 500),
         'rating' => $faker->numberBetween($min = 0, $max = 5),
-        'status' => "Not Done"
+        'status' => "Not Done",
+        'route_id' => 1
     ];
 });

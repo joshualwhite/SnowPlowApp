@@ -14,7 +14,7 @@ class AddRouteIndexToCustomers extends Migration
     public function up()
     {
         Schema::table('customers', function($table) {
-            $table->integer('route_position');
+            $table->integer('route_position')->default(0);
         });
     }
 

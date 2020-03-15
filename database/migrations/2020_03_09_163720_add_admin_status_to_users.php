@@ -14,7 +14,7 @@ class AddAdminStatusToUsers extends Migration
     public function up()
     {
         Schema::table('users', function($table) {
-            $table->integer('admin');
+            $table->integer('admin')->default(1);
         });
     }
 

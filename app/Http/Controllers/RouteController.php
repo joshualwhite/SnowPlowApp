@@ -37,8 +37,8 @@ class RouteController extends Controller
      */
     public function create()
     {
-        // 3 is the 'Unassigned' route
-        $customers = Customer::where('route_id', 3)->get();
+        // 1 is the 'Unassigned' route
+        $customers = Customer::where('route_id', 1)->get();
         return view('routes.create')->with('customers', $customers);
     }
 
@@ -88,7 +88,7 @@ class RouteController extends Controller
         
 
         $customers = Customer::where('route_id', $route->id)->get();
-        $unassigned = Customer::where('route_id', 3)->get();
+        $unassigned = Customer::where('route_id', 1)->get();
 
         $data = [
             'route'=> $route,
@@ -165,7 +165,7 @@ class RouteController extends Controller
         /* Reassign Customers to default route */
         $customers =  Customer::where('route_id', $id)->get();
         foreach($customers as $customer){
-            $customer->route_id = 3;
+            $customer->route_id = 1;
             $customer->route_position = 0;
             $customer->save();
         }   
