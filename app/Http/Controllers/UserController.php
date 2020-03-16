@@ -48,7 +48,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'phone_number' => 'required'
+        ]);
+
+        $user = new User;
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->phone_number = $request->input('phone_number');
+        //$user->rating = 0;
+        //$user->route_id = $request->input('route_select');
+        $user->save();
+
+        return redirect('/users')->with('success', 'User Added');
     }
 
     /**
@@ -59,7 +76,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $routes = Route::all();
+        $user = User::find($id);
+
+        $data = [
+                'routes'=> $routes,
+                'user'=> $user
+                ];
+        return view('users.show')->with('data', $data);
     }
 
     /**
@@ -82,7 +106,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'phone_number' => 'required'
+        ]);
+
+        $user = user::find($id);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->phone_number = $request->input('phone_number');
+        
+        
+        if($request->input('route_select') != $user->route_id)
+            $user->route_id = $request->input('route_select');
+        
+        $user->save();
+        return redirect('/users')->with('success', 'user Updated');
     }
 
     /**

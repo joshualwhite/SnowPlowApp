@@ -27,14 +27,13 @@ class CustomerController extends Controller
     
     public function index()
     {
-        $customers = Customer::orderBy('created_at', 'desc')->paginate(20);
+        $customers = Customer::select('name', 'address', 'id', 'route_id')->orderBy('created_at', 'desc')->paginate(20);
         
         // Replaces "route_id" route->name to be user friendly
         foreach($customers as $customer) {
             $route = Route::find($customer->route_id);
             $customer->route_id = $route->name; 
         }
-
         return view('customers.index')->with('customers', $customers);
         
     }
