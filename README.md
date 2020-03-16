@@ -1,4 +1,14 @@
 <h2>Garden Hut Snow Plow</h2>
 <p>This app was created by Alec Veer and Josh White, for Garden Hut to manage their snow plow routes efficiently</p>
 <h3>Setup</h3>
-<p>Git clone, set your own .env for PHP Laravel, you will need a local server with SQL capabilities. Is not tested with SQL lite.<br>In your project folder: $ php artisan migrate, $php artisan db:seed</p>
+<ol>
+    <li>git clone https://github.com/joshualwhite/SnowPlowApp/</li>
+    <li>cd SnowPlowApp</li>
+    <li>composer install</li>
+    <li>npm install</li>
+    <li>cp .env.example .env</li>
+    <li>create database and edit .env</li>
+    <liphp artisan key:generate</li>
+    <li>php artisan migrate</li>
+    <li>php artisan db:seed</li>
+</ol>

@@ -48,6 +48,7 @@ class RouteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -172,5 +173,23 @@ class RouteController extends Controller
 
         $route->delete();
         return redirect('/routes')->with('success', 'Route Removed');
+    }
+
+    public function reset(){
+        Route::all()->status = "Not done";
+        return redirect('/routes')->with('success', 'Routes Reset');
+    }
+
+    public function sortBy(){
+        $result = (Route::get()[0]->sort_by === 1) ? 0 : 1;
+        $statement = ($result == 1) ? 'Starting From Bottom' : 'Starting From Top';
+
+        
+        $routes = Route::all();
+        foreach($routes as $route){
+            $route->sort_by = $result;
+            $route->save();
+        }
+        return redirect('/routes')->with($statement, 'Routes Reset');
     }
 }
