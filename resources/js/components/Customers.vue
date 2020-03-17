@@ -47,6 +47,7 @@
         </tr>
     </table>
     </div>
+    
 </template>
 
 <script>
@@ -110,7 +111,7 @@ export default {
     addCustomer() {
       if (this.edit === false) {
         // Add
-        fetch('api/customers', {
+        fetch('api/customer', {
           method: 'post',
           body: JSON.stringify(this.customer),
           headers: {
@@ -146,15 +147,19 @@ export default {
       this.edit = true;
       this.customer.id = customer.id;
       this.customer.customer_id = customer.id;
-      this.customer.title = customer.title;
-      this.customer.body = customer.body;
+      this.customer.name = customer.name;
+      this.customer.address = customer.address;
+      this.customer.phone_number = customer.phone_number;
+      this.customer.comments = customer.comments;
     },
     clearForm() {
       this.edit = false;
       this.customer.id = null;
       this.customer.customer_id = null;
-      this.customer.title = '';
-      this.customer.body = '';
+      this.customer.name = '';
+      this.customer.address = '';
+      this.customer.phone_number = '';
+      this.customer.comments = '';
     }
   }
 };
