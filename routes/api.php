@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('customersAPI', 'CustomerControllerAPI@index');
+Route::get('customersAPI/', 'CustomerControllerAPI@index');
+Route::delete('customersAPI/{id}', 'CustomerControllerAPI@destroy');
