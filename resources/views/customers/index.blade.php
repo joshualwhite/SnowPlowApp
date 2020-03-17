@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <customers></customers>
+    <customers>{{ csrf_field() }}</customers>
 @endsection

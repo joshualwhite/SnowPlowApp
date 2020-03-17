@@ -1959,14 +1959,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1992,7 +1984,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var vm = this;
-      page_url = page_url || '/api/customersAPI';
+      page_url = page_url || '/api/customers';
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -2015,10 +2007,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (confirm('Are You Sure?')) {
-        fetch("api/customersAPI/".concat(id), {
+        fetch("api/customer/" + id, {
           method: 'delete'
         }).then(function (res) {
-          return res.json();
+          return res.text();
+        }).then(function (res) {
+          return console.log(res);
         }).then(function (data) {
           alert('Customer Removed');
 
@@ -2033,7 +2027,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.edit === false) {
         // Add
-        fetch('api/customerAPI', {
+        fetch('api/customers', {
           method: 'post',
           body: JSON.stringify(this.customer),
           headers: {
@@ -2052,7 +2046,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         // Update
-        fetch('api/customersAPI', {
+        fetch('api/customer', {
           method: 'put',
           body: JSON.stringify(this.customer),
           headers: {
@@ -37615,30 +37609,6 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.name,
-                expression: "customer.name"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Name" },
-            domProps: { value: _vm.customer.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.customer, "name", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
           _c("textarea", {
             directives: [
               {
@@ -37757,15 +37727,15 @@ var render = function() {
       [
         _vm._m(0),
         _vm._v(" "),
-        _vm._l(_vm.customers, function(customers) {
-          return _c("tr", { key: customers.id }, [
-            _c("td", [_vm._v(_vm._s(customers.name))]),
+        _vm._l(_vm.customers, function(__customer) {
+          return _c("tr", { key: __customer.id }, [
+            _c("td", [_vm._v(_vm._s(__customer.name))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(customers.address))]),
+            _c("td", [_vm._v(_vm._s(__customer.address))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(customers.phone_number))]),
+            _c("td", [_vm._v(_vm._s(__customer.phone_number))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(customers.route_id))]),
+            _c("td", [_vm._v(_vm._s(__customer.route_id))]),
             _vm._v(" "),
             _c("td", [
               _c(
@@ -37774,7 +37744,7 @@ var render = function() {
                   staticClass: "btn btn-primary",
                   on: {
                     click: function($event) {
-                      return _vm.editCustomer(_vm.customer)
+                      return _vm.editCustomer(__customer)
                     }
                   }
                 },
@@ -37787,7 +37757,7 @@ var render = function() {
                   staticClass: "btn btn-danger",
                   on: {
                     click: function($event) {
-                      return _vm.deleteCustomer(_vm.customer.id)
+                      return _vm.deleteCustomer(__customer.id)
                     }
                   }
                 },
@@ -37798,11 +37768,7 @@ var render = function() {
         })
       ],
       2
-    ),
-    _vm._v(" "),
-    _c("h3", [_vm._v(_vm._s(_vm.customers.name))]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.customers.address))])
+    )
   ])
 }
 var staticRenderFns = [

@@ -24,8 +24,7 @@ class CustomerControllerAPI extends Controller
     
     public function index()
     {
-        $customers = Customer::select('name', 'address', 'id', 'route_id','phone_number', 'comments')->orderBy('created_at', 'desc')->paginate(20);
-        
+        $customers = Customer::orderBy('created_at', 'desc')->paginate(20);
         // Replaces "route_id" route->name to be user friendly
         foreach($customers as $customer) {
             $route = Route::find($customer->route_id);
@@ -37,17 +36,6 @@ class CustomerControllerAPI extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $routes = Route::all();
-        return view('customers.create')->with('routes', $routes);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,13 +43,7 @@ class CustomerControllerAPI extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'address' => 'required',
-            'phone_number' => 'required'
-        ]);
-
-        $customer = new Customer;
+        $customer = $request->isMethod('put') ? Customer::findOrFail($request->customer_id) : new Customer;
 
         $customer->name = $request->input('name');
         $customer->address = $request->input('address');
@@ -70,11 +52,11 @@ class CustomerControllerAPI extends Controller
         if($request->input('comments'))
             $customer->comments = $request->input('comments');
         else $customer->comments = "";
-        $customer->rating = 0;
-        $customer->route_id = $request->input('route_select');
-        $customer->save();
 
-        return redirect('/customers')->with('success', 'Customer Added');
+        $customer->rating = ($customer->rating) ? $customer->rating : 0;
+        $customer->route_id = 1; 
+        if($customer->save())
+            return new CustomerResource($customer);
     }
 
     /**
@@ -85,62 +67,8 @@ class CustomerControllerAPI extends Controller
      */
     public function show($id)
     {
-        $routes = Route::all();
-        $customer = Customer::find($id);
-
-        $data = [
-            'routes'=> $routes,
-            'customer'=> $customer
-        ];
-        return view('customers.show')->with('data', $data);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        // Nothing
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'address' => 'required',
-            'phone_number' => 'required'
-        ]);
-
-        $customer = Customer::find($id);
-
-        $customer->name = $request->input('name');
-        $customer->address = $request->input('address');
-        $customer->phone_number = $request->input('phone_number');
-        $customer->status = "Not Done";
-        
-        if($request->input('comments'))
-            $customer->comments = $request->input('comments');
-        else $customer->comments = "";
-        
-        if($customer->rating > 0)
-            $customer->rating = $customer->rating;
-        else $customer->rating = 0;
-        
-        if($request->input('route_select') != $customer->route_id)
-            $customer->route_id = $request->input('route_select');
-        
-        $customer->save();
-        return redirect('/customers')->with('success', 'Customer Updated');
+        $customer = Customer::findOrFail($id);
+        return new CustomerResource($customer);
     }
 
     /**
