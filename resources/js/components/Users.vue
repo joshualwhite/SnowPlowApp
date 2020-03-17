@@ -108,14 +108,14 @@ export default {
     addUser() {
       if (this.edit === false) {
         // Add
-        fetch('api/userAPI', {
+        fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
           headers: {
             'content-type': 'application/json'
           }
         })
-          .then(res => res.json())
+          .then(res => res.send())
           .then(data => {
             this.clearForm();
             alert('User Added');
@@ -131,7 +131,7 @@ export default {
             'content-type': 'application/json'
           }
         })
-          .then(res => res.json())
+          .then(res => res.send())
           .then(data => {
             this.clearForm();
             alert('User Updated');

@@ -127,7 +127,7 @@ export default {
           .catch(err => console.log(err));
       } else {
         // Update
-        fetch('api/customers', {
+        fetch('api/customer', {
           method: 'put',
           body: JSON.stringify(this.customer),
           headers: {

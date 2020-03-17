@@ -2047,7 +2047,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         // Update
-        fetch('api/customers', {
+        fetch('api/customer', {
           method: 'put',
           body: JSON.stringify(this.customer),
           headers: {
@@ -2283,14 +2283,14 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.edit === false) {
         // Add
-        fetch('api/userAPI', {
+        fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
           headers: {
             'content-type': 'application/json'
           }
         }).then(function (res) {
-          return res.json();
+          return res.send();
         }).then(function (data) {
           _this3.clearForm();
 
@@ -2309,7 +2309,7 @@ __webpack_require__.r(__webpack_exports__);
             'content-type': 'application/json'
           }
         }).then(function (res) {
-          return res.json();
+          return res.send();
         }).then(function (data) {
           _this3.clearForm();
 
