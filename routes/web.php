@@ -33,3 +33,4 @@ Route::post('/sortBy', 'RouteController@sortBy');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::delete('customers/{id}', 'CustomerControllerAPI@destroy');

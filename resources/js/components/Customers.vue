@@ -12,9 +12,6 @@
         <input type="text" class="form-control" placeholder="Address" v-model="customer.address">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Name" v-model="customer.name">
-      </div>
-      <div class="form-group">
         <textarea class="form-control" placeholder="Comments" v-model="customer.comments"></textarea>
       </div>
       <button type="submit" class="btn btn-primary btn-block w-25">Save</button>
@@ -31,34 +28,31 @@
 
     </nav>
     <table class="table table-hover">
-            <tr>
+        <tr>
             <th>Name</th>
             <th>Address</th>
             <th>Phone Number</th>
             <th>Assigned Route</th>
             <th></th>
         </tr>
-        <tr v-for="customers in customers" v-bind:key="customers.id">
-            <td>{{customers.name}}</td>
-            <td>{{customers.address}}</td>
-            <td>{{customers.phone_number}}</td>
-            <td>{{customers.route_id}}</td>
+        <tr v-for="__customer in customers" v-bind:key="__customer.id">
+            <td>{{__customer.name}}</td>
+            <td>{{__customer.address}}</td>
+            <td>{{__customer.phone_number}}</td>
+            <td>{{__customer.route_id}}</td>
             <td>
-                <button @click="editCustomer(customer)" class="btn btn-primary">Edit</button>
-                <button @click="deleteCustomer(customer.id)" class="btn btn-danger">Delete</button>
+                <button @click="editCustomer(__customer)" class="btn btn-primary">Edit</button>
+                <button @click="deleteCustomer(__customer.id)" class="btn btn-danger">Delete</button>
             </td>
         </tr>
     </table>
-
-
-      <h3>{{ customers.name }}</h3>
-      <p>{{ customers.address }}</p>
-      
     </div>
 </template>
 
 <script>
+
 export default {
+    
   data() {
     return {
       customers: [],
@@ -81,7 +75,7 @@ export default {
   methods: {
     fetchCustomers(page_url) {
       let vm = this;
-      page_url = page_url || '/api/customersAPI';
+      page_url = page_url || '/api/customers';
       fetch(page_url)
         .then(res => res.json())
         .then(res => {
@@ -101,10 +95,11 @@ export default {
     },
     deleteCustomer(id) {
       if (confirm('Are You Sure?')) {
-        fetch(`api/customersAPI/${id}`, {
-          method: 'delete'
+        fetch(`api/customer/` + id, {
+          method: 'delete',
         })
-          .then(res => res.json())
+          .then(res => res.text())
+          .then(res => console.log(res))
           .then(data => {
             alert('Customer Removed');
             this.fetchCustomers();
@@ -115,7 +110,7 @@ export default {
     addCustomer() {
       if (this.edit === false) {
         // Add
-        fetch('api/customerAPI', {
+        fetch('api/customers', {
           method: 'post',
           body: JSON.stringify(this.customer),
           headers: {
@@ -131,7 +126,7 @@ export default {
           .catch(err => console.log(err));
       } else {
         // Update
-        fetch('api/customersAPI', {
+        fetch('api/customer', {
           method: 'put',
           body: JSON.stringify(this.customer),
           headers: {
