@@ -24,7 +24,7 @@ class CustomerControllerAPI extends Controller
     
     public function index()
     {
-        $customers = Customer::select('name', 'address', 'id', 'route_id')->orderBy('created_at', 'desc')->paginate(20);
+        $customers = Customer::select('name', 'address', 'id', 'route_id','phone_number', 'comments')->orderBy('created_at', 'desc')->paginate(20);
         
         // Replaces "route_id" route->name to be user friendly
         foreach($customers as $customer) {
@@ -151,7 +151,8 @@ class CustomerControllerAPI extends Controller
      */
     public function destroy($id)
     {
-        $customer = Customer::find($id);
-        $customer->delete();
+        $customer = Customer::findOrFail($id);
+        if($customer->delete())
+            return new CustomerResource($customer);
     }
 }
