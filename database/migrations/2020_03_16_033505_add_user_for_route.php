@@ -13,8 +13,8 @@ class AddUserForRoute extends Migration
      */
     public function up()
     {
-        Schema::table('route', function($table) {
-            $table->integer('user');
+        Schema::table('routes', function($table) {
+            $table->string('user');
         });
     }
 
@@ -25,7 +25,7 @@ class AddUserForRoute extends Migration
      */
     public function down()
     {
-        Schema::table('route', function($table) {
+        Schema::table('routes', function($table) {
             $table->dropColumn('user');
         });
     }

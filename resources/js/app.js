@@ -22,6 +22,8 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('example-component2', require('./components/ExampleComponent2.vue').default);
 Vue.component('customers', require('./components/Customers.vue').default);
+Vue.component('users', require('./components/Users.vue').default);
+
 
 
 /**

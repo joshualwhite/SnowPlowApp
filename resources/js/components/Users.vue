@@ -1,0 +1,159 @@
+<template>
+  <div class="container">
+    <h2>Users</h2>
+    <form @submit.prevent="addUser" class="mb-3">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Name" v-model="user.name">
+      </div>
+            <div class="form-group">
+        <input type="text" class="form-control" placeholder="Phone Number" v-model="user.phone_number">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Address" v-model="user.address">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block w-25">Save</button>
+    </form>
+    <button @click="clearForm()" class="btn btn-danger btn-block w-25 mb-2">Cancel</button>
+    <nav aria-label="User Pages Navigation">
+      <ul class="pagination">
+        <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchUsers(pagination.prev_page_url)">Previous</a></li>
+
+        <li class="page-item disabled"><a class="page-link text-dark" href="#">Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
+    
+        <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchUsers(pagination.next_page_url)">Next</a></li>
+      </ul>
+
+    </nav>
+    <table class="table table-hover">
+            <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Assigned Route</th>
+            <th></th>
+        </tr>
+        <tr v-for="__user in users" v-bind:key="__user.id">
+            <td>{{__user.name}}</td>
+            <td>{{__user.address}}</td>
+            <td>{{__user.phone_number}}</td>
+            <td>{{__user.route_id}}</td>
+            <td>
+                <button @click="editUser(__user)" class="btn btn-primary">Edit</button>
+                <button @click="deleteUser(__user.id)" class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+    </table>
+
+
+      <h3>{{ users.name }}</h3>
+      <p>{{ users.address }}</p>
+      
+    </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      users: [],
+      user: {
+        id: '',
+        name: '',
+        address: '',
+        phone_number: '',
+        route_id: '',
+      },
+      user_id: '',
+      pagination: {},
+      edit: false
+    };
+  },
+  created() {
+    this.fetchUsers();
+  },
+  methods: {
+    fetchUsers(page_url) {
+      let vm = this;
+      page_url = page_url || '/api/usersAPI';
+      fetch(page_url)
+        .then(res => res.json())
+        .then(res => {
+          this.users = res.data;
+          vm.makePagination(res.meta, res.links);
+        })
+        .catch(err => console.log(err));
+    },
+    makePagination(meta, links) {
+      let pagination = {
+        current_page: meta.current_page,
+        last_page: meta.last_page,
+        next_page_url: links.next,
+        prev_page_url: links.prev
+      };
+      this.pagination = pagination;
+    },
+    deleteUser(id) {
+      if (confirm('Are You Sure?')) {
+        fetch(`api/usersAPI/`+id, {
+          method: 'delete'
+        })
+          .then(res => res.json())
+          .then(data => {
+            alert('User Removed');
+            this.fetchUsers();
+          })
+          .catch(err => console.log(err));
+      }
+    },
+    addUser() {
+      if (this.edit === false) {
+        // Add
+        fetch('api/userAPI', {
+          method: 'post',
+          body: JSON.stringify(this.user),
+          headers: {
+            'content-type': 'application/json'
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+            this.clearForm();
+            alert('User Added');
+            this.fetchUsers();
+          })
+          .catch(err => console.log(err));
+      } else {
+        // Update
+        fetch('api/usersAPI', {
+          method: 'put',
+          body: JSON.stringify(this.user),
+          headers: {
+            'content-type': 'application/json'
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+            this.clearForm();
+            alert('User Updated');
+            this.fetchUsers();
+          })
+          .catch(err => console.log(err));
+      }
+    },
+    editUser(user) {
+      this.edit = true;
+      this.user.id = user.id;
+      this.user.user_id = user.id;
+      this.user.title = user.title;
+      this.user.body = user.body;
+    },
+    clearForm() {
+      this.edit = false;
+      this.user.id = null;
+      this.user.user_id = null;
+      this.user.title = '';
+      this.user.body = '';
+    }
+  }
+};
+</script>
