@@ -29,3 +29,7 @@ Route::resource('users', 'UserController');
 Route::post('/reset', 'RouteController@reset');
 Route::post('/sortBy', 'RouteController@sortBy');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

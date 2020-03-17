@@ -5,12 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"> Admin Dashboard</div>
+                <div class="card-header">Dashboard</div>
+                <example-component></example-component>
+                <example-component2></example-component2>
 
                 <div class="card-body">
-                    <a href="/customers" class="btn btn-primary">Manage Customers</a>
-                    <a href="/users" class="btn btn-primary">Manage Users</a>
-                    <a href="/routes" class="btn btn-primary">Manage Routes</a>
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    You are logged in!
                 </div>
             </div>
         </div>
