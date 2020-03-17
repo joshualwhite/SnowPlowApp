@@ -2007,7 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (confirm('Are You Sure?')) {
-        fetch("api/customer/" + id, {
+        fetch("api/customers/" + id, {
           method: 'delete'
         }).then(function (res) {
           return res.text();
@@ -2046,7 +2046,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         // Update
-        fetch('api/customer', {
+        fetch('api/customers', {
           method: 'put',
           body: JSON.stringify(this.customer),
           headers: {

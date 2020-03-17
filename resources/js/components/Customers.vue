@@ -95,7 +95,7 @@ export default {
     },
     deleteCustomer(id) {
       if (confirm('Are You Sure?')) {
-        fetch(`api/customer/` + id, {
+        fetch(`api/customers/` + id, {
           method: 'delete',
         })
           .then(res => res.text())
@@ -126,7 +126,7 @@ export default {
           .catch(err => console.log(err));
       } else {
         // Update
-        fetch('api/customer', {
+        fetch('api/customers', {
           method: 'put',
           body: JSON.stringify(this.customer),
           headers: {
