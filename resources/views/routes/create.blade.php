@@ -10,6 +10,12 @@
             {{Form::label('name', 'Name')}}
             {{Form::text('name', '', ['class'=> 'form-control', 'placeholder'=>'Name'])}}
         </div>
+
+        <div class = "form-group">
+            {{Form::label('user', 'User')}}
+            {{Form::text('user', '', ['class'=> 'form-control', 'placeholder'=>'Who is assigned to this route?'])}}
+        </div>
+
         <div class= "form-group">
             <h3>Add Customers to the Route</h3>
             @if(count($customers)>0)

@@ -5,7 +5,7 @@
     @if($data['user'])
         <h1>{{$data['user']->name}}</h1>
         <h3>Rating: {{$data['user']->rating}}</h3>
-        <div class="pill pill-primary m-1">{{$data['user']->status}}</div>
+        <div class="pill pill-primary m-1">{{$data['user']->name}}</div>
 
         {!! Form::open(['action' => ['userController@update', $data['user']->id], 'method' => 'POST']) !!}
         <div class = "form-group">

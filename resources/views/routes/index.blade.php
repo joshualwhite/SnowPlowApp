@@ -17,7 +17,7 @@
     <hr>
         @foreach($routes as $route)
             <h3 class="mt-4">{{$route->name}}</h3>
-            <a class="mr-3" href="EMPLOYEE ID">Employee 1</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
+            <a class="mr-3" href="EMPLOYEE ID">{{$route->user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
             <a class="btn btn-success" href="/routes/{{$route->id}}">Edit Route</a>
             <div class="btn-group dropright">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

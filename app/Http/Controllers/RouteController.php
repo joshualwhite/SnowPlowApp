@@ -52,11 +52,13 @@ class RouteController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'user' => 'required'
         ]);
         
         $route = new Route;
         $route->name = $request->input('name');
+        $route->user = $request->input('user', '1');
         $route->save();
         //$customers is an array of id's
         $customers = $request->input('customers');

@@ -113,16 +113,14 @@ class UserController extends Controller
             'phone_number' => 'required'
         ]);
 
-        $user = user::find($id);
-
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = $request->input('password');
         $user->phone_number = $request->input('phone_number');
         
         
-        if($request->input('route_select') != $user->route_id)
-            $user->route_id = $request->input('route_select');
+        //if($request->input('route_select') != $user->route_id)
+            //$user->route_id = $request->input('route_select');
         
         $user->save();
         return redirect('/users')->with('success', 'user Updated');
