@@ -17,10 +17,10 @@
       <div class="form-group">
         <textarea class="form-control" placeholder="Comments" v-model="customer.comments"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary btn-block w-25">Save</button>
+      <button type="submit" class="btn btn-primary">Save</button>
     </form>
-    <button @click="clearForm()" class="btn btn-danger btn-block w-25 mb-2">Cancel</button>
-    <nav aria-label="Customer Pages Navigation">
+    <button @click="clearForm()" class="btn btn-danger">Cancel</button>
+    <nav aria-label="Customer Pages Navigation" class="mt-2">
       <ul class="pagination">
         <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchCustomers(pagination.prev_page_url)">Previous</a></li>
 
@@ -59,7 +59,6 @@ export default {
     
   data() {
     return {
-            
       customers: [],
       search: '',
       customer: {
@@ -68,7 +67,8 @@ export default {
         address: '',
         phone_number: '',
         route_id: '',
-        comments: ''
+        comments: '',
+        route_position: '',
       },
       customer_id: '',
       pagination: {},
@@ -108,7 +108,7 @@ export default {
     },
     deleteCustomer(id) {
       if (confirm('Are You Sure?')) {
-        fetch(`api/customers/` + id, {
+        fetch('api/customer/' + id, {
           method: 'delete',
         })
           .then(res => res.text())

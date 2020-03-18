@@ -3,16 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use App\Http\Resources\Route as RouteResource;
 use App\Route;
-=======
-Use App\Customer;
-Use App\Route;
-Use App\Http\Resources\Route as RouteResource;
-
->>>>>>> master
-
+use App\Customer;
 class RouteControllerAPI extends Controller
 {
     /**
@@ -20,18 +13,14 @@ class RouteControllerAPI extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-=======
-    
->>>>>>> master
     public function index()
     {
         $routes = Route::all();
+
+        foreach($routes as $route){
+           $route->customers = Customer::where('route_id', $route->id)->select('name', 'address', 'id', 'route_position')->get();
+        }
         return RouteResource::collection($routes);
-<<<<<<< HEAD
-=======
-        
->>>>>>> master
     }
 
     /**
@@ -42,28 +31,38 @@ class RouteControllerAPI extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
         $route = $request->isMethod('put') ? Route::findOrFail($request->id) : new Route;
-
         $route->name = $request->input('name');
+        // TODO Get User for Route
         $route->user = 0;
+        $route->save();
+        $id = $route->id;
+
+        // Deal With Customer Assignments
+        $customers = $request->input('customers');
+        foreach($customers as $customer){
+           // return $customer;
+            if($customer['name'] != ''){
+                $edit_customer = Customer::findOrFail($customer['id']);
+                $edit_customer->route_id = $id;
+                $edit_customer->route_position = $customer['route_position'];
+                $edit_customer->save();
+            }
+        }
+        $customers = $request->input('unassigned');
+        foreach($customers as $customer){
+            $edit_customer = Customer::findOrFail($customer['id']);
+            $edit_customer->route_id = 1;
+            $edit_customer->route_position = 0;
+            $edit_customer->save();     
+        }
         if($route->save())
             return new RouteResource($route);    
-=======
-        $route = new Route;
-        $route->name = $request->input('name');
-        $route->user = $request->input('user', '1');        
-        if($route->save())
-            return new RouteResource($route);
->>>>>>> master
     }
 
     /**
      * Display the specified resource.
-<<<<<<< HEAD
      *
-=======
->>>>>>> master
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -72,10 +71,6 @@ class RouteControllerAPI extends Controller
         $route = Route::findOrFail($id);
         return new RouteResource($route);
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> master
     /**
      * Remove the specified resource from storage.
      *
@@ -84,7 +79,6 @@ class RouteControllerAPI extends Controller
      */
     public function destroy($id)
     {
-<<<<<<< HEAD
         if($id == 1){
             return "Cannot Delete Default Route";
         }
@@ -93,10 +87,5 @@ class RouteControllerAPI extends Controller
             if($route->delete())
                 return new RouteResource($route);
         }
-=======
-        $route = Route::findOrFail($id);
-        if($route->delete())
-            return new RouteResource($route);
->>>>>>> master
     }
 }
