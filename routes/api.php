@@ -45,10 +45,7 @@ Route::delete('customer/{id}', 'CustomerControllerAPI@destroy');
 **/
 Route::get('usersAPI', 'UserControllerAPI@index');
 Route::delete('usersAPI/{id}', 'UserControllerAPI@destroy');
-<<<<<<< HEAD
-=======
 Route::post('usersAPI', 'UserControllerAPI@store');
->>>>>>> 8200184ccdfd0739d02a354b322376d12b1ab6a1
 
 
 /**
