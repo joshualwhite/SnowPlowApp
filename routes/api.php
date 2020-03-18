@@ -45,10 +45,8 @@ Route::delete('customer/{id}', 'CustomerControllerAPI@destroy');
 **/
 Route::get('usersAPI', 'UserControllerAPI@index');
 Route::delete('usersAPI/{id}', 'UserControllerAPI@destroy');
-<<<<<<< HEAD
 Route::post('usersAPI', 'UserControllerAPI@store');
-=======
->>>>>>> master
+
 
 
 /**
@@ -58,11 +56,6 @@ Route::post('usersAPI', 'UserControllerAPI@store');
 **/
 
 // gets all routes
-<<<<<<< HEAD
-=======
-Route::get('routes/works', 'RouteControllerAPI@itworks');
-
->>>>>>> master
 Route::get('routes', 'RouteControllerAPI@index');
 // gets a single route by id
 Route::get('route/{id}', 'RouteControllerAPI@show');

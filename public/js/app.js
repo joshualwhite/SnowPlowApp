@@ -2160,8 +2160,82 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Routes.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************/
+<<<<<<< HEAD
 /*! no static exports found */
 /***/ (function(module, exports) {
+=======
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      routes: [],
+      route: {
+        id: '',
+        name: '',
+        user: ''
+      },
+      route_id: '',
+      edit: false
+    };
+  },
+  created: function created() {
+    this.fetchRoutes();
+  },
+  methods: {
+    fetchRoutes: function fetchRoutes(page_url) {
+      var _this = this;
+
+      var vm = this;
+      page_url = page_url || '/api/routes';
+      fetch(page_url).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this.routes = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    deleteRoute: function deleteRoute(id) {
+      var _this2 = this;
+
+      if (confirm('Are You Sure?')) {
+        fetch('api/route/' + id, {
+          method: 'delete'
+        }).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          return res.data;
+        }).then(function (data) {
+          alert('Route Removed');
+>>>>>>> master
 
 throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\SnowPlowDev\\resources\\js\\components\\Routes.vue: Unexpected token (124:3)\n\n\u001b[0m \u001b[90m 122 | \u001b[39m    }\u001b[0m\n\u001b[0m \u001b[90m 123 | \u001b[39m  }\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 124 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 125 | \u001b[39m        \u001b[0m\n\u001b[0m \u001b[90m 126 | \u001b[39m        \u001b[33m<\u001b[39m\u001b[33mhr\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 127 | \u001b[39m        \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m v\u001b[33m-\u001b[39m\u001b[36mfor\u001b[39m\u001b[33m=\u001b[39m\u001b[32m\"__route in routes\"\u001b[39m v\u001b[33m-\u001b[39mbind\u001b[33m:\u001b[39mkey\u001b[33m=\u001b[39m\u001b[32m\"__route.id\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:723:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:716:17)\n    at Parser.raise (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:710:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:8610:16)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9893:20)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9479:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9459:21)\n    at Parser.parseExprOpBaseRightExpr (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9422:34)\n    at Parser.parseExprOpRightExpr (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9415:21)\n    at Parser.parseExprOp (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9381:27)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9339:17)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9302:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9257:21)\n    at Parser.parseObjectProperty (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10341:101)\n    at Parser.parseObjPropValue (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10366:101)\n    at Parser.parseObjectMember (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10290:10)\n    at Parser.parseObj (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10211:25)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9836:28)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9479:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9459:21)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9329:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9302:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9257:21)\n    at Parser.parseExportDefaultExpression (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12098:24)\n    at Parser.parseExport (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12000:31)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:11020:27)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10916:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:11490:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:11477:10)\n    at Parser.parseTopLevel (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10847:10)\n    at Parser.parse (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12452:10)\n    at parse (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12503:38)\n    at parser (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\core\\lib\\parser\\index.js:54:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:93:38)\n    at normalizeFile.next (<anonymous>)");
 
@@ -2229,6 +2303,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2236,9 +2313,8 @@ __webpack_require__.r(__webpack_exports__);
       user: {
         id: '',
         name: '',
-        address: '',
         phone_number: '',
-        route_id: ''
+        password: ''
       },
       user_id: '',
       pagination: {},
@@ -2301,7 +2377,7 @@ __webpack_require__.r(__webpack_exports__);
             'content-type': 'application/json'
           }
         }).then(function (res) {
-          return res.send();
+          return res.json();
         }).then(function (data) {
           _this3.clearForm();
 
@@ -2320,7 +2396,7 @@ __webpack_require__.r(__webpack_exports__);
             'content-type': 'application/json'
           }
         }).then(function (res) {
-          return res.send();
+          return res.json();
         }).then(function (data) {
           _this3.clearForm();
 
@@ -2334,17 +2410,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     editUser: function editUser(user) {
       this.edit = true;
-      this.user.id = user.id;
-      this.user.user_id = user.id;
-      this.user.title = user.title;
-      this.user.body = user.body;
+      this.user.name = user.name;
+      this.user.phone_number = user.phone_number;
+      this.user.email = user.email;
     },
     clearForm: function clearForm() {
       this.edit = false;
-      this.user.id = null;
-      this.user.user_id = null;
-      this.user.title = '';
-      this.user.body = '';
+      this.user.name = '';
+      this.user.phone_number = '';
+      this.user.password = '';
+      this.user.email = '';
     }
   }
 });
@@ -38246,10 +38321,27 @@ var staticRenderFns = [
         },
         [
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+<<<<<<< HEAD
             _vm._v("Customer")
           ]),
           _vm._v(" "),
           _c("a", { staticClass: "dropdown-item" }, [_vm._v("No Customers")])
+=======
+            _vm._v("Customer Name, Customer Address")
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Customer Name, Customer Address")
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Customer Name, Customer Address")
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Customer Name, Customer Address")
+          ])
+>>>>>>> master
         ]
       ),
       _vm._v(" "),
@@ -38347,19 +38439,43 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.user.address,
-                expression: "user.address"
+                value: _vm.user.password,
+                expression: "user.password"
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Address" },
-            domProps: { value: _vm.user.address },
+            attrs: { type: "text", placeholder: "Password" },
+            domProps: { value: _vm.user.password },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.user, "address", $event.target.value)
+                _vm.$set(_vm.user, "password", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.user.email,
+                expression: "user.email"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Email" },
+            domProps: { value: _vm.user.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "email", $event.target.value)
               }
             }
           })
@@ -38464,11 +38580,11 @@ var render = function() {
           return _c("tr", { key: __user.id }, [
             _c("td", [_vm._v(_vm._s(__user.name))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(__user.address))]),
-            _vm._v(" "),
             _c("td", [_vm._v(_vm._s(__user.phone_number))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(__user.route_id))]),
+            _c("td", [_vm._v(_vm._s(__user.email))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(__user.password))]),
             _vm._v(" "),
             _c("td", [
               _c(
@@ -38516,11 +38632,11 @@ var staticRenderFns = [
     return _c("tr", [
       _c("th", [_vm._v("Name")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Address")]),
-      _vm._v(" "),
       _c("th", [_vm._v("Phone Number")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Assigned Route")]),
+      _c("th", [_vm._v("email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("pws")]),
       _vm._v(" "),
       _c("th")
     ])
