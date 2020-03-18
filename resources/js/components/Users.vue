@@ -8,8 +8,11 @@
             <div class="form-group">
         <input type="text" class="form-control" placeholder="Phone Number" v-model="user.phone_number">
       </div>
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Address" v-model="user.address">
+            <div class="form-group">
+        <input type="text" class="form-control" placeholder="Password" v-model="user.password">
+      </div>
+            <div class="form-group">
+        <input type="text" class="form-control" placeholder="Email" v-model="user.email">
       </div>
       <button type="submit" class="btn btn-primary btn-block w-25">Save</button>
     </form>
@@ -27,16 +30,16 @@
     <table class="table table-hover">
             <tr>
             <th>Name</th>
-            <th>Address</th>
             <th>Phone Number</th>
-            <th>Assigned Route</th>
+            <th>email</th>
+            <th>pws</th>
             <th></th>
         </tr>
         <tr v-for="__user in users" v-bind:key="__user.id">
             <td>{{__user.name}}</td>
-            <td>{{__user.address}}</td>
             <td>{{__user.phone_number}}</td>
-            <td>{{__user.route_id}}</td>
+            <td>{{__user.email}}</td>
+            <td>{{__user.password}}</td>
             <td>
                 <button @click="editUser(__user)" class="btn btn-primary">Edit</button>
                 <button @click="deleteUser(__user.id)" class="btn btn-danger">Delete</button>
@@ -59,9 +62,8 @@ export default {
       user: {
         id: '',
         name: '',
-        address: '',
         phone_number: '',
-        route_id: '',
+        password: ''
       },
       user_id: '',
       pagination: {},
@@ -112,10 +114,10 @@ export default {
           method: 'post',
           body: JSON.stringify(this.user),
           headers: {
-            'content-type': 'application/json'
+            'content-type':'application/json'
           }
         })
-          .then(res => res.send())
+          .then(res => res.json())
           .then(data => {
             this.clearForm();
             alert('User Added');
@@ -131,7 +133,7 @@ export default {
             'content-type': 'application/json'
           }
         })
-          .then(res => res.send())
+          .then(res => res.json())
           .then(data => {
             this.clearForm();
             alert('User Updated');
@@ -142,17 +144,16 @@ export default {
     },
     editUser(user) {
       this.edit = true;
-      this.user.id = user.id;
-      this.user.user_id = user.id;
-      this.user.title = user.title;
-      this.user.body = user.body;
+      this.user.name = user.name;
+      this.user.phone_number = user.phone_number;
+      this.user.email = user.email;
     },
     clearForm() {
       this.edit = false;
-      this.user.id = null;
-      this.user.user_id = null;
-      this.user.title = '';
-      this.user.body = '';
+      this.user.name = '';
+      this.user.phone_number = '';
+      this.user.password = '';
+      this.user.email = '';
     }
   }
 };

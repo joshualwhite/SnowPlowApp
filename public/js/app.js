@@ -2218,6 +2218,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2225,9 +2228,8 @@ __webpack_require__.r(__webpack_exports__);
       user: {
         id: '',
         name: '',
-        address: '',
         phone_number: '',
-        route_id: ''
+        password: ''
       },
       user_id: '',
       pagination: {},
@@ -2290,7 +2292,7 @@ __webpack_require__.r(__webpack_exports__);
             'content-type': 'application/json'
           }
         }).then(function (res) {
-          return res.send();
+          return res.json();
         }).then(function (data) {
           _this3.clearForm();
 
@@ -2309,7 +2311,7 @@ __webpack_require__.r(__webpack_exports__);
             'content-type': 'application/json'
           }
         }).then(function (res) {
-          return res.send();
+          return res.json();
         }).then(function (data) {
           _this3.clearForm();
 
@@ -2323,17 +2325,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     editUser: function editUser(user) {
       this.edit = true;
-      this.user.id = user.id;
-      this.user.user_id = user.id;
-      this.user.title = user.title;
-      this.user.body = user.body;
+      this.user.name = user.name;
+      this.user.phone_number = user.phone_number;
+      this.user.email = user.email;
     },
     clearForm: function clearForm() {
       this.edit = false;
-      this.user.id = null;
-      this.user.user_id = null;
-      this.user.title = '';
-      this.user.body = '';
+      this.user.name = '';
+      this.user.phone_number = '';
+      this.user.password = '';
+      this.user.email = '';
     }
   }
 });
@@ -38162,19 +38163,43 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.user.address,
-                expression: "user.address"
+                value: _vm.user.password,
+                expression: "user.password"
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Address" },
-            domProps: { value: _vm.user.address },
+            attrs: { type: "text", placeholder: "Password" },
+            domProps: { value: _vm.user.password },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.user, "address", $event.target.value)
+                _vm.$set(_vm.user, "password", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.user.email,
+                expression: "user.email"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Email" },
+            domProps: { value: _vm.user.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "email", $event.target.value)
               }
             }
           })
@@ -38279,11 +38304,11 @@ var render = function() {
           return _c("tr", { key: __user.id }, [
             _c("td", [_vm._v(_vm._s(__user.name))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(__user.address))]),
-            _vm._v(" "),
             _c("td", [_vm._v(_vm._s(__user.phone_number))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(__user.route_id))]),
+            _c("td", [_vm._v(_vm._s(__user.email))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(__user.password))]),
             _vm._v(" "),
             _c("td", [
               _c(
@@ -38331,11 +38356,11 @@ var staticRenderFns = [
     return _c("tr", [
       _c("th", [_vm._v("Name")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Address")]),
-      _vm._v(" "),
       _c("th", [_vm._v("Phone Number")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Assigned Route")]),
+      _c("th", [_vm._v("email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("pws")]),
       _vm._v(" "),
       _c("th")
     ])
