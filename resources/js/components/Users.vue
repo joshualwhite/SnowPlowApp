@@ -14,9 +14,9 @@
             <div class="form-group">
         <input type="text" class="form-control" placeholder="Email" v-model="user.email">
       </div>
-      <button type="submit" class="btn btn-primary btn-block w-25">Save</button>
+      <button type="submit" class="btn btn-primary">Save</button>
     </form>
-    <button @click="clearForm()" class="btn btn-danger btn-block w-25 mb-2">Cancel</button>
+    <button @click="clearForm()" class="btn btn-danger mb-2">Cancel</button>
     <nav aria-label="User Pages Navigation">
       <ul class="pagination">
         <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchUsers(pagination.prev_page_url)">Previous</a></li>
