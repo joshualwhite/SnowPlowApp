@@ -46,8 +46,7 @@ Route::delete('customer/{id}', 'CustomerControllerAPI@destroy');
 Route::get('usersAPI', 'UserControllerAPI@index');
 Route::delete('usersAPI/{id}', 'UserControllerAPI@destroy');
 Route::post('usersAPI', 'UserControllerAPI@store');
-Route::put('usersAPI', 'UserControllerAPI@store');
-
+Route::put('usersAPI/{id}', 'UserControllerAPI@store');
 
 
 /**

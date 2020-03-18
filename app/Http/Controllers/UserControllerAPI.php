@@ -49,14 +49,22 @@ class UserControllerAPI extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
             'phone_number' => 'required'
         ]);
         $user = $request->isMethod('put') ? User::findOrFail($request->user_id) : new User;
-
-        $user->name = $request->input('name');
-        $user->phone_number = $request->input('phone_number');
-        $user->email = $request->input('email');
+        $edit = $request->isMethod('put') ? '1' : '0';
+        if ($edit == '0'){
+            $user->name = $request->input('name');
+            $user->phone_number = $request->input('phone_number');
+            $user->email = $request->input('email');
+            $user->password = $request->input('password');
+        }
+        else{
+            $user->name = $request->input('name');
+            $user->phone_number = $request->input('phone_number');
+            $user->email = $request->input('email');
+            //$user->password = $request->input('password');
+        }
         if($user->save())
             return new UserResource($user);
     }

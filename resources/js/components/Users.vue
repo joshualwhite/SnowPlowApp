@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2>Users</h2>
-    <form @submit.prevent="addUser" class="mb-3">
+    <form @submit.prevent="addUser(user.id)" class="mb-3">
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Name" v-model="user.name">
       </div>
@@ -25,7 +25,7 @@
     
         <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchUsers(pagination.next_page_url)">Next</a></li>
       </ul>
-
+    <input type="text" class="form-control mb-2" v-model="search" placeholder="search customers"/>
     </nav>
     <table class="table table-hover">
             <tr>
@@ -35,7 +35,7 @@
             <th>pws</th>
             <th></th>
         </tr>
-        <tr v-for="__user in users" v-bind:key="__user.id">
+        <tr v-for="__user in filteredUsers" v-bind:key="__user.id">
             <td>{{__user.name}}</td>
             <td>{{__user.phone_number}}</td>
             <td>{{__user.email}}</td>
@@ -59,11 +59,13 @@ export default {
   data() {
     return {
       users: [],
+      search: '',
       user: {
         id: '',
         name: '',
         phone_number: '',
-        password: ''
+        password: '',
+        email: '',
       },
       user_id: '',
       pagination: {},
@@ -73,6 +75,13 @@ export default {
   created() {
     this.fetchUsers();
   },
+  computed:{
+  filteredUsers: function() {
+    return this.users.filter((user) => {
+      return user.name.match(this.search)
+    })
+  }
+},
   methods: {
     fetchUsers(page_url) {
       let vm = this;
@@ -107,9 +116,11 @@ export default {
           .catch(err => console.log(err));
       }
     },
-    addUser() {
+    addUser(id = 0) {
       if (this.edit === false) {
         // Add
+        console.log(this.user)
+        console.log(JSON.stringify(this.user))
         fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
@@ -125,14 +136,18 @@ export default {
           })
           .catch(err => console.log(err));
       } else {
+        console.log(this.user)
+        console.log(JSON.stringify(this.user))
         // Update
-        fetch('api/usersAPI', {
+        fetch('api/usersAPI/'+id, {
           method: 'put',
-          body: JSON.stringify(this.user),
           headers: {
             'content-type': 'application/json'
-          }
+          },
+          body: JSON.stringify(this.user)
+          
         })
+          
           .then(res => res.json())
           .then(data => {
             this.clearForm();
@@ -144,6 +159,8 @@ export default {
     },
     editUser(user) {
       this.edit = true;
+      this.user.id = user.id;
+      //this.user.password = user.password;
       this.user.name = user.name;
       this.user.phone_number = user.phone_number;
       this.user.email = user.email;

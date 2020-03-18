@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Dashboard</div>
                 <example-component></example-component>
-                <example-component2></example-component2>
+                <!--<example-component2></example-component2> -->
 
                 <div class="card-body">
                     @if (session('status'))
@@ -16,7 +16,6 @@
                         </div>
                     @endif
 
-                    You are logged in!
                 </div>
             </div>
         </div>
