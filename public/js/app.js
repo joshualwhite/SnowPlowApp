@@ -2008,7 +2008,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (confirm('Are You Sure?')) {
-        fetch("api/customer/" + id, {
+        fetch("api/customers/" + id, {
           method: 'delete'
         }).then(function (res) {
           return res.text();
@@ -2165,6 +2165,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -2367,14 +2370,14 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.edit === false) {
         // Add
-        fetch('api/userAPI', {
+        fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
           headers: {
             'content-type': 'application/json'
           }
         }).then(function (res) {
-          return res.json();
+          return res.send();
         }).then(function (data) {
           _this3.clearForm();
 
@@ -2393,7 +2396,7 @@ __webpack_require__.r(__webpack_exports__);
             'content-type': 'application/json'
           }
         }).then(function (res) {
-          return res.json();
+          return res.send();
         }).then(function (data) {
           _this3.clearForm();
 
@@ -38233,6 +38236,18 @@ var staticRenderFns = [
           attrs: { "aria-labelledby": "dropdownMenuButton" }
         },
         [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Customer Name, Customer Address")
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Customer Name, Customer Address")
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Customer Name, Customer Address")
+          ]),
+          _vm._v(" "),
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
             _vm._v("Customer Name, Customer Address")
           ])

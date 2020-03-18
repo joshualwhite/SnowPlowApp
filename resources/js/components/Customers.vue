@@ -97,7 +97,7 @@ export default {
     },
     deleteCustomer(id) {
       if (confirm('Are You Sure?')) {
-        fetch(`api/customer/` + id, {
+        fetch(`api/customers/` + id, {
           method: 'delete',
         })
           .then(res => res.text())
