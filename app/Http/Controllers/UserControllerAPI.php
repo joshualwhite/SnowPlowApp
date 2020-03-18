@@ -46,13 +46,13 @@ class UserControllerAPI extends Controller
      */
     public function store(Request $request)
     {
-        /*$this->validate($request, [
+        $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
             'phone_number' => 'required'
-        ]);*/
+        ]);
         $user = $request->isMethod('put') ? User::findOrFail($request->user_id) : new User;
-        $edit = $request->isMethod('put') ? TRUE : FALSE;
+        $edit = $request->isMethod('put') ? '1' : '0';
         if ($edit == '0'){
             $user->name = $request->input('name');
             $user->phone_number = $request->input('phone_number');
@@ -63,6 +63,7 @@ class UserControllerAPI extends Controller
             $user->name = $request->input('name');
             $user->phone_number = $request->input('phone_number');
             $user->email = $request->input('email');
+            //$user->password = $request->input('password');
         }
         if($user->save())
             return new UserResource($user);

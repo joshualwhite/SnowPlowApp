@@ -1,3 +1,6 @@
+
+
+
 <template>
   <div class="container">
     <h2>Customers</h2>
@@ -25,7 +28,7 @@
     
         <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchCustomers(pagination.next_page_url)">Next</a></li>
       </ul>
-
+    <input type="text" class="form-control mb-2" v-model="search" placeholder="search customers"/>
     </nav>
     <table class="table table-hover">
         <tr>
@@ -35,7 +38,7 @@
             <th>Assigned Route</th>
             <th></th>
         </tr>
-        <tr v-for="__customer in customers" v-bind:key="__customer.id">
+        <tr v-for="__customer in filteredCustomers" v-bind:key="__customer.id">
             <td>{{__customer.name}}</td>
             <td>{{__customer.address}}</td>
             <td>{{__customer.phone_number}}</td>
@@ -58,6 +61,7 @@ export default {
     return {
             
       customers: [],
+      search: '',
       customer: {
         id: '',
         name: '',
@@ -73,6 +77,13 @@ export default {
   },
   created() {
     this.fetchCustomers();
+  },
+  computed:{
+    filteredCustomers: function() {
+      return this.customers.filter((customer) => {
+        return customer.name.match(this.search)
+      })
+    }
   },
   methods: {
     fetchCustomers(page_url) {

@@ -1960,10 +1960,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       customers: [],
+      search: '',
       customer: {
         id: '',
         name: '',
@@ -1980,16 +1984,25 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.fetchCustomers();
   },
+  computed: {
+    filteredCustomers: function filteredCustomers() {
+      var _this = this;
+
+      return this.customers.filter(function (customer) {
+        return customer.name.match(_this.search);
+      });
+    }
+  },
   methods: {
     fetchCustomers: function fetchCustomers(page_url) {
-      var _this = this;
+      var _this2 = this;
 
       var vm = this;
       page_url = page_url || '/api/customers';
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.customers = res.data;
+        _this2.customers = res.data;
         vm.makePagination(res.meta, res.links);
       })["catch"](function (err) {
         return console.log(err);
@@ -2005,7 +2018,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pagination = pagination;
     },
     deleteCustomer: function deleteCustomer(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (confirm('Are You Sure?')) {
         fetch("api/customers/" + id, {
@@ -2017,14 +2030,14 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           alert('Customer Removed');
 
-          _this2.fetchCustomers();
+          _this3.fetchCustomers();
         })["catch"](function (err) {
           return console.log(err);
         });
       }
     },
     addCustomer: function addCustomer() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.edit === false) {
         // Add
@@ -2037,11 +2050,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this3.clearForm();
+          _this4.clearForm();
 
           alert('Customer Added');
 
-          _this3.fetchCustomers();
+          _this4.fetchCustomers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -2056,11 +2069,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this3.clearForm();
+          _this4.clearForm();
 
           alert('Customer Updated');
 
-          _this3.fetchCustomers();
+          _this4.fetchCustomers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -2114,6 +2127,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -2147,6 +2166,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'example-component2',
   mounted: function mounted() {
@@ -2160,15 +2180,18 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Routes.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************/
-<<<<<<< HEAD
-/*! no static exports found */
-/***/ (function(module, exports) {
-=======
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2199,8 +2222,7 @@ __webpack_require__.r(__webpack_exports__);
       routes: [],
       route: {
         id: '',
-        name: '',
-        user: ''
+        name: ''
       },
       route_id: '',
       edit: false
@@ -2230,14 +2252,72 @@ __webpack_require__.r(__webpack_exports__);
         fetch('api/route/' + id, {
           method: 'delete'
         }).then(function (res) {
-          return res.json();
-        }).then(function (data) {
-          return res.data;
+          return res.text();
+        }).then(function (res) {
+          return console.log(res);
         }).then(function (data) {
           alert('Route Removed');
->>>>>>> master
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\SnowPlowDev\\resources\\js\\components\\Routes.vue: Unexpected token (124:3)\n\n\u001b[0m \u001b[90m 122 | \u001b[39m    }\u001b[0m\n\u001b[0m \u001b[90m 123 | \u001b[39m  }\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 124 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 125 | \u001b[39m        \u001b[0m\n\u001b[0m \u001b[90m 126 | \u001b[39m        \u001b[33m<\u001b[39m\u001b[33mhr\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 127 | \u001b[39m        \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m v\u001b[33m-\u001b[39m\u001b[36mfor\u001b[39m\u001b[33m=\u001b[39m\u001b[32m\"__route in routes\"\u001b[39m v\u001b[33m-\u001b[39mbind\u001b[33m:\u001b[39mkey\u001b[33m=\u001b[39m\u001b[32m\"__route.id\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:723:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:716:17)\n    at Parser.raise (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:710:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:8610:16)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9893:20)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9479:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9459:21)\n    at Parser.parseExprOpBaseRightExpr (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9422:34)\n    at Parser.parseExprOpRightExpr (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9415:21)\n    at Parser.parseExprOp (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9381:27)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9339:17)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9302:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9257:21)\n    at Parser.parseObjectProperty (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10341:101)\n    at Parser.parseObjPropValue (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10366:101)\n    at Parser.parseObjectMember (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10290:10)\n    at Parser.parseObj (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10211:25)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9836:28)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9479:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9459:21)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9329:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9302:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9257:21)\n    at Parser.parseExportDefaultExpression (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12098:24)\n    at Parser.parseExport (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12000:31)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:11020:27)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10916:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:11490:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:11477:10)\n    at Parser.parseTopLevel (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10847:10)\n    at Parser.parse (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12452:10)\n    at parse (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12503:38)\n    at parser (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\core\\lib\\parser\\index.js:54:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:93:38)\n    at normalizeFile.next (<anonymous>)");
+          _this2.fetchRoutes();
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      }
+    },
+    addRoute: function addRoute() {
+      var _this3 = this;
+
+      if (this.edit === false) {
+        // Add
+        fetch('api/route', {
+          method: 'post',
+          body: JSON.stringify(this.route),
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          _this3.clearForm();
+
+          alert('Route Added');
+
+          _this3.fetchRoutes();
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      } else {
+        // Update
+        fetch('api/route', {
+          method: 'put',
+          body: JSON.stringify(this.route),
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          _this3.clearForm();
+
+          alert('Route Updated');
+
+          _this3.fetchRoutes();
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      }
+    },
+    editRoute: function editRoute(route) {
+      this.edit = true;
+      this.route.id = route.id;
+      this.route.name = route.name; // Set this.whatever = whatever
+    },
+    clearForm: function clearForm() {
+      this.edit = false;
+      this.route.name = "", this.route.id = null;
+    }
+  }
+});
 
 /***/ }),
 
@@ -2310,6 +2390,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       users: [],
+      search: '',
       user: {
         id: '',
         name: '',
@@ -2325,16 +2406,25 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.fetchUsers();
   },
+  computed: {
+    filteredUsers: function filteredUsers() {
+      var _this = this;
+
+      return this.users.filter(function (user) {
+        return user.name.match(_this.search);
+      });
+    }
+  },
   methods: {
     fetchUsers: function fetchUsers(page_url) {
-      var _this = this;
+      var _this2 = this;
 
       var vm = this;
       page_url = page_url || '/api/usersAPI';
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.users = res.data;
+        _this2.users = res.data;
         vm.makePagination(res.meta, res.links);
       })["catch"](function (err) {
         return console.log(err);
@@ -2350,7 +2440,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pagination = pagination;
     },
     deleteUser: function deleteUser(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (confirm('Are You Sure?')) {
         fetch("api/usersAPI/" + id, {
@@ -2360,17 +2450,21 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           alert('User Removed');
 
-          _this2.fetchUsers();
+          _this3.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
       }
     },
     addUser: function addUser() {
-      var _this3 = this;
+      var _this4 = this;
+
+      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
       if (this.edit === false) {
         // Add
+        console.log(this.user);
+        console.log(JSON.stringify(this.user));
         fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
@@ -2380,30 +2474,32 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this3.clearForm();
+          _this4.clearForm();
 
           alert('User Added');
 
-          _this3.fetchUsers();
+          _this4.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
       } else {
-        // Update
-        fetch('api/usersAPI', {
+        console.log(this.user);
+        console.log(JSON.stringify(this.user)); // Update
+
+        fetch('api/usersAPI/' + id, {
           method: 'put',
-          body: JSON.stringify(this.user),
           headers: {
             'content-type': 'application/json'
-          }
+          },
+          body: JSON.stringify(this.user)
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this3.clearForm();
+          _this4.clearForm();
 
           alert('User Updated');
 
-          _this3.fetchUsers();
+          _this4.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -2411,6 +2507,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     editUser: function editUser(user) {
       this.edit = true;
+      this.user.id = user.id; //this.user.password = user.password;
+
       this.user.name = user.name;
       this.user.phone_number = user.phone_number;
       this.user.email = user.email;
@@ -37994,7 +38092,29 @@ var render = function() {
             )
           ]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.search,
+            expression: "search"
+          }
+        ],
+        staticClass: "form-control mb-2",
+        attrs: { type: "text", placeholder: "search customers" },
+        domProps: { value: _vm.search },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.search = $event.target.value
+          }
+        }
+      })
     ]),
     _vm._v(" "),
     _c(
@@ -38003,7 +38123,7 @@ var render = function() {
       [
         _vm._m(0),
         _vm._v(" "),
-        _vm._l(_vm.customers, function(__customer) {
+        _vm._l(_vm.filteredCustomers, function(__customer) {
           return _c("tr", { key: __customer.id }, [
             _c("td", [_vm._v(_vm._s(__customer.name))]),
             _vm._v(" "),
@@ -38086,29 +38206,68 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "table",
+      { staticClass: "table table-hover" },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._l(_vm.filteredUsers, function(__user) {
+          return _c("tr", { key: __user.id }, [
+            _c("td", [_vm._v(_vm._s(__user.name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(__user.phone_number))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(__user.email))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(__user.password))]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.editUser(__user)
+                    }
+                  }
+                },
+                [_vm._v("Edit")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteUser(__user.id)
+                    }
+                  }
+                },
+                [_vm._v("Delete")]
+              )
+            ])
+          ])
+        })
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
+    return _c("tr", [
+      _c("th", [_vm._v("Routes in progress")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Finished routes")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -38184,7 +38343,6 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _vm._v("\n<<<<<<< HEAD\n        "),
       _c("h2", [_vm._v("Routes")]),
       _vm._v(" "),
       _c(
@@ -38311,7 +38469,7 @@ var staticRenderFns = [
             "aria-expanded": "false"
           }
         },
-        [_vm._v("\n                    Customers\n                ")]
+        [_vm._v("\n                Customers\n            ")]
       ),
       _vm._v(" "),
       _c(
@@ -38322,27 +38480,10 @@ var staticRenderFns = [
         },
         [
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-<<<<<<< HEAD
             _vm._v("Customer")
           ]),
           _vm._v(" "),
           _c("a", { staticClass: "dropdown-item" }, [_vm._v("No Customers")])
-=======
-            _vm._v("Customer Name, Customer Address")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Customer Name, Customer Address")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Customer Name, Customer Address")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Customer Name, Customer Address")
-          ])
->>>>>>> master
         ]
       ),
       _vm._v(" "),
@@ -38381,7 +38522,7 @@ var render = function() {
         on: {
           submit: function($event) {
             $event.preventDefault()
-            return _vm.addUser($event)
+            return _vm.addUser(_vm.user.id)
           }
         }
       },
@@ -38568,7 +38709,29 @@ var render = function() {
             )
           ]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.search,
+            expression: "search"
+          }
+        ],
+        staticClass: "form-control mb-2",
+        attrs: { type: "text", placeholder: "search customers" },
+        domProps: { value: _vm.search },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.search = $event.target.value
+          }
+        }
+      })
     ]),
     _vm._v(" "),
     _c(
@@ -38577,7 +38740,7 @@ var render = function() {
       [
         _vm._m(0),
         _vm._v(" "),
-        _vm._l(_vm.users, function(__user) {
+        _vm._l(_vm.filteredUsers, function(__user) {
           return _c("tr", { key: __user.id }, [
             _c("td", [_vm._v(_vm._s(__user.name))]),
             _vm._v(" "),
@@ -51104,15 +51267,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/js/components/Routes.vue ***!
   \********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Routes_vue_vue_type_template_id_9c1adf16___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Routes.vue?vue&type=template&id=9c1adf16& */ "./resources/js/components/Routes.vue?vue&type=template&id=9c1adf16&");
 /* harmony import */ var _Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Routes.vue?vue&type=script&lang=js& */ "./resources/js/components/Routes.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -51142,15 +51304,13 @@ component.options.__file = "resources/js/components/Routes.vue"
 /*!*********************************************************************!*\
   !*** ./resources/js/components/Routes.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Routes.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Routes.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
