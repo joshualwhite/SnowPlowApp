@@ -45,10 +45,8 @@ Route::delete('customer/{id}', 'CustomerControllerAPI@destroy');
 **/
 Route::get('usersAPI', 'UserControllerAPI@index');
 Route::delete('usersAPI/{id}', 'UserControllerAPI@destroy');
-<<<<<<< HEAD
-=======
 Route::post('usersAPI', 'UserControllerAPI@store');
->>>>>>> 8200184ccdfd0739d02a354b322376d12b1ab6a1
+Route::put('usersAPI', 'UserControllerAPI@store');
 
 
 /**
@@ -58,11 +56,6 @@ Route::post('usersAPI', 'UserControllerAPI@store');
 **/
 
 // gets all routes
-<<<<<<< HEAD
-Route::get('routes/works', 'RouteControllerAPI@itworks');
-
-=======
->>>>>>> 8200184ccdfd0739d02a354b322376d12b1ab6a1
 Route::get('routes', 'RouteControllerAPI@index');
 // gets a single route by id
 Route::get('route/{id}', 'RouteControllerAPI@show');

@@ -63,7 +63,8 @@ export default {
         id: '',
         name: '',
         phone_number: '',
-        password: ''
+        password: '',
+        email: '',
       },
       user_id: '',
       pagination: {},
