@@ -23,6 +23,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('example-component2', require('./components/ExampleComponent2.vue').default);
 Vue.component('customers', require('./components/Customers.vue').default);
 Vue.component('users', require('./components/Users.vue').default);
+Vue.component('routes', require('./components/Routes.vue').default);
 
 
 
