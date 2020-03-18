@@ -2160,6 +2160,10 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Routes.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************/
+<<<<<<< HEAD
+/*! no static exports found */
+/***/ (function(module, exports) {
+=======
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2231,15 +2235,9 @@ __webpack_require__.r(__webpack_exports__);
           return res.data;
         }).then(function (data) {
           alert('Route Removed');
+>>>>>>> master
 
-          _this2.fetchRoutes();
-        })["catch"](function (err) {
-          return console.log(err);
-        });
-      }
-    }
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\SnowPlowDev\\resources\\js\\components\\Routes.vue: Unexpected token (124:3)\n\n\u001b[0m \u001b[90m 122 | \u001b[39m    }\u001b[0m\n\u001b[0m \u001b[90m 123 | \u001b[39m  }\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 124 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 125 | \u001b[39m        \u001b[0m\n\u001b[0m \u001b[90m 126 | \u001b[39m        \u001b[33m<\u001b[39m\u001b[33mhr\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 127 | \u001b[39m        \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m v\u001b[33m-\u001b[39m\u001b[36mfor\u001b[39m\u001b[33m=\u001b[39m\u001b[32m\"__route in routes\"\u001b[39m v\u001b[33m-\u001b[39mbind\u001b[33m:\u001b[39mkey\u001b[33m=\u001b[39m\u001b[32m\"__route.id\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:723:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:716:17)\n    at Parser.raise (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:710:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:8610:16)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9893:20)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9479:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9459:21)\n    at Parser.parseExprOpBaseRightExpr (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9422:34)\n    at Parser.parseExprOpRightExpr (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9415:21)\n    at Parser.parseExprOp (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9381:27)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9339:17)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9302:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9257:21)\n    at Parser.parseObjectProperty (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10341:101)\n    at Parser.parseObjPropValue (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10366:101)\n    at Parser.parseObjectMember (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10290:10)\n    at Parser.parseObj (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10211:25)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9836:28)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9479:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9459:21)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9329:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9302:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:9257:21)\n    at Parser.parseExportDefaultExpression (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12098:24)\n    at Parser.parseExport (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12000:31)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:11020:27)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10916:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:11490:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:11477:10)\n    at Parser.parseTopLevel (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:10847:10)\n    at Parser.parse (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12452:10)\n    at parse (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\parser\\lib\\index.js:12503:38)\n    at parser (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\core\\lib\\parser\\index.js:54:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (C:\\xampp\\htdocs\\SnowPlowDev\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:93:38)\n    at normalizeFile.next (<anonymous>)");
 
 /***/ }),
 
@@ -38186,7 +38184,68 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("hr"),
+      _vm._v("\n<<<<<<< HEAD\n        "),
+      _c("h2", [_vm._v("Routes")]),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          staticClass: "mb-3",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.addRoute($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.route.name,
+                  expression: "route.name"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Name" },
+              domProps: { value: _vm.route.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.route, "name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-block w-25",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("Save")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger btn-block w-25 mb-2",
+          on: {
+            click: function($event) {
+              return _vm.clearForm()
+            }
+          }
+        },
+        [_vm._v("Cancel")]
+      ),
       _vm._v(" "),
       _vm._l(_vm.routes, function(__route) {
         return _c("div", { key: __route.id }, [
@@ -38198,13 +38257,37 @@ var render = function() {
           _c("a", { attrs: { href: "EMPLOYEE ID" } }, [_vm._v("Employee 2")]),
           _c("div", { staticClass: "mr-2 mb-2" }),
           _vm._v(" "),
-          _c("a", { staticClass: "btn btn-success", attrs: { href: "#" } }, [
-            _vm._v("Edit Route")
+          _c("div", { staticClass: "float-right" }, [
+            __route.id != 1
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-danger text-light",
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteRoute(__route.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Delete Route")]
+                )
+              : _vm._e()
           ]),
           _vm._v(" "),
-          _vm._m(0, true),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-success text-light",
+              on: {
+                click: function($event) {
+                  return _vm.editRoute(__route)
+                }
+              }
+            },
+            [_vm._v("Edit Route")]
+          ),
           _vm._v(" "),
-          _c("hr")
+          _vm._m(0, true)
         ])
       })
     ],
@@ -38220,7 +38303,7 @@ var staticRenderFns = [
       _c(
         "button",
         {
-          staticClass: "btn btn-secondary dropdown-toggle",
+          staticClass: "btn btn-secondary dropdown-toggle mr-3",
           attrs: {
             type: "button",
             "data-toggle": "dropdown",
@@ -38228,7 +38311,7 @@ var staticRenderFns = [
             "aria-expanded": "false"
           }
         },
-        [_vm._v("\n                Customers\n            ")]
+        [_vm._v("\n                    Customers\n                ")]
       ),
       _vm._v(" "),
       _c(
@@ -38239,6 +38322,12 @@ var staticRenderFns = [
         },
         [
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+<<<<<<< HEAD
+            _vm._v("Customer")
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item" }, [_vm._v("No Customers")])
+=======
             _vm._v("Customer Name, Customer Address")
           ]),
           _vm._v(" "),
@@ -38253,8 +38342,11 @@ var staticRenderFns = [
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
             _vm._v("Customer Name, Customer Address")
           ])
+>>>>>>> master
         ]
-      )
+      ),
+      _vm._v(" "),
+      _c("hr")
     ])
   }
 ]
@@ -51012,14 +51104,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/js/components/Routes.vue ***!
   \********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Routes_vue_vue_type_template_id_9c1adf16___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Routes.vue?vue&type=template&id=9c1adf16& */ "./resources/js/components/Routes.vue?vue&type=template&id=9c1adf16&");
 /* harmony import */ var _Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Routes.vue?vue&type=script&lang=js& */ "./resources/js/components/Routes.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -51049,13 +51142,15 @@ component.options.__file = "resources/js/components/Routes.vue"
 /*!*********************************************************************!*\
   !*** ./resources/js/components/Routes.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Routes.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Routes.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Routes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
