@@ -1988,28 +1988,37 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchCustomers();
     this.fetchRoutes();
   },
+  computed: {
+    filteredUsers: function filteredUsers() {
+      var _this = this;
+
+      return this.users.filter(function (user) {
+        return user.name.match(_this.search);
+      });
+    }
+  },
   methods: {
     fetchRoutes: function fetchRoutes() {
-      var _this = this;
+      var _this2 = this;
 
       var vm = this;
       fetch('/api/routes/simple').then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.routes = res.data;
+        _this2.routes = res.data;
       })["catch"](function (err) {
         return console.log(err);
       });
     },
     fetchCustomers: function fetchCustomers(page_url) {
-      var _this2 = this;
+      var _this3 = this;
 
       var vm = this;
       page_url = page_url || '/api/customers';
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this2.customers = res.data;
+        _this3.customers = res.data;
         vm.makePagination(res.meta, res.links);
       })["catch"](function (err) {
         return console.log(err);
@@ -2025,7 +2034,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pagination = pagination;
     },
     deleteCustomer: function deleteCustomer(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (confirm('Are You Sure?')) {
         fetch('api/customer/' + id, {
@@ -2037,14 +2046,14 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           alert('Customer Removed');
 
-          _this3.fetchCustomers();
+          _this4.fetchCustomers();
         })["catch"](function (err) {
           return console.log(err);
         });
       }
     },
     addCustomer: function addCustomer() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (this.edit === false) {
         // Add
@@ -2057,11 +2066,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this4.clearForm();
+          _this5.clearForm();
 
           alert('Customer Added');
 
-          _this4.fetchCustomers();
+          _this5.fetchCustomers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -2076,11 +2085,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this4.clearForm();
+          _this5.clearForm();
 
           alert('Customer Updated');
 
-          _this4.fetchCustomers();
+          _this5.fetchCustomers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -41998,7 +42007,7 @@ var render = function() {
       [
         _vm._m(0),
         _vm._v(" "),
-        _vm._l(_vm.customers, function(__customer) {
+        _vm._l(_vm.filteredCustomers, function(__customer) {
           return _c("tr", { key: __customer.id }, [
             _c("td", [_vm._v(_vm._s(__customer.name))]),
             _vm._v(" "),
@@ -58665,8 +58674,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

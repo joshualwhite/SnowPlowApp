@@ -41,7 +41,7 @@
             <th>Assigned Route</th>
             <th></th>
         </tr>
-        <tr v-for="__customer in customers" v-bind:key="__customer.id">
+        <tr v-for="__customer in filteredCustomers" v-bind:key="__customer.id">
             <td>{{__customer.name}}</td>
             <td>{{__customer.address}}</td>
             <td>{{__customer.phone_number}}</td>
@@ -80,6 +80,13 @@ export default {
   created() {
     this.fetchCustomers();
     this.fetchRoutes();
+  },
+  computed:{
+    filteredUsers: function() {
+      return this.users.filter((user) => {
+        return user.name.match(this.search)
+      })
+    }
   },
   methods: {
     fetchRoutes() {
