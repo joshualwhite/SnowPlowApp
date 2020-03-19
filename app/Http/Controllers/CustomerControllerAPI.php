@@ -54,7 +54,7 @@ class CustomerControllerAPI extends Controller
         else $customer->comments = "";
 
         $customer->rating = ($customer->rating > 0) ? $customer->rating : 0;
-        $customer->route_id = 1; 
+        $customer->route_id = $request->input('route_id'); 
         if($customer->save())
             return new CustomerResource($customer);
     }

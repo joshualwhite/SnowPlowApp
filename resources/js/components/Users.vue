@@ -14,6 +14,9 @@
             <div class="form-group">
         <input type="text" class="form-control" placeholder="Email" v-model="user.email">
       </div>
+      <div class = "form-group">
+
+      </div>
       <button type="submit" class="btn btn-primary">Save</button>
     </form>
     <button @click="clearForm()" class="btn btn-danger mb-2">Cancel</button>
@@ -67,6 +70,7 @@ export default {
         password: '',
         email: '',
       },
+      routes: [],
       user_id: '',
       pagination: {},
       edit: false
@@ -74,6 +78,7 @@ export default {
   },
   created() {
     this.fetchUsers();
+    this.fetchRoutes();
   },
   computed:{
   filteredUsers: function() {
@@ -83,6 +88,16 @@ export default {
   }
 },
   methods: {
+    fetchRoutes(page_url) {
+      let vm = this;
+      page_url = page_url || '/api/routes/simple';
+      fetch(page_url)
+        .then(res => res.json())
+        .then(res => {
+          this.routes = res.data;
+        })
+        .catch(err => console.log(err));
+    },
     fetchUsers(page_url) {
       let vm = this;
       page_url = page_url || '/api/usersAPI';

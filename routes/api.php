@@ -37,7 +37,6 @@ Route::put('customer', 'CustomerControllerAPI@store');
 // deletes a customer
 Route::delete('customer/{id}', 'CustomerControllerAPI@destroy');
 
-
 /**
  * Users API Routes
  * All methods on UserControllerAPI
@@ -57,6 +56,8 @@ Route::put('usersAPI/{id}', 'UserControllerAPI@store');
 
 // gets all routes
 Route::get('routes', 'RouteControllerAPI@index');
+// get all routes - Just name and ID, used on customers page to select route
+Route::get('routes/simple', 'RouteControllerAPI@simple');
 // gets a single route by id
 Route::get('route/{id}', 'RouteControllerAPI@show');
 // creates a new route

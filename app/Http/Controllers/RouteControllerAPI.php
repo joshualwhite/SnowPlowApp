@@ -9,7 +9,7 @@ use App\Customer;
 class RouteControllerAPI extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Returns a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,7 +22,16 @@ class RouteControllerAPI extends Controller
         }
         return RouteResource::collection($routes);
     }
-
+    /**
+     * Returns a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function simple()
+    {
+        $routes = Route::select('id', 'name')->get();
+        return RouteResource::collection($routes);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -37,7 +46,6 @@ class RouteControllerAPI extends Controller
         $route->user = 0;
         $route->save();
         $id = $route->id;
-
         // Deal With Customer Assignments
         $customers = $request->input('customers');
         foreach($customers as $customer){
