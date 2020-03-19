@@ -2502,27 +2502,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       users: [],
-      search: '',
       user: {
         id: '',
         name: '',
         phone_number: '',
-        password: '',
-        email: ''
+        password: ''
       },
-      routes: [],
       user_id: '',
       pagination: {},
       edit: false
@@ -2530,40 +2519,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.fetchUsers();
-    this.fetchRoutes();
-  },
-  computed: {
-    filteredUsers: function filteredUsers() {
-      var _this = this;
-
-      return this.users.filter(function (user) {
-        return user.name.match(_this.search);
-      });
-    }
   },
   methods: {
-    fetchRoutes: function fetchRoutes(page_url) {
-      var _this2 = this;
-
-      var vm = this;
-      page_url = page_url || '/api/routes/simple';
-      fetch(page_url).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        _this2.routes = res.data;
-      })["catch"](function (err) {
-        return console.log(err);
-      });
-    },
     fetchUsers: function fetchUsers(page_url) {
-      var _this3 = this;
+      var _this = this;
 
       var vm = this;
       page_url = page_url || '/api/usersAPI';
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this3.users = res.data;
+        _this.users = res.data;
         vm.makePagination(res.meta, res.links);
       })["catch"](function (err) {
         return console.log(err);
@@ -2579,7 +2545,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pagination = pagination;
     },
     deleteUser: function deleteUser(id) {
-      var _this4 = this;
+      var _this2 = this;
 
       if (confirm('Are You Sure?')) {
         fetch("api/usersAPI/" + id, {
@@ -2589,21 +2555,17 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           alert('User Removed');
 
-          _this4.fetchUsers();
+          _this2.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
       }
     },
     addUser: function addUser() {
-      var _this5 = this;
-
-      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var _this3 = this;
 
       if (this.edit === false) {
         // Add
-        console.log(this.user);
-        console.log(JSON.stringify(this.user));
         fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
@@ -2613,32 +2575,30 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this5.clearForm();
+          _this3.clearForm();
 
           alert('User Added');
 
-          _this5.fetchUsers();
+          _this3.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
       } else {
-        console.log(this.user);
-        console.log(JSON.stringify(this.user)); // Update
-
-        fetch('api/usersAPI/' + id, {
+        // Update
+        fetch('api/usersAPI', {
           method: 'put',
+          body: JSON.stringify(this.user),
           headers: {
             'content-type': 'application/json'
-          },
-          body: JSON.stringify(this.user)
+          }
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this5.clearForm();
+          _this3.clearForm();
 
           alert('User Updated');
 
-          _this5.fetchUsers();
+          _this3.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -2646,8 +2606,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     editUser: function editUser(user) {
       this.edit = true;
-      this.user.id = user.id; //this.user.password = user.password;
-
       this.user.name = user.name;
       this.user.phone_number = user.phone_number;
       this.user.email = user.email;
@@ -42507,7 +42465,7 @@ var render = function() {
         on: {
           submit: function($event) {
             $event.preventDefault()
-            return _vm.addUser(_vm.user.id)
+            return _vm.addUser($event)
           }
         }
       },
@@ -42608,8 +42566,6 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }),
-        _vm._v(" "),
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
@@ -42693,29 +42649,7 @@ var render = function() {
             )
           ]
         )
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.search,
-            expression: "search"
-          }
-        ],
-        staticClass: "form-control mb-2",
-        attrs: { type: "text", placeholder: "search customers" },
-        domProps: { value: _vm.search },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.search = $event.target.value
-          }
-        }
-      })
+      ])
     ]),
     _vm._v(" "),
     _c(
@@ -42724,7 +42658,7 @@ var render = function() {
       [
         _vm._m(0),
         _vm._v(" "),
-        _vm._l(_vm.filteredUsers, function(__user) {
+        _vm._l(_vm.users, function(__user) {
           return _c("tr", { key: __user.id }, [
             _c("td", [_vm._v(_vm._s(__user.name))]),
             _vm._v(" "),
@@ -42765,11 +42699,7 @@ var render = function() {
         })
       ],
       2
-    ),
-    _vm._v(" "),
-    _c("h3", [_vm._v(_vm._s(_vm.users.name))]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.users.address))])
+    )
   ])
 }
 var staticRenderFns = [
@@ -58674,8 +58604,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
