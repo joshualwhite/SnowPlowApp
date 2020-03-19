@@ -1963,20 +1963,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       customers: [],
-      search: '',
       customer: {
         id: '',
         name: '',
         address: '',
         phone_number: '',
-        route_id: '',
-        comments: '',
-        route_position: ''
+        route_id: 1,
+        comments: ''
       },
+      routes: [],
       customer_id: '',
       pagination: {},
       edit: false
@@ -1984,17 +1986,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.fetchCustomers();
-  },
-  computed: {
-    filteredCustomers: function filteredCustomers() {
-      var _this = this;
-
-      return this.customers.filter(function (customer) {
-        return customer.name.match(_this.search);
-      });
-    }
+    this.fetchRoutes();
   },
   methods: {
+    fetchRoutes: function fetchRoutes() {
+      var _this = this;
+
+      var vm = this;
+      fetch('/api/routes/simple').then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this.routes = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
     fetchCustomers: function fetchCustomers(page_url) {
       var _this2 = this;
 
@@ -2088,6 +2094,7 @@ __webpack_require__.r(__webpack_exports__);
       this.customer.address = customer.address;
       this.customer.phone_number = customer.phone_number;
       this.customer.comments = customer.comments;
+      this.customer.route_id = 1;
     },
     clearForm: function clearForm() {
       this.edit = false;
@@ -2097,6 +2104,7 @@ __webpack_require__.r(__webpack_exports__);
       this.customer.address = '';
       this.customer.phone_number = '';
       this.customer.comments = '';
+      this.customer.route_id = 1;
     }
   }
 });
@@ -2410,16 +2418,6 @@ __webpack_require__.r(__webpack_exports__);
       this.edit_customers = false;
       this.customers_exist = false;
     },
-    add: function add() {
-      this.list.push({
-        name: "Juan"
-      });
-    },
-    replace: function replace() {
-      this.list = [{
-        name: "Edgard"
-      }];
-    },
     log: function log(evt) {
       window.console.log(evt);
       console.log(this.edit_route);
@@ -2500,6 +2498,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2512,6 +2513,7 @@ __webpack_require__.r(__webpack_exports__);
         password: '',
         email: ''
       },
+      routes: [],
       user_id: '',
       pagination: {},
       edit: false
@@ -2519,6 +2521,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.fetchUsers();
+    this.fetchRoutes();
   },
   computed: {
     filteredUsers: function filteredUsers() {
@@ -2530,15 +2533,28 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    fetchUsers: function fetchUsers(page_url) {
+    fetchRoutes: function fetchRoutes(page_url) {
       var _this2 = this;
+
+      var vm = this;
+      page_url = page_url || '/api/routes/simple';
+      fetch(page_url).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this2.routes = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    fetchUsers: function fetchUsers(page_url) {
+      var _this3 = this;
 
       var vm = this;
       page_url = page_url || '/api/usersAPI';
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this2.users = res.data;
+        _this3.users = res.data;
         vm.makePagination(res.meta, res.links);
       })["catch"](function (err) {
         return console.log(err);
@@ -2554,7 +2570,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pagination = pagination;
     },
     deleteUser: function deleteUser(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (confirm('Are You Sure?')) {
         fetch("api/usersAPI/" + id, {
@@ -2564,14 +2580,14 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           alert('User Removed');
 
-          _this3.fetchUsers();
+          _this4.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
       }
     },
     addUser: function addUser() {
-      var _this4 = this;
+      var _this5 = this;
 
       var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
@@ -2588,11 +2604,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this4.clearForm();
+          _this5.clearForm();
 
           alert('User Added');
 
-          _this4.fetchUsers();
+          _this5.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -2609,11 +2625,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this4.clearForm();
+          _this5.clearForm();
 
           alert('User Updated');
 
-          _this4.fetchUsers();
+          _this5.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -41835,6 +41851,54 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.customer.route_id,
+                  expression: "customer.route_id"
+                }
+              ],
+              staticClass: "selectpicker form-control",
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.customer,
+                    "route_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", value: "" } }, [
+                _vm._v("Select A Route")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.routes, function(route) {
+                return _c(
+                  "option",
+                  { key: route.id, domProps: { value: route.id } },
+                  [_vm._v(_vm._s(route.name))]
+                )
+              })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
@@ -41924,29 +41988,7 @@ var render = function() {
               )
             ]
           )
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.search,
-              expression: "search"
-            }
-          ],
-          staticClass: "form-control mb-2",
-          attrs: { type: "text", placeholder: "search customers" },
-          domProps: { value: _vm.search },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.search = $event.target.value
-            }
-          }
-        })
+        ])
       ]
     ),
     _vm._v(" "),
@@ -41956,7 +41998,7 @@ var render = function() {
       [
         _vm._m(0),
         _vm._v(" "),
-        _vm._l(_vm.filteredCustomers, function(__customer) {
+        _vm._l(_vm.customers, function(__customer) {
           return _c("tr", { key: __customer.id }, [
             _c("td", [_vm._v(_vm._s(__customer.name))]),
             _vm._v(" "),
@@ -42556,6 +42598,8 @@ var render = function() {
             }
           })
         ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }),
         _vm._v(" "),
         _c(
           "button",
@@ -58621,8 +58665,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

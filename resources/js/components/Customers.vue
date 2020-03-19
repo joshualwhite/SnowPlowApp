@@ -1,6 +1,3 @@
-
-
-
 <template>
   <div class="container">
     <h2>Customers</h2>
@@ -17,6 +14,12 @@
       <div class="form-group">
         <textarea class="form-control" placeholder="Comments" v-model="customer.comments"></textarea>
       </div>
+      <div class="form-group">
+        <select class="selectpicker form-control" v-model="customer.route_id">
+          <option disabled value="">Select A Route</option>
+          <option v-for="route in routes" v-bind:value="route.id" v-bind:key="route.id">{{route.name}}</option>
+        </select>
+      </div>
       <button type="submit" class="btn btn-primary">Save</button>
     </form>
     <button @click="clearForm()" class="btn btn-danger">Cancel</button>
@@ -28,7 +31,7 @@
     
         <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchCustomers(pagination.next_page_url)">Next</a></li>
       </ul>
-    <input type="text" class="form-control mb-2" v-model="search" placeholder="search customers"/>
+
     </nav>
     <table class="table table-hover">
         <tr>
@@ -38,7 +41,7 @@
             <th>Assigned Route</th>
             <th></th>
         </tr>
-        <tr v-for="__customer in filteredCustomers" v-bind:key="__customer.id">
+        <tr v-for="__customer in customers" v-bind:key="__customer.id">
             <td>{{__customer.name}}</td>
             <td>{{__customer.address}}</td>
             <td>{{__customer.phone_number}}</td>
@@ -60,16 +63,15 @@ export default {
   data() {
     return {
       customers: [],
-      search: '',
       customer: {
         id: '',
         name: '',
         address: '',
         phone_number: '',
-        route_id: '',
+        route_id: 1,
         comments: '',
-        route_position: '',
       },
+      routes: [],
       customer_id: '',
       pagination: {},
       edit: false
@@ -77,15 +79,18 @@ export default {
   },
   created() {
     this.fetchCustomers();
-  },
-  computed:{
-    filteredCustomers: function() {
-      return this.customers.filter((customer) => {
-        return customer.name.match(this.search)
-      })
-    }
+    this.fetchRoutes();
   },
   methods: {
+    fetchRoutes() {
+      let vm = this;
+      fetch('/api/routes/simple')
+      .then(res => res.json())
+        .then(res => {
+          this.routes = res.data;
+        })
+        .catch(err => console.log(err));
+    },
     fetchCustomers(page_url) {
       let vm = this;
       page_url = page_url || '/api/customers';
@@ -163,6 +168,7 @@ export default {
       this.customer.address = customer.address;
       this.customer.phone_number = customer.phone_number;
       this.customer.comments = customer.comments;
+      this.customer.route_id = 1;
     },
     clearForm() {
       this.edit = false;
@@ -172,6 +178,7 @@ export default {
       this.customer.address = '';
       this.customer.phone_number = '';
       this.customer.comments = '';
+      this.customer.route_id = 1;
     }
   }
 };

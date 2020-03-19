@@ -202,12 +202,6 @@ export default {
       this.edit_customers = false;
       this.customers_exist = false;
     },
-    add() {
-      this.list.push({ name: "Juan" });
-    },
-    replace() {
-      this.list = [{ name: "Edgard" }];
-    },
     log(evt) {
       window.console.log(evt);
       console.log(this.edit_route);
