@@ -80,8 +80,8 @@ export default {
         }],
         unassigned: []
       },
-      unassigned: [{}],
-      edit_route: [{}],
+      unassigned: [],
+      edit_route: [],
       route_id: '',
       edit: false,
       edit_customers: false,
@@ -197,8 +197,8 @@ export default {
       this.edit = false;
       this.route.name = "";
       this.route.id = null;
-      this.unassigned = [{}];
-      this.edit_route = [{}];
+      this.unassigned = [];
+      this.edit_route = [];
       this.edit_customers = false;
       this.customers_exist = false;
     },
