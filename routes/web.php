@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@index');
+
 Route::get('customers/index', 'PagesController@index');
 Auth::routes();
 
@@ -21,16 +22,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Route for Customers
-Route::resource('customers', 'CustomerController');
-Route::resource('routes', 'RouteController');
-Route::resource('users', 'UserController');
+Route::resource('customers', 'CustomerController')->middleware('is_admin');
+Route::resource('routes', 'RouteController')->middleware('is_admin');
+Route::resource('users', 'UserController')->middleware('is_admin');
 
 //Sort by button
-Route::post('/reset', 'RouteController@reset');
-Route::post('/sortBy', 'RouteController@sortBy');
+Route::post('/reset', 'RouteController@reset')->middleware('is_admin');
+Route::post('/sortBy', 'RouteController@sortBy')->middleware('is_admin');
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::delete('customers/{id}', 'CustomerControllerAPI@destroy');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('is_admin');
+Route::delete('customers/{id}', 'CustomerControllerAPI@destroy')->middleware('is_admin');
