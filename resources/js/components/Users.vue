@@ -14,6 +14,13 @@
             <div class="form-group">
         <input type="text" class="form-control" placeholder="Email" v-model="user.email">
       </div>
+      <span>Select privilages:    </span>
+      <input name="admin" type="radio" v-model="user.admin" value="1"> Admin
+      <input name="admin" type="radio" v-model="user.admin" value="0"> User
+      <br />
+
+
+
       <button type="submit" class="btn btn-primary">Save</button>
     </form>
     <button @click="clearForm()" class="btn btn-danger mb-2">Cancel</button>
@@ -25,25 +32,21 @@
     
         <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchUsers(pagination.next_page_url)">Next</a></li>
       </ul>
-<<<<<<< HEAD
-
-=======
     <input type="text" class="form-control mb-2" v-model="search" placeholder="Search Users"/>
->>>>>>> e58a625a2caf5cf830ce39b67c92ae294fe7efe7
     </nav>
     <table class="table table-hover">
           <tr>
             <th>Name</th>
             <th>Phone Number</th>
             <th>email</th>
-            <th>pws</th>
+            <th>admin</th>
             <th></th>
         </tr>
-        <tr v-for="__user in users" v-bind:key="__user.id">
+        <tr v-for="__user in filteredUsers" v-bind:key="__user.id">
             <td>{{__user.name}}</td>
             <td>{{__user.phone_number}}</td>
             <td>{{__user.email}}</td>
-            <td>{{__user.password}}</td>
+            <td>{{__user.admin}}</td>
             <td>
                 <button @click="editUser(__user)" class="btn btn-primary">Edit</button>
                 <button @click="deleteUser(__user.id)" class="btn btn-danger">Delete</button>
@@ -58,11 +61,13 @@ export default {
   data() {
     return {
       users: [],
+      search: '',
       user: {
         id: '',
         name: '',
         phone_number: '',
-        password: ''
+        password: '',
+        admin: '',
       },
       user_id: '',
       pagination: {},
@@ -71,6 +76,13 @@ export default {
   },
   created() {
     this.fetchUsers();
+  },
+  computed:{
+    filteredUsers: function() {
+      return this.users.filter((user) => {
+        return user.name.match(this.search)
+      })
+    }
   },
   methods: {
     fetchUsers(page_url) {

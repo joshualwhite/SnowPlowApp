@@ -58,6 +58,7 @@ class UserControllerAPI extends Controller
             $user->phone_number = $request->input('phone_number');
             $user->email = $request->input('email');
             $user->password = $request->input('password');
+            $user->admin = $request->input('admin');
         }
         else{
             $user->name = $request->input('name');

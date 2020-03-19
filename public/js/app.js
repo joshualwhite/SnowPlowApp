@@ -2507,15 +2507,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       users: [],
+      search: '',
       user: {
         id: '',
         name: '',
         phone_number: '',
-        password: ''
+        password: '',
+        admin: ''
       },
       user_id: '',
       pagination: {},
@@ -2525,16 +2530,25 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.fetchUsers();
   },
+  computed: {
+    filteredUsers: function filteredUsers() {
+      var _this = this;
+
+      return this.users.filter(function (user) {
+        return user.name.match(_this.search);
+      });
+    }
+  },
   methods: {
     fetchUsers: function fetchUsers(page_url) {
-      var _this = this;
+      var _this2 = this;
 
       var vm = this;
       page_url = page_url || '/api/usersAPI';
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.users = res.data;
+        _this2.users = res.data;
         vm.makePagination(res.meta, res.links);
       })["catch"](function (err) {
         return console.log(err);
@@ -2550,7 +2564,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pagination = pagination;
     },
     deleteUser: function deleteUser(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (confirm('Are You Sure?')) {
         fetch("api/usersAPI/" + id, {
@@ -2560,14 +2574,14 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           alert('User Removed');
 
-          _this2.fetchUsers();
+          _this3.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
       }
     },
     addUser: function addUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.edit === false) {
         // Add
@@ -2580,11 +2594,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this3.clearForm();
+          _this4.clearForm();
 
           alert('User Added');
 
-          _this3.fetchUsers();
+          _this4.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -2599,11 +2613,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this3.clearForm();
+          _this4.clearForm();
 
           alert('User Updated');
 
-          _this3.fetchUsers();
+          _this4.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -42593,6 +42607,46 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
+        _c("span", [_vm._v("Select privilages:    ")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.user.admin,
+              expression: "user.admin"
+            }
+          ],
+          attrs: { name: "admin", type: "radio", value: "1" },
+          domProps: { checked: _vm._q(_vm.user.admin, "1") },
+          on: {
+            change: function($event) {
+              return _vm.$set(_vm.user, "admin", "1")
+            }
+          }
+        }),
+        _vm._v(" Admin\n    "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.user.admin,
+              expression: "user.admin"
+            }
+          ],
+          attrs: { name: "admin", type: "radio", value: "0" },
+          domProps: { checked: _vm._q(_vm.user.admin, "0") },
+          on: {
+            change: function($event) {
+              return _vm.$set(_vm.user, "admin", "0")
+            }
+          }
+        }),
+        _vm._v(" User\n    "),
+        _c("br"),
+        _vm._v(" "),
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
@@ -42677,7 +42731,7 @@ var render = function() {
           ]
         )
       ]),
-      _vm._v("\n<<<<<<< HEAD\n\n=======\n    "),
+      _vm._v(" "),
       _c("input", {
         directives: [
           {
@@ -42698,8 +42752,7 @@ var render = function() {
             _vm.search = $event.target.value
           }
         }
-      }),
-      _vm._v("\n>>>>>>> e58a625a2caf5cf830ce39b67c92ae294fe7efe7\n    ")
+      })
     ]),
     _vm._v(" "),
     _c(
@@ -42708,7 +42761,7 @@ var render = function() {
       [
         _vm._m(0),
         _vm._v(" "),
-        _vm._l(_vm.users, function(__user) {
+        _vm._l(_vm.filteredUsers, function(__user) {
           return _c("tr", { key: __user.id }, [
             _c("td", [_vm._v(_vm._s(__user.name))]),
             _vm._v(" "),
@@ -42716,7 +42769,7 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(__user.email))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(__user.password))]),
+            _c("td", [_vm._v(_vm._s(__user.admin))]),
             _vm._v(" "),
             _c("td", [
               _c(
@@ -42764,7 +42817,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("email")]),
       _vm._v(" "),
-      _c("th", [_vm._v("pws")]),
+      _c("th", [_vm._v("admin")]),
       _vm._v(" "),
       _c("th")
     ])
@@ -58654,8 +58707,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
