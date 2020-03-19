@@ -28,7 +28,7 @@
     
         <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchUsers(pagination.next_page_url)">Next</a></li>
       </ul>
-    <input type="text" class="form-control mb-2" v-model="search" placeholder="search customers"/>
+    <input type="text" class="form-control mb-2" v-model="search" placeholder="Search Users"/>
     </nav>
     <table class="table table-hover">
             <tr>
