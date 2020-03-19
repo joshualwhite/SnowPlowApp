@@ -1970,6 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       customers: [],
+      search: '',
       customer: {
         id: '',
         name: '',
@@ -1989,11 +1990,11 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchRoutes();
   },
   computed: {
-    filteredUsers: function filteredUsers() {
+    filteredCustomers: function filteredCustomers() {
       var _this = this;
 
-      return this.users.filter(function (user) {
-        return user.name.match(_this.search);
+      return this.customers.filter(function (customer) {
+        return customer.name.match(_this.search);
       });
     }
   },
@@ -2451,6 +2452,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -41955,7 +41960,29 @@ var render = function() {
               )
             ]
           )
-        ])
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.search,
+              expression: "search"
+            }
+          ],
+          staticClass: "form-control mb-2",
+          attrs: { type: "text", placeholder: "Search Customers" },
+          domProps: { value: _vm.search },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.search = $event.target.value
+            }
+          }
+        })
       ]
     ),
     _vm._v(" "),
@@ -42649,7 +42676,30 @@ var render = function() {
             )
           ]
         )
-      ])
+      ]),
+      _vm._v("\n<<<<<<< HEAD\n\n=======\n    "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.search,
+            expression: "search"
+          }
+        ],
+        staticClass: "form-control mb-2",
+        attrs: { type: "text", placeholder: "Search Users" },
+        domProps: { value: _vm.search },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.search = $event.target.value
+          }
+        }
+      }),
+      _vm._v("\n>>>>>>> e58a625a2caf5cf830ce39b67c92ae294fe7efe7\n    ")
     ]),
     _vm._v(" "),
     _c(
