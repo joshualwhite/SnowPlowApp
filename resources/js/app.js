@@ -19,12 +19,12 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('example-component2', require('./components/ExampleComponent2.vue').default);
+
 Vue.component('customers', require('./components/Customers.vue').default);
 Vue.component('users', require('./components/Users.vue').default);
 Vue.component('routes', require('./components/Routes.vue').default);
-
+Vue.component('admin-dashboard', require('./components/AdminDashboard.vue').default);
+Vue.component('employee-dashboard', require('./components/EmployeeDashboard.vue').default);
 
 
 /**
