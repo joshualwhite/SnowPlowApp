@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Resources\Route as RouteResource;
 use App\Route;
-use Illuminate\Support\Facades\DB;
 use App\Customer;
-
 class RouteControllerAPI extends Controller
 {
     /**
@@ -98,9 +96,23 @@ class RouteControllerAPI extends Controller
                 return new RouteResource($route);
         }
     }
-
-    public function reset_routes() {
-        DB::table('customers')->update(['status' => 0]);
+    public function routeStatus(){
+        $routes = Route::all();
+        $total = 0;
+        foreach($routes as $route){
+            $customers = Customer::select('status')->get();
+            $total = 0;
+            $done = 0;
+            foreach($customers as $customer){
+                if ($customer->status == 2 || $customer->status == 3 || $customer->status == 4){
+                    $done += 1;
+                }
+                $total += 1; 
+            }
+            $route->total = $total;
+            $route->done = $done;
+        }
+        return RouteResource::collection($routes);
     }
 
     public function sort_by() {

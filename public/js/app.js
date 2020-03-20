@@ -1930,6 +1930,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1945,7 +1961,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var vm = this;
-      page_url = page_url || '/api/routes';
+      page_url = page_url || '/api/adminRoutes';
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -41760,8 +41776,44 @@ var render = function() {
           }
         }
       },
-      [_vm._v("Sort By " + _vm._s("sort_by"))]
+      [_vm._v('Sort By "sort_by"')]
     ),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-5" },
+        [
+          _c("h3", [_vm._v("Done")]),
+          _vm._v(" "),
+          _vm._l(_vm.routes, function(__route) {
+            return _c("div", { key: __route.id }, [
+              __route.done == __route.total
+                ? _c("p", [_vm._v(_vm._s(__route.name))])
+                : _vm._e()
+            ])
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-5" },
+        [
+          _c("h3", [_vm._v("Not Done")]),
+          _vm._v(" "),
+          _vm._l(_vm.routes, function(__route) {
+            return _c("div", { key: __route.id }, [
+              __route.done != __route.total
+                ? _c("p", [_vm._v(_vm._s(__route.name))])
+                : _vm._e()
+            ])
+          })
+        ],
+        2
+      )
+    ]),
     _vm._v(" "),
     _c(
       "table",
@@ -41772,7 +41824,7 @@ var render = function() {
         _vm._l(_vm.routes, function(__route) {
           return _c("tr", { key: __route.id })
         }),
-        _vm._l(_vm.routes, function(__customer) {
+        _vm._l(_vm.routes.cu, function(__customer) {
           return _c("tr", { key: __customer.id }, [
             _c("td", [_vm._v(_vm._s(_vm.__route.name))]),
             _vm._v(" "),

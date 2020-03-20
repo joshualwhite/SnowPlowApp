@@ -70,3 +70,5 @@ Route::delete('route/{id}', 'RouteControllerAPI@destroy');
 Route::put('routes/reset', 'RouteControllerAPI@reset_routes');
 // Sets sort_by to the 0 or 1 (switches back and forth)
 Route::put('routes/sort', 'RouteControllerAPI@sort_by');
+//get routes status
+Route::get('adminRoutes', 'RouteControllerAPI@routeStatus');

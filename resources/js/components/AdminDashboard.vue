@@ -2,19 +2,19 @@
     <div class="container">
        <h3>Admin</h3>
        <button @click="resetRoutes()" class="btn btn-danger">Reset Route Status</button>
-       <button @click="sortBy()" class="btn btn-primary">Sort By {{"sort_by"}}</button>
+       <button @click="sortBy()" class="btn btn-primary">Sort By "sort_by"</button>
 
       <div class="row">
         <div class="col-5">
-          Done
+          <h3>Done</h3>
            <div v-for="__route in routes" v-bind:key="__route.id">
-             <p v-if="__route.done = route.total">{{route.name}}</p>
-           <div>
+             <p v-if="__route.done == __route.total">{{__route.name}}</p>
+           </div>
         </div>
         <div class="col-5">
-          Not Done
+          <h3>Not Done</h3>
           <div v-for="__route in routes" v-bind:key="__route.id">
-             <p v-if="__route.done != route.total">{{route.name}}</p>
+             <p v-if="__route.done != __route.total">{{__route.name}}</p>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
               <th>Finished Routes</th>
           </tr>
           <tr v-for="__route in routes" v-bind:key="__route.id">
-              <tr v-for="__customer in routes" v-bind:key="__customer.id">
+              <tr v-for="__customer in routes.cu" v-bind:key="__customer.id">
                 
             <td>{{__route.name}}</td>
             <td>
@@ -42,11 +42,6 @@ export default {
     return {
       customers: [],
       routes: [
-        name,
-        sort_by,
-        id,
-        done,
-        total
       ],
     };
   },
@@ -56,14 +51,14 @@ export default {
   methods: {
     fetchRoutes(page_url) {
       let vm = this;
-      page_url = page_url || '/api/routes';
+      page_url = page_url || '/api/adminRoutes';
       fetch(page_url)
         .then(res => res.json())
         .then(res => {
           this.routes = res.data;
         })
         .catch(err => console.log(err));
-    },
+      },
     resetRoutes(){
       fetch('/api/routes/reset', {
           method: 'put',
