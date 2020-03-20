@@ -2544,7 +2544,7 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         phone_number: '',
         password: '',
-        admin: ''
+        admin: admin
       },
       user_id: '',
       pagination: {},
@@ -2628,7 +2628,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         // Update
-        fetch('api/usersAPI', {
+        fetch('api' / 'usersAPI', {
           method: 'put',
           body: JSON.stringify(this.user),
           headers: {
@@ -2652,6 +2652,8 @@ __webpack_require__.r(__webpack_exports__);
       this.user.name = user.name;
       this.user.phone_number = user.phone_number;
       this.user.email = user.email;
+      this.user.id = user.id;
+      this.user.admin = user.admin;
     },
     clearForm: function clearForm() {
       this.edit = false;
@@ -2659,6 +2661,8 @@ __webpack_require__.r(__webpack_exports__);
       this.user.phone_number = '';
       this.user.password = '';
       this.user.email = '';
+      this.user.id = null;
+      this.user.admin = null;
     }
   }
 });

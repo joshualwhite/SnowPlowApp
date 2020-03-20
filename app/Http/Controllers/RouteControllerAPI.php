@@ -42,8 +42,6 @@ class RouteControllerAPI extends Controller
     {
         $route = $request->isMethod('put') ? Route::findOrFail($request->id) : new Route;
         $route->name = $request->input('name');
-        // TODO Get User for Route
-        $route->user = 0;
         $route->save();
         $id = $route->id;
         // Deal With Customer Assignments
