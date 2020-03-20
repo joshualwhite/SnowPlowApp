@@ -211,7 +211,7 @@ export default {
       for(i in this.edit_route){
         this.edit_route[i].route_position = i;
       }
-    }    
+    },    
   }
 };
 </script>
