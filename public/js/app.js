@@ -1927,6 +1927,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1947,6 +1951,17 @@ __webpack_require__.r(__webpack_exports__);
         return res.json();
       }).then(function (res) {
         _this.routes = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    resetRoutes: function resetRoutes() {
+      fetch('/api/routes/reset', {
+        method: 'put'
+      }).then(function (res) {
+        return res.text();
+      }).then(function (res) {
+        return console.log(res);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -41711,7 +41726,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("h3", [_vm._v("Admin")]),
-    _vm._v(" "),
+    _vm._v("\n<<<<<<< HEAD\n       "),
     _c(
       "table",
       { staticClass: "table table-hover" },
@@ -41730,7 +41745,21 @@ var render = function() {
         })
       ],
       2
-    )
+    ),
+    _vm._v("\n=======\n       "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-danger",
+        on: {
+          click: function($event) {
+            return _vm.resetRoutes()
+          }
+        }
+      },
+      [_vm._v("Reset Route Status")]
+    ),
+    _vm._v("\n>>>>>>> f6b3512b744d8a54d3989a339b6025136a1dfcb1\n    ")
   ])
 }
 var staticRenderFns = [
@@ -42514,7 +42543,7 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("span", [_vm._v("Select privilages:    ")]),
+        _c("span", [_vm._v("Select Privileges:    ")]),
         _vm._v(" "),
         _c("input", {
           directives: [
