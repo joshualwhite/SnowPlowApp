@@ -14,7 +14,7 @@
             <div class="form-group">
         <input type="text" class="form-control" placeholder="Email" v-model="user.email">
       </div>
-      <span>Select privilages:    </span>
+      <span>Select Privileges:    </span>
       <input name="admin" type="radio" v-model="user.admin" value="1"> Admin
       <input name="admin" type="radio" v-model="user.admin" value="0"> User
       <br />
