@@ -1928,6 +1928,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1954,6 +1956,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     resetRoutes: function resetRoutes() {
       fetch('/api/routes/reset', {
+        method: 'put'
+      }).then(function (res) {
+        return res.text();
+      }).then(function (res) {
+        return console.log(res);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    sortBy: function sortBy() {
+      fetch('/api/routes/sort', {
         method: 'put'
       }).then(function (res) {
         return res.text();
@@ -41735,6 +41748,19 @@ var render = function() {
         }
       },
       [_vm._v("Reset Route Status")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.sortBy()
+          }
+        }
+      },
+      [_vm._v("Sort By " + _vm._s("sort_by"))]
     ),
     _vm._v(" "),
     _c(

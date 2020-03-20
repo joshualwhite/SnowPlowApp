@@ -102,5 +102,17 @@ class RouteControllerAPI extends Controller
     public function reset_routes() {
         DB::table('customers')->update(['status' => 0]);
     }
+
+    public function sort_by() {
+        if(Route::select('sort_by')->first()->sort_by){
+            DB::table('routes')->update(['sort_by' => 0]);
+            $status = 0;
+        }
+        else {
+            DB::table('routes')->update(['sort_by' => 1]);
+            $status = 1;
+        }
+        return $status; 
+    }
 }
 
