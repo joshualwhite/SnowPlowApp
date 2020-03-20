@@ -1,7 +1,7 @@
 <template>
     <div class="container">
        <h3>Admin</h3>
-<<<<<<< HEAD
+       <button @click="resetRoutes()" class="btn btn-danger">Reset Route Status</button>
        <table class="table table-hover">
           <tr>
               <th>Routes in progress</th>
@@ -15,9 +15,6 @@
             </td>
         </tr>
         </table>
-=======
-       <button @click="resetRoutes()" class="btn btn-danger">Reset Route Status</button>
->>>>>>> f6b3512b744d8a54d3989a339b6025136a1dfcb1
     </div> 
 </template>
 

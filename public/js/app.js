@@ -1928,9 +1928,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -41726,7 +41723,20 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("h3", [_vm._v("Admin")]),
-    _vm._v("\n<<<<<<< HEAD\n       "),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-danger",
+        on: {
+          click: function($event) {
+            return _vm.resetRoutes()
+          }
+        }
+      },
+      [_vm._v("Reset Route Status")]
+    ),
+    _vm._v(" "),
     _c(
       "table",
       { staticClass: "table table-hover" },
@@ -41745,21 +41755,7 @@ var render = function() {
         })
       ],
       2
-    ),
-    _vm._v("\n=======\n       "),
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-danger",
-        on: {
-          click: function($event) {
-            return _vm.resetRoutes()
-          }
-        }
-      },
-      [_vm._v("Reset Route Status")]
-    ),
-    _vm._v("\n>>>>>>> f6b3512b744d8a54d3989a339b6025136a1dfcb1\n    ")
+    )
   ])
 }
 var staticRenderFns = [
@@ -58606,8 +58602,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
