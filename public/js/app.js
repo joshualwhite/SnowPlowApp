@@ -1937,20 +1937,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       customers: [],
-      routes: []
+      routes: [],
+      sort_by_text: ''
     };
   },
   created: function created() {
@@ -1985,7 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
       fetch('/api/routes/sort', {
         method: 'put'
       }).then(function (res) {
-        return res.text();
+        return res.data();
       }).then(function (res) {
         return console.log(res);
       })["catch"](function (err) {
@@ -2544,7 +2536,7 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         phone_number: '',
         password: '',
-        admin: ''
+        admin: admin
       },
       user_id: '',
       pagination: {},
@@ -2628,6 +2620,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         // Update
+        console.log(JSON.stringify(this.user));
         fetch('api/usersAPI', {
           method: 'put',
           body: JSON.stringify(this.user),
@@ -2652,6 +2645,8 @@ __webpack_require__.r(__webpack_exports__);
       this.user.name = user.name;
       this.user.phone_number = user.phone_number;
       this.user.email = user.email;
+      this.user.id = user.id;
+      this.user.admin = user.admin;
     },
     clearForm: function clearForm() {
       this.edit = false;
@@ -2659,6 +2654,8 @@ __webpack_require__.r(__webpack_exports__);
       this.user.phone_number = '';
       this.user.password = '';
       this.user.email = '';
+      this.user.id = null;
+      this.user.admin = null;
     }
   }
 });
@@ -41776,20 +41773,24 @@ var render = function() {
           }
         }
       },
-      [_vm._v('Sort By "sort_by"')]
+      [_vm._v("Sort")]
     ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("h3", [_vm._v("Route Status")]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
         { staticClass: "col-5" },
         [
-          _c("h3", [_vm._v("Done")]),
+          _c("h4", [_vm._v("Done")]),
           _vm._v(" "),
           _vm._l(_vm.routes, function(__route) {
             return _c("div", { key: __route.id }, [
               __route.done == __route.total
-                ? _c("p", [_vm._v(_vm._s(__route.name))])
+                ? _c("div", [_c("span", [_vm._v(_vm._s(__route.name))])])
                 : _vm._e()
             ])
           })
@@ -41797,57 +41798,38 @@ var render = function() {
         2
       ),
       _vm._v(" "),
+      _c("div", { staticClass: "col-1" }),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "col-5" },
         [
-          _c("h3", [_vm._v("Not Done")]),
+          _c("h4", [_vm._v("Not Done")]),
           _vm._v(" "),
           _vm._l(_vm.routes, function(__route) {
             return _c("div", { key: __route.id }, [
               __route.done != __route.total
-                ? _c("p", [_vm._v(_vm._s(__route.name))])
+                ? _c("div", [
+                    _c("span", [_vm._v(_vm._s(__route.name))]),
+                    _c("span", { staticClass: "float-right" }, [
+                      _vm._v(
+                        "Remaining:" +
+                          _vm._s(__route.done) +
+                          "/" +
+                          _vm._s(__route.total)
+                      )
+                    ])
+                  ])
                 : _vm._e()
             ])
           })
         ],
         2
       )
-    ]),
-    _vm._v(" "),
-    _c(
-      "table",
-      { staticClass: "table table-hover" },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._l(_vm.routes, function(__route) {
-          return _c("tr", { key: __route.id })
-        }),
-        _vm._l(_vm.routes.cu, function(__customer) {
-          return _c("tr", { key: __customer.id }, [
-            _c("td", [_vm._v(_vm._s(_vm.__route.name))]),
-            _vm._v(" "),
-            _c("td")
-          ])
-        })
-      ],
-      2
-    )
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Routes in progress")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Finished Routes")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

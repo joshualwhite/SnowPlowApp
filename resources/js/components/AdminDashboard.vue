@@ -2,37 +2,28 @@
     <div class="container">
        <h3>Admin</h3>
        <button @click="resetRoutes()" class="btn btn-danger">Reset Route Status</button>
-       <button @click="sortBy()" class="btn btn-primary">Sort By "sort_by"</button>
-
+       <button @click="sortBy()" class="btn btn-primary">Sort</button>
+      <hr>
+      <h3>Route Status</h3>
       <div class="row">
         <div class="col-5">
-          <h3>Done</h3>
+          <h4>Done</h4>
            <div v-for="__route in routes" v-bind:key="__route.id">
-             <p v-if="__route.done == __route.total">{{__route.name}}</p>
+             <div v-if="__route.done == __route.total">
+                <span>{{__route.name}}</span>
+             </div>
            </div>
         </div>
+        <div class="col-1"></div>
         <div class="col-5">
-          <h3>Not Done</h3>
+          <h4>Not Done</h4>
           <div v-for="__route in routes" v-bind:key="__route.id">
-             <p v-if="__route.done != __route.total">{{__route.name}}</p>
+             <div v-if="__route.done != __route.total">
+                <span>{{__route.name}}</span><span class="float-right">Remaining:{{__route.done}}/{{__route.total}}</span>
+             </div>
           </div>
         </div>
       </div>
-
-
-       <table class="table table-hover">
-          <tr>
-              <th>Routes in progress</th>
-              <th>Finished Routes</th>
-          </tr>
-          <tr v-for="__route in routes" v-bind:key="__route.id">
-              <tr v-for="__customer in routes.cu" v-bind:key="__customer.id">
-                
-            <td>{{__route.name}}</td>
-            <td>
-            </td>
-        </tr>
-        </table>
     </div> 
 </template>
 
@@ -43,6 +34,7 @@ export default {
       customers: [],
       routes: [
       ],
+      sort_by_text: '',
     };
   },
   created() {
@@ -71,7 +63,7 @@ export default {
       fetch('/api/routes/sort', {
           method: 'put',
         })
-        .then(res => res.text())
+        .then(res => res.data())
         .then(res => console.log(res))
         .catch(err => console.log(err));
     },

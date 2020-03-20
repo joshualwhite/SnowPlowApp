@@ -15,8 +15,8 @@
         <input type="text" class="form-control" placeholder="Email" v-model="user.email">
       </div>
       <span>Select Privileges:    </span>
-      <input name="admin" type="radio" v-model="user.admin" value="1"> Admin
-      <input name="admin" type="radio" v-model="user.admin" value="0"> User
+      <input name="admin" type="radio" v-model="user.admin" value=1> Admin
+      <input name="admin" type="radio" v-model="user.admin" value=0> User
       <br />
 
 
@@ -67,7 +67,7 @@ export default {
         name: '',
         phone_number: '',
         password: '',
-        admin: '',
+        admin,
       },
       user_id: '',
       pagination: {},
@@ -137,6 +137,7 @@ export default {
           .catch(err => console.log(err));
       } else {
         // Update
+        console.log(JSON.stringify(this.user));
         fetch('api/usersAPI', {
           method: 'put',
           body: JSON.stringify(this.user),
@@ -158,6 +159,8 @@ export default {
       this.user.name = user.name;
       this.user.phone_number = user.phone_number;
       this.user.email = user.email;
+      this.user.id = user.id;
+      this.user.admin = user.admin;
     },
     clearForm() {
       this.edit = false;
@@ -165,6 +168,8 @@ export default {
       this.user.phone_number = '';
       this.user.password = '';
       this.user.email = '';
+      this.user.id = null;
+      this.user.admin = null;
     }
   }
 };
