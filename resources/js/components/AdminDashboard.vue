@@ -1,6 +1,19 @@
 <template>
     <div class="container">
        <h3>Admin</h3>
+       <table class="table table-hover">
+          <tr>
+              <th>Routes in progress</th>
+              <th>Finished Routes</th>
+          </tr>
+          <tr v-for="__route in routes" v-bind:key="__route.id">
+              <tr v-for="__customer in routes" v-bind:key="__customer.id">
+                
+            <td>{{__route.name}}</td>
+            <td>
+            </td>
+        </tr>
+        </table>
     </div> 
 </template>
 
@@ -8,6 +21,7 @@
 export default {
   data() {
     return {
+      customers: [],
       routes: [],
     };
   },

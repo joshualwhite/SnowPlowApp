@@ -1914,9 +1914,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      customers: [],
       routes: []
     };
   },
@@ -41695,15 +41709,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("h3", [_vm._v("Admin")]),
+    _vm._v(" "),
+    _c(
+      "table",
+      { staticClass: "table table-hover" },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._l(_vm.routes, function(__route) {
+          return _c("tr", { key: __route.id })
+        }),
+        _vm._l(_vm.routes, function(__customer) {
+          return _c("tr", { key: __customer.id }, [
+            _c("td", [_vm._v(_vm._s(_vm.__route.name))]),
+            _vm._v(" "),
+            _c("td")
+          ])
+        })
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h3", [_vm._v("Admin")])
+    return _c("tr", [
+      _c("th", [_vm._v("Routes in progress")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Finished Routes")])
     ])
   }
 ]

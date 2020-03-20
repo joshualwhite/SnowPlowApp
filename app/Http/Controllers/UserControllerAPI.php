@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 Use App\User;
 Use App\Route;
 Use App\Http\Resources\User as UserResource;
+use Illuminate\Support\Facades\Hash;
 
 class UserControllerAPI extends Controller
 {
@@ -57,7 +58,7 @@ class UserControllerAPI extends Controller
             $user->name = $request->input('name');
             $user->phone_number = $request->input('phone_number');
             $user->email = $request->input('email');
-            $user->password = $request->input('password');
+            $user->password = Hash::make($request->input('password'));
             $user->admin = $request->input('admin');
         }
         else{
