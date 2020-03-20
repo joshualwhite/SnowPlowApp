@@ -66,3 +66,5 @@ Route::post('route', 'RouteControllerAPI@store');
 Route::put('route', 'RouteControllerAPI@store');
 // deletes a route
 Route::delete('route/{id}', 'RouteControllerAPI@destroy');
+// deletes a route
+Route::put('routes/reset', 'RouteControllerAPI@reset_routes');

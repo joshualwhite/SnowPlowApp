@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Resources\Route as RouteResource;
 use App\Route;
+use Illuminate\Support\Facades\DB;
 use App\Customer;
+
 class RouteControllerAPI extends Controller
 {
     /**
@@ -96,4 +98,9 @@ class RouteControllerAPI extends Controller
                 return new RouteResource($route);
         }
     }
+
+    public function reset_routes() {
+        DB::table('customers')->update(['status' => 0]);
+    }
 }
+

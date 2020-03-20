@@ -1914,6 +1914,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1933,6 +1934,17 @@ __webpack_require__.r(__webpack_exports__);
         return res.json();
       }).then(function (res) {
         _this.routes = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    resetRoutes: function resetRoutes() {
+      fetch('/api/routes/reset', {
+        method: 'put'
+      }).then(function (res) {
+        return res.text();
+      }).then(function (res) {
+        return console.log(res);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -41695,18 +41707,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("h3", [_vm._v("Admin")]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-danger",
+        on: {
+          click: function($event) {
+            return _vm.resetRoutes()
+          }
+        }
+      },
+      [_vm._v("Reset Route Status")]
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h3", [_vm._v("Admin")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

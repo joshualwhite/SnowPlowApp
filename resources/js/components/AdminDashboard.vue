@@ -1,6 +1,7 @@
 <template>
     <div class="container">
        <h3>Admin</h3>
+       <button @click="resetRoutes()" class="btn btn-danger">Reset Route Status</button>
     </div> 
 </template>
 
@@ -24,7 +25,15 @@ export default {
           this.routes = res.data;
         })
         .catch(err => console.log(err));
-      },
+    },
+    resetRoutes(){
+      fetch('/api/routes/reset', {
+          method: 'put',
+        })
+        .then(res => res.text())
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    },
   }
 };
 </script>
