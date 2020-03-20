@@ -47,23 +47,19 @@ class UserControllerAPI extends Controller
      */
     public function store(Request $request)
     {
-    
-        $user = $request->isMethod('put') ? User::findOrFail($request->user_id) : new User;
-        $edit = $request->isMethod('put') ? '1' : '0';
-        if ($edit == '0'){
-            $user->name = $request->input('name'); 
-            $user->phone_number = $request->input('phone_number');
-            $user->email = $request->input('email');
-            $user->password = Hash::make($request->input('password'));
-            $user->admin = $request->input('admin');
-        }
-        else{
-            $user->name = $request->input('name');
-            $user->phone_number = $request->input('phone_number');
-            $user->email = $request->input('email');
-            $user->admin = $request->input('admin');
-            //$user->password = $request->input('password');
-        }
+        
+        $user = $request->isMethod('put') ? User::findOrFail($request->id) : new User;
+
+        $user->name = $request->input('name');
+        $user->phone_number = $request->input('phone_number');
+        $user->email = $request->input('email');
+        
+        $password = ($request->isMethod('put')) ? "" : $request->input('password');
+        $user->password = Hash::make($password);
+
+        $user->admin = ($request->input('admin') == 0) ? 0 : 1;
+
+
         if($user->save())
             return new UserResource($user);
     }

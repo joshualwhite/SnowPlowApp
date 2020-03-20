@@ -95,10 +95,10 @@ class RouteControllerAPI extends Controller
         }
     }
     public function routeStatus(){
-        $routes = Route::all();
+        $routes = Route::where('id', '!=' , 1)->get();
         $total = 0;
         foreach($routes as $route){
-            $customers = Customer::select('status')->get();
+            $customers = Customer::where('route_id', $route->id)->select('status')->get();
             $total = 0;
             $done = 0;
             foreach($customers as $customer){

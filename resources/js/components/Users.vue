@@ -137,7 +137,8 @@ export default {
           .catch(err => console.log(err));
       } else {
         // Update
-        fetch('api'/'usersAPI', {
+        console.log(JSON.stringify(this.user));
+        fetch('api/usersAPI', {
           method: 'put',
           body: JSON.stringify(this.user),
           headers: {
