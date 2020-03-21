@@ -48,8 +48,15 @@
             <td>{{__user.email}}</td>
             <td>{{__user.admin}}</td>
             <td>
-                <button @click="editUser(__user)" class="btn btn-primary">Edit</button>
-                <button @click="deleteUser(__user.id)" class="btn btn-danger">Delete</button>
+                
+                <div v-if="__user.admin != 1" >
+                  <button @click="editUser(__user)" class="btn btn-primary">Edit</button>
+                  <button @click="deleteUser(__user.id)" class="btn btn-danger">Delete</button>
+                </div>
+                <div v-if="__user.admin == 1" >
+                  <button @click="editUser(__user)" class="btn btn-primary">Edit</button>
+                </div>
+
             </td>
         </tr>
     </table>
@@ -67,7 +74,7 @@ export default {
         name: '',
         phone_number: '',
         password: '',
-        admin,
+        admin: 0,
       },
       user_id: '',
       pagination: {},

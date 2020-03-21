@@ -7,6 +7,14 @@
       <h3>Route Status</h3>
       <div class="row">
         <div class="col-5">
+          <h4>Not Done</h4>
+          <div v-for="__route in routes" v-bind:key="__route.id">
+             <div v-if="__route.done != __route.total">
+                <span>{{__route.name}}</span><span class="float-right">Remaining:{{__route.done}}/{{__route.total}}</span>
+             </div>
+          </div>
+        </div>
+        <div class="col-5">
           <h4>Done</h4>
            <div v-for="__route in routes" v-bind:key="__route.id">
              <div v-if="__route.done == __route.total">
@@ -15,14 +23,6 @@
            </div>
         </div>
         <div class="col-1"></div>
-        <div class="col-5">
-          <h4>Not Done</h4>
-          <div v-for="__route in routes" v-bind:key="__route.id">
-             <div v-if="__route.done != __route.total">
-                <span>{{__route.name}}</span><span class="float-right">Remaining:{{__route.done}}/{{__route.total}}</span>
-             </div>
-          </div>
-        </div>
       </div>
     </div> 
 </template>

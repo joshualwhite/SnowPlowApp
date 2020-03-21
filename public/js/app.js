@@ -2526,6 +2526,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2536,7 +2543,7 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         phone_number: '',
         password: '',
-        admin: admin
+        admin: 0
       },
       user_id: '',
       pagination: {},
@@ -41785,25 +41792,6 @@ var render = function() {
         "div",
         { staticClass: "col-5" },
         [
-          _c("h4", [_vm._v("Done")]),
-          _vm._v(" "),
-          _vm._l(_vm.routes, function(__route) {
-            return _c("div", { key: __route.id }, [
-              __route.done == __route.total
-                ? _c("div", [_c("span", [_vm._v(_vm._s(__route.name))])])
-                : _vm._e()
-            ])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-1" }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-5" },
-        [
           _c("h4", [_vm._v("Not Done")]),
           _vm._v(" "),
           _vm._l(_vm.routes, function(__route) {
@@ -41825,7 +41813,26 @@ var render = function() {
           })
         ],
         2
-      )
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-5" },
+        [
+          _c("h4", [_vm._v("Done")]),
+          _vm._v(" "),
+          _vm._l(_vm.routes, function(__route) {
+            return _c("div", { key: __route.id }, [
+              __route.done == __route.total
+                ? _c("div", [_c("span", [_vm._v(_vm._s(__route.name))])])
+                : _vm._e()
+            ])
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-1" })
     ])
   ])
 }
@@ -42764,31 +42771,52 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(__user.admin))]),
             _vm._v(" "),
             _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  on: {
-                    click: function($event) {
-                      return _vm.editUser(__user)
-                    }
-                  }
-                },
-                [_vm._v("Edit")]
-              ),
+              __user.admin != 1
+                ? _c("div", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            return _vm.editUser(__user)
+                          }
+                        }
+                      },
+                      [_vm._v("Edit")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteUser(__user.id)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ])
+                : _vm._e(),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteUser(__user.id)
-                    }
-                  }
-                },
-                [_vm._v("Delete")]
-              )
+              __user.admin == 1
+                ? _c("div", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            return _vm.editUser(__user)
+                          }
+                        }
+                      },
+                      [_vm._v("Edit")]
+                    )
+                  ])
+                : _vm._e()
             ])
           ])
         })
