@@ -7,6 +7,7 @@ Use App\User;
 Use App\Route;
 Use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserControllerAPI extends Controller
 {
@@ -19,10 +20,6 @@ class UserControllerAPI extends Controller
     {
         {
             $users = User::orderBy('created_at', 'desc')->paginate(20);
-            foreach($users as $user) {
-                //$route = Route::find($user->route_id);
-            }
-    
             return UserResource::collection($users);
         }
     }
@@ -70,9 +67,11 @@ class UserControllerAPI extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function current()
     {
-        //
+        print(Auth::id());
+        $user = User::findOrFail(Auth::id())->first();
+        return new UserResource($user); 
     }
 
     /**

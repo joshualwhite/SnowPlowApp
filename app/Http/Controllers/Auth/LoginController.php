@@ -54,7 +54,7 @@ class LoginController extends Controller
                 return redirect()->route('home');
             }
             else {
-                return view('employees.index');
+                return response()->view('employees.index');
             }
         } 
         else {
