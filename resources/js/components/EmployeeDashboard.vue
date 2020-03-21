@@ -14,17 +14,8 @@
         <button @click="goBack()" class="btn btn-secondary">All Routes</button>
         <div v-for="__customer in my_route.customers" v-bind:key="__customer.id">
           {{__customer.name}}
-<<<<<<< HEAD
-          <div>
-            <input name="customerStatus" type="radio" v-model="user.status" value=1> Needs to be Plowed
-            <input name="customerStatus" type="radio" v-model="user.status" value=2> Customer Plowed
-            <input name="customerStatus" type="radio" v-model="user.status" value=3> Not Enough Snow to Plow
-            <input name="customerStatus" type="radio" v-model="user.ststua" value=4> We Plowed
-          </div>
-=======
           <button @click="editCustomer(__customer)" class="btn btn-primary">Edit Customer</button>
 
->>>>>>> 9799930431cde40b11e9dbc9dcf27dbd27d446e1
         </div>
       </div>
 
@@ -32,7 +23,7 @@
         <button @click="goBack2()" class="btn btn-secondary">Hide</button>
         <h4>{{customer.name}}</h4>
 
-        <form @submit.prevent="addCustomer" class="mb-3">
+        <form @submit.prevent="updateCustomer" class="mb-3">
           <div class="form-group">
             <textarea class="form-control" placeholder="Comments" v-model="customer.comments"></textarea>
           </div>
@@ -59,7 +50,15 @@ export default {
     return {
       routes: [],
       user: [],
-      customer: [],
+      customer: {
+        id: '',
+        name: '',
+        address: '',
+        phone_number: '',
+        route_id: '', 
+        comments:'',
+        status:'',
+      },
       my_route: [],
       chose_route: false,
       edit_customer: false,
@@ -87,12 +86,37 @@ export default {
       this.my_route = [];
     },
     editCustomer(customer){
-      this.customer = customer; 
       this.edit_customer = true;
+      this.customer.id = customer.id;
+      this.customer.customer_id = customer.id;
+      this.customer.name = customer.name;
+      this.customer.address = customer.address;
+      this.customer.phone_number = customer.phone_number;
+      this.customer.comments = customer.comments;
+      this.customer.route_id = customer.route_id;      
+      this.customer.status = customer.status;
     },
     goBack2(){
       this.edit_customer = false;
       this.customer = []; 
+    },
+    updateCustomer(){
+      console.log(JSON.stringify(this.customer))
+      fetch('api/customer', {
+        method: 'put',
+        body: JSON.stringify(this.customer),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          this.clearForm();
+          alert('Customer Updated');
+          this.fetchCustomers();
+        })
+        .catch(err => console.log(err));
+      
     }
   }
 };

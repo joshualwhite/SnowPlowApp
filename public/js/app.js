@@ -2258,8 +2258,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-=======
 //
 //
 //
@@ -2276,13 +2274,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
->>>>>>> 9799930431cde40b11e9dbc9dcf27dbd27d446e1
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       routes: [],
       user: [],
-      customer: [],
+      customer: {
+        id: '',
+        name: '',
+        address: '',
+        phone_number: '',
+        route_id: '',
+        comments: '',
+        status: ''
+      },
       my_route: [],
       chose_route: false,
       edit_customer: false
@@ -2313,12 +2319,41 @@ __webpack_require__.r(__webpack_exports__);
       this.my_route = [];
     },
     editCustomer: function editCustomer(customer) {
-      this.customer = customer;
       this.edit_customer = true;
+      this.customer.id = customer.id;
+      this.customer.customer_id = customer.id;
+      this.customer.name = customer.name;
+      this.customer.address = customer.address;
+      this.customer.phone_number = customer.phone_number;
+      this.customer.comments = customer.comments;
+      this.customer.route_id = customer.route_id;
+      this.customer.status = customer.status;
     },
     goBack2: function goBack2() {
       this.edit_customer = false;
       this.customer = [];
+    },
+    updateCustomer: function updateCustomer() {
+      var _this2 = this;
+
+      console.log(JSON.stringify(this.customer));
+      fetch('api/customer', {
+        method: 'put',
+        body: JSON.stringify(this.customer),
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        _this2.clearForm();
+
+        alert('Customer Updated');
+
+        _this2.fetchCustomers();
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -42429,98 +42464,6 @@ var render = function() {
             _vm._l(_vm.my_route.customers, function(__customer) {
               return _c("div", { key: __customer.id }, [
                 _vm._v("\n      " + _vm._s(__customer.name) + "\n      "),
-<<<<<<< HEAD
-                _c("div", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.user.status,
-                        expression: "user.status"
-                      }
-                    ],
-                    attrs: {
-                      name: "customerStatus",
-                      type: "radio",
-                      value: "1"
-                    },
-                    domProps: { checked: _vm._q(_vm.user.status, "1") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.user, "status", "1")
-                      }
-                    }
-                  }),
-                  _vm._v(" Needs to be Plowed\n        "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.user.status,
-                        expression: "user.status"
-                      }
-                    ],
-                    attrs: {
-                      name: "customerStatus",
-                      type: "radio",
-                      value: "2"
-                    },
-                    domProps: { checked: _vm._q(_vm.user.status, "2") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.user, "status", "2")
-                      }
-                    }
-                  }),
-                  _vm._v(" Customer Plowed\n        "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.user.status,
-                        expression: "user.status"
-                      }
-                    ],
-                    attrs: {
-                      name: "customerStatus",
-                      type: "radio",
-                      value: "3"
-                    },
-                    domProps: { checked: _vm._q(_vm.user.status, "3") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.user, "status", "3")
-                      }
-                    }
-                  }),
-                  _vm._v(" Not Enough Snow to Plow\n        "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.user.ststua,
-                        expression: "user.ststua"
-                      }
-                    ],
-                    attrs: {
-                      name: "customerStatus",
-                      type: "radio",
-                      value: "4"
-                    },
-                    domProps: { checked: _vm._q(_vm.user.ststua, "4") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.user, "ststua", "4")
-                      }
-                    }
-                  }),
-                  _vm._v(" We Plowed\n      ")
-                ])
-=======
                 _c(
                   "button",
                   {
@@ -42533,7 +42476,6 @@ var render = function() {
                   },
                   [_vm._v("Edit Customer")]
                 )
->>>>>>> 9799930431cde40b11e9dbc9dcf27dbd27d446e1
               ])
             })
           ],
@@ -42565,7 +42507,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.addCustomer($event)
+                  return _vm.updateCustomer($event)
                 }
               }
             },
@@ -42650,7 +42592,13 @@ var render = function() {
                     ])
                   ]
                 )
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                [_vm._v("Save")]
+              )
             ]
           )
         ])

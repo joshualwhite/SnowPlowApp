@@ -18,7 +18,7 @@ class RouteControllerAPI extends Controller
         $routes = Route::all();
 
         foreach($routes as $route){
-           $route->customers = Customer::where('route_id', $route->id)->select('name', 'address', 'id', 'route_position')->get();
+           $route->customers = Customer::where('route_id', $route->id)->select('id', 'name', 'phone_number', 'comments', 'rating', 'route_id', 'route_position', 'status', 'address')->orderBy('route_position')->get();
         }
         return RouteResource::collection($routes);
     }
