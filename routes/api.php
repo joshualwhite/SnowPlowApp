@@ -46,7 +46,7 @@ Route::get('usersAPI', 'UserControllerAPI@index');
 Route::delete('usersAPI/{id}', 'UserControllerAPI@destroy');
 Route::post('usersAPI', 'UserControllerAPI@store');
 Route::put('usersAPI', 'UserControllerAPI@store');
-
+Route::get('usersAPI/current', 'UserControllerAPI@current');
 
 /**
  * (Snow Routes) API Routes (urls)

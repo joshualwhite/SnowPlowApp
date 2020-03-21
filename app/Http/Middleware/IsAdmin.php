@@ -19,6 +19,6 @@ class IsAdmin
             return $next($request);
         }
    
-        return view('employees.index');
+        return response()->view('employees.index');
     }
 }
