@@ -49,7 +49,15 @@ export default {
     return {
       routes: [],
       user: [],
-      customer: [],
+      customer: {
+        id: '',
+        name: '',
+        address: '',
+        phone_number: '',
+        route_id: '', 
+        comments:'',
+        status:'',
+      },
       my_route: [],
       chose_route: false,
       edit_customer: false,
@@ -77,8 +85,15 @@ export default {
       this.my_route = [];
     },
     editCustomer(customer){
-      this.customer = customer; 
       this.edit_customer = true;
+      this.customer.id = customer.id;
+      this.customer.customer_id = customer.id;
+      this.customer.name = customer.name;
+      this.customer.address = customer.address;
+      this.customer.phone_number = customer.phone_number;
+      this.customer.comments = customer.comments;
+      this.customer.route_id = customer.route_id;      
+      this.customer.status = customer.status;
     },
     goBack2(){
       this.edit_customer = false;
@@ -87,6 +102,24 @@ export default {
     sort(){
       const [first, ...rest] = this.my_route.customers;
       this.my_route.customers = [...rest,first];
+    },
+    updateCustomer(){
+      console.log(JSON.stringify(this.customer))
+      fetch('api/customer', {
+        method: 'put',
+        body: JSON.stringify(this.customer),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          this.clearForm();
+          alert('Customer Updated');
+          this.fetchCustomers();
+        })
+        .catch(err => console.log(err));
+      
     }
   }
 };

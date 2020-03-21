@@ -43,6 +43,7 @@
               <h3 class="mt-4">{{__route.name}}</h3>
               <a class="mr-3" href="EMPLOYEE ID">{{__route.user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
               <div class="float-right">
+                  
                   <a class="btn btn-danger text-light" @click="deleteRoute(__route.id)">Delete Route</a>
               </div>
               <a class="btn btn-success text-light" @click="editRoute(__route)">Edit Route</a>
