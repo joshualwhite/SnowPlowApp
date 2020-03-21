@@ -1936,7 +1936,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2536,7 +2535,7 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         phone_number: '',
         password: '',
-        admin: admin
+        admin: 0
       },
       user_id: '',
       pagination: {},
@@ -41778,19 +41777,19 @@ var render = function() {
     _vm._v(" "),
     _c("hr"),
     _vm._v(" "),
-    _c("h3", [_vm._v("Route Status")]),
-    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
         { staticClass: "col-5" },
         [
-          _c("h4", [_vm._v("Done")]),
+          _c("h4", [_vm._v("Completed Routes")]),
           _vm._v(" "),
           _vm._l(_vm.routes, function(__route) {
             return _c("div", { key: __route.id }, [
               __route.done == __route.total
-                ? _c("div", [_c("span", [_vm._v(_vm._s(__route.name))])])
+                ? _c("div", [
+                    _c("span", [_c("b", [_vm._v(_vm._s(__route.name))])])
+                  ])
                 : _vm._e()
             ])
           })
@@ -41804,19 +41803,17 @@ var render = function() {
         "div",
         { staticClass: "col-5" },
         [
-          _c("h4", [_vm._v("Not Done")]),
+          _c("h4", [_vm._v("Uncompleted Routes")]),
           _vm._v(" "),
           _vm._l(_vm.routes, function(__route) {
             return _c("div", { key: __route.id }, [
               __route.done != __route.total
                 ? _c("div", [
-                    _c("span", [_vm._v(_vm._s(__route.name))]),
+                    _c("span", [_c("b", [_vm._v(_vm._s(__route.name))])]),
                     _c("span", { staticClass: "float-right" }, [
                       _vm._v(
-                        "Remaining:" +
-                          _vm._s(__route.done) +
-                          "/" +
-                          _vm._s(__route.total)
+                        "Customers Remaining: " +
+                          _vm._s(__route.total - __route.done)
                       )
                     ])
                   ])

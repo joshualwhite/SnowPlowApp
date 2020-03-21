@@ -67,7 +67,7 @@ export default {
         name: '',
         phone_number: '',
         password: '',
-        admin,
+        admin: 0,
       },
       user_id: '',
       pagination: {},
