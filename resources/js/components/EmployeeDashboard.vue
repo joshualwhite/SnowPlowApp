@@ -10,7 +10,13 @@
                     Customers
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                    <a v-for="customer in __route.customers" v-bind:key="customer.id" class="dropdown-item">{{customer.name + " " + customer.address}}</a>
+                    <div v-for="customer in __route.customers" v-bind:key="customer.id">
+                      <a class="dropdown-item">{{customer.name + " " + customer.address}}</a>
+                      <input name="admin" type="radio" v-model="user.admin" value=1> Needs to be Plowed
+                      <input name="admin" type="radio" v-model="user.admin" value=2> Customer Plowed
+                      <input name="admin" type="radio" v-model="user.admin" value=3> Not Enough Snow to Plow
+                      <input name="admin" type="radio" v-model="user.admin" value=4> We Plowed
+                    </div>
                 </div>
                 <hr>
               </div>

@@ -2252,16 +2252,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       routes: [],
-      user: [],
-      route: {
-        id: '',
-        name: '',
-        customers: []
-      }
+      user: []
     };
   },
   created: function created() {
@@ -2272,7 +2273,6 @@ __webpack_require__.r(__webpack_exports__);
     fetchRoutes: function fetchRoutes(page_url) {
       var _this = this;
 
-      var vm = this;
       page_url = page_url || '/api/routes';
       fetch(page_url).then(function (res) {
         return res.json();
@@ -2285,7 +2285,6 @@ __webpack_require__.r(__webpack_exports__);
     fetchUser: function fetchUser() {
       var _this2 = this;
 
-      var vm = this;
       page_url = page_url || '/api/usersAPI/current';
       fetch(page_url).then(function (res) {
         return res.json();
@@ -42384,11 +42383,84 @@ var render = function() {
                       attrs: { "aria-labelledby": "dropdownMenuButton" }
                     },
                     _vm._l(__route.customers, function(customer) {
-                      return _c(
-                        "a",
-                        { key: customer.id, staticClass: "dropdown-item" },
-                        [_vm._v(_vm._s(customer.name + " " + customer.address))]
-                      )
+                      return _c("div", { key: customer.id }, [
+                        _c("a", { staticClass: "dropdown-item" }, [
+                          _vm._v(_vm._s(customer.name + " " + customer.address))
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.admin,
+                              expression: "user.admin"
+                            }
+                          ],
+                          attrs: { name: "admin", type: "radio", value: "1" },
+                          domProps: { checked: _vm._q(_vm.user.admin, "1") },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(_vm.user, "admin", "1")
+                            }
+                          }
+                        }),
+                        _vm._v(" Needs to be Plowed\n                  "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.admin,
+                              expression: "user.admin"
+                            }
+                          ],
+                          attrs: { name: "admin", type: "radio", value: "2" },
+                          domProps: { checked: _vm._q(_vm.user.admin, "2") },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(_vm.user, "admin", "2")
+                            }
+                          }
+                        }),
+                        _vm._v(" Customer Plowed\n                  "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.admin,
+                              expression: "user.admin"
+                            }
+                          ],
+                          attrs: { name: "admin", type: "radio", value: "3" },
+                          domProps: { checked: _vm._q(_vm.user.admin, "3") },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(_vm.user, "admin", "3")
+                            }
+                          }
+                        }),
+                        _vm._v(" Not Enough Snow to Plow\n                  "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.admin,
+                              expression: "user.admin"
+                            }
+                          ],
+                          attrs: { name: "admin", type: "radio", value: "4" },
+                          domProps: { checked: _vm._q(_vm.user.admin, "4") },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(_vm.user, "admin", "4")
+                            }
+                          }
+                        }),
+                        _vm._v(" We Plowed\n                ")
+                      ])
                     }),
                     0
                   ),
@@ -58931,8 +59003,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
