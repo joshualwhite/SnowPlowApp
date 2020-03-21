@@ -1936,7 +1936,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -41785,8 +41784,6 @@ var render = function() {
     _vm._v(" "),
     _c("hr"),
     _vm._v(" "),
-    _c("h3", [_vm._v("Route Status")]),
-    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
@@ -41824,7 +41821,9 @@ var render = function() {
           _vm._l(_vm.routes, function(__route) {
             return _c("div", { key: __route.id }, [
               __route.done == __route.total
-                ? _c("div", [_c("span", [_vm._v(_vm._s(__route.name))])])
+                ? _c("div", [
+                    _c("span", [_c("b", [_vm._v(_vm._s(__route.name))])])
+                  ])
                 : _vm._e()
             ])
           })

@@ -4,7 +4,6 @@
        <button @click="resetRoutes()" class="btn btn-danger">Reset Route Status</button>
        <button @click="sortBy()" class="btn btn-primary">Sort</button>
       <hr>
-      <h3>Route Status</h3>
       <div class="row">
         <div class="col-5">
           <h4>Not Done</h4>
@@ -18,7 +17,7 @@
           <h4>Done</h4>
            <div v-for="__route in routes" v-bind:key="__route.id">
              <div v-if="__route.done == __route.total">
-                <span>{{__route.name}}</span>
+                <span><b>{{__route.name}}</b></span>
              </div>
            </div>
         </div>
