@@ -98,7 +98,7 @@ class RouteControllerAPI extends Controller
         $routes = Route::where('id', '!=' , 1)->get();
         $total = 0;
         foreach($routes as $route){
-            $customers = Customer::where('route_id', $route->id)->select('status')->get();
+            $customers = Customer::where('route_id', $route->id)->get();
             $total = 0;
             $done = 0;
             foreach($customers as $customer){
@@ -109,6 +109,7 @@ class RouteControllerAPI extends Controller
             }
             $route->total = $total;
             $route->done = $done;
+            $route->customers = $customers;
         }
         return RouteResource::collection($routes);
     }

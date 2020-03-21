@@ -1936,6 +1936,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2221,6 +2233,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+//
 //
 //
 //
@@ -41789,7 +41802,7 @@ var render = function() {
         "div",
         { staticClass: "col-5" },
         [
-          _c("h4", [_vm._v("Not Done")]),
+          _c("h4", [_vm._v("Incomplete")]),
           _vm._v(" "),
           _vm._l(_vm.routes, function(__route) {
             return _c("div", { key: __route.id }, [
@@ -41797,12 +41810,7 @@ var render = function() {
                 ? _c("div", [
                     _c("span", [_vm._v(_vm._s(__route.name))]),
                     _c("span", { staticClass: "float-right" }, [
-                      _vm._v(
-                        "Remaining:" +
-                          _vm._s(__route.done) +
-                          "/" +
-                          _vm._s(__route.total)
-                      )
+                      _vm._v("Customers Remaining:" + _vm._s(__route.total))
                     ])
                   ])
                 : _vm._e()
@@ -41816,7 +41824,7 @@ var render = function() {
         "div",
         { staticClass: "col-5" },
         [
-          _c("h4", [_vm._v("Done")]),
+          _c("h4", [_vm._v("Complete")]),
           _vm._v(" "),
           _vm._l(_vm.routes, function(__route) {
             return _c("div", { key: __route.id }, [
@@ -41832,6 +41840,38 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-1" })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mt-5" }, [
+      _c(
+        "div",
+        { staticClass: "col-5" },
+        [
+          _c("h4", [_vm._v("Customers to Be Billed")]),
+          _vm._v(" "),
+          _vm._l(_vm.routes, function(__route) {
+            return _c(
+              "div",
+              { key: __route.id },
+              _vm._l(__route.customers, function(__customer) {
+                return _c("div", { key: __customer.id }, [
+                  __customer.status == 4
+                    ? _c("div", [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(__customer.name) +
+                            "\n          "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              }),
+              0
+            )
+          })
+        ],
+        2
+      )
     ])
   ])
 }
