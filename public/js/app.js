@@ -2262,12 +2262,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       routes: [],
-      user: []
+      user: [],
+      my_route: [],
+      chose_route: false,
+      edit_customer: false
     };
   },
   created: function created() {
     this.fetchRoutes();
-    this.fetchUser();
   },
   methods: {
     fetchRoutes: function fetchRoutes(page_url) {
@@ -2282,17 +2284,13 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     },
-    fetchUser: function fetchUser() {
-      var _this2 = this;
-
-      page_url = page_url || '/api/usersAPI/current';
-      fetch(page_url).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        _this2.user = res.data;
-      })["catch"](function (err) {
-        return console.log(err);
-      });
+    chooseRoute: function chooseRoute(route) {
+      this.chose_route = true;
+      this.my_route = route;
+    },
+    goBack: function goBack() {
+      this.chose_route = false;
+      this.my_route = [];
     }
   }
 });
@@ -42337,143 +42335,169 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c("h2", [_vm._v("Routes")]),
-      _vm._v(" "),
-      _vm._l(_vm.routes, function(__route) {
-        return _c("div", { key: __route.id }, [
-          __route.id != 1
-            ? _c("div", [
-                _c("h3", { staticClass: "mt-4" }, [
-                  _vm._v(_vm._s(__route.name))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "mr-3", attrs: { href: "EMPLOYEE ID" } },
-                  [_vm._v(_vm._s(__route.user))]
-                ),
-                _c("a", { attrs: { href: "EMPLOYEE ID" } }, [
-                  _vm._v("Employee 2")
-                ]),
-                _c("div", { staticClass: "mr-2 mb-2" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "btn-group dropright" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary dropdown-toggle mr-3",
-                      attrs: {
-                        type: "button",
-                        "data-toggle": "dropdown",
-                        "aria-haspopup": "true",
-                        "aria-expanded": "false"
+  return _c("div", { staticClass: "container" }, [
+    !_vm.chose_route
+      ? _c(
+          "div",
+          [
+            _c("h2", [_vm._v("Routes")]),
+            _vm._v(" "),
+            _vm._l(_vm.routes, function(__route) {
+              return _c("div", { key: __route.id }, [
+                __route.id != 1
+                  ? _c("div", [
+                      _c("h3", { staticClass: "mt-4" }, [
+                        _vm._v(_vm._s(__route.name))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "mr-3", attrs: { href: "EMPLOYEE ID" } },
+                        [_vm._v(_vm._s(__route.user))]
+                      ),
+                      _c("a", { attrs: { href: "EMPLOYEE ID" } }, [
+                        _vm._v("Employee 2")
+                      ]),
+                      _c("div", { staticClass: "mr-2 mb-2" }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          on: {
+                            click: function($event) {
+                              return _vm.chooseRoute(__route)
+                            }
+                          }
+                        },
+                        [_vm._v("Choose Route")]
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            })
+          ],
+          2
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.chose_route
+      ? _c(
+          "div",
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                on: {
+                  click: function($event) {
+                    return _vm.goBack()
+                  }
+                }
+              },
+              [_vm._v("All Routes")]
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.my_route.customers, function(__customer) {
+              return _c("div", { key: __customer.id }, [
+                _vm._v("\n      " + _vm._s(__customer.name) + "\n      "),
+                _c("div", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.status,
+                        expression: "user.status"
                       }
+                    ],
+                    attrs: {
+                      name: "customerStatus",
+                      type: "radio",
+                      value: "1"
                     },
-                    [_vm._v("\n                Customers\n            ")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "dropdown-menu",
-                      attrs: { "aria-labelledby": "dropdownMenuButton" }
+                    domProps: { checked: _vm._q(_vm.user.status, "1") },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.user, "status", "1")
+                      }
+                    }
+                  }),
+                  _vm._v(" Needs to be Plowed\n        "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.status,
+                        expression: "user.status"
+                      }
+                    ],
+                    attrs: {
+                      name: "customerStatus",
+                      type: "radio",
+                      value: "2"
                     },
-                    _vm._l(__route.customers, function(customer) {
-                      return _c("div", { key: customer.id }, [
-                        _c("a", { staticClass: "dropdown-item" }, [
-                          _vm._v(_vm._s(customer.name + " " + customer.address))
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.user.admin,
-                              expression: "user.admin"
-                            }
-                          ],
-                          attrs: { name: "admin", type: "radio", value: "1" },
-                          domProps: { checked: _vm._q(_vm.user.admin, "1") },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.user, "admin", "1")
-                            }
-                          }
-                        }),
-                        _vm._v(" Needs to be Plowed\n                  "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.user.admin,
-                              expression: "user.admin"
-                            }
-                          ],
-                          attrs: { name: "admin", type: "radio", value: "2" },
-                          domProps: { checked: _vm._q(_vm.user.admin, "2") },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.user, "admin", "2")
-                            }
-                          }
-                        }),
-                        _vm._v(" Customer Plowed\n                  "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.user.admin,
-                              expression: "user.admin"
-                            }
-                          ],
-                          attrs: { name: "admin", type: "radio", value: "3" },
-                          domProps: { checked: _vm._q(_vm.user.admin, "3") },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.user, "admin", "3")
-                            }
-                          }
-                        }),
-                        _vm._v(" Not Enough Snow to Plow\n                  "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.user.admin,
-                              expression: "user.admin"
-                            }
-                          ],
-                          attrs: { name: "admin", type: "radio", value: "4" },
-                          domProps: { checked: _vm._q(_vm.user.admin, "4") },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.user, "admin", "4")
-                            }
-                          }
-                        }),
-                        _vm._v(" We Plowed\n                ")
-                      ])
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
-                  _c("hr")
+                    domProps: { checked: _vm._q(_vm.user.status, "2") },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.user, "status", "2")
+                      }
+                    }
+                  }),
+                  _vm._v(" Customer Plowed\n        "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.status,
+                        expression: "user.status"
+                      }
+                    ],
+                    attrs: {
+                      name: "customerStatus",
+                      type: "radio",
+                      value: "3"
+                    },
+                    domProps: { checked: _vm._q(_vm.user.status, "3") },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.user, "status", "3")
+                      }
+                    }
+                  }),
+                  _vm._v(" Not Enough Snow to Plow\n        "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.ststua,
+                        expression: "user.ststua"
+                      }
+                    ],
+                    attrs: {
+                      name: "customerStatus",
+                      type: "radio",
+                      value: "4"
+                    },
+                    domProps: { checked: _vm._q(_vm.user.ststua, "4") },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.user, "ststua", "4")
+                      }
+                    }
+                  }),
+                  _vm._v(" We Plowed\n      ")
                 ])
               ])
-            : _vm._e()
-        ])
-      })
-    ],
-    2
-  )
+            })
+          ],
+          2
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
