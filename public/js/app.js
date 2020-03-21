@@ -2219,6 +2219,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 //
 //
 //
@@ -2288,6 +2302,14 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return console.log(err);
       });
+      var r = 0;
+
+      for (r in this.routes) {
+        var route = this.routes[r];
+        route.customers = route.customers.sort(function (a, b) {
+          return a.route_position - b.route_position;
+        });
+      }
     },
     chooseRoute: function chooseRoute(route) {
       this.chose_route = true;
@@ -2304,6 +2326,13 @@ __webpack_require__.r(__webpack_exports__);
     goBack2: function goBack2() {
       this.edit_customer = false;
       this.customer = [];
+    },
+    sort: function sort() {
+      var _this$my_route$custom = _toArray(this.my_route.customers),
+          first = _this$my_route$custom[0],
+          rest = _this$my_route$custom.slice(1);
+
+      this.my_route.customers = [].concat(_toConsumableArray(rest), [first]);
     }
   }
 });
@@ -42366,45 +42395,6 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _vm.chose_route
-      ? _c(
-          "div",
-          [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                on: {
-                  click: function($event) {
-                    return _vm.goBack()
-                  }
-                }
-              },
-              [_vm._v("All Routes")]
-            ),
-            _vm._v(" "),
-            _vm._l(_vm.my_route.customers, function(__customer) {
-              return _c("div", { key: __customer.id }, [
-                _vm._v("\n      " + _vm._s(__customer.name) + "\n      "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        return _vm.editCustomer(__customer)
-                      }
-                    }
-                  },
-                  [_vm._v("Edit Customer")]
-                )
-              ])
-            })
-          ],
-          2
-        )
-      : _vm._e(),
-    _vm._v(" "),
     _vm.edit_customer
       ? _c("div", [
           _c(
@@ -42429,7 +42419,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.addCustomer($event)
+                  return _vm.updateCustomer($event)
                 }
               }
             },
@@ -42514,10 +42504,61 @@ var render = function() {
                     ])
                   ]
                 )
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                [_vm._v("Save")]
+              )
             ]
           )
         ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.chose_route
+      ? _c(
+          "div",
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                on: {
+                  click: function($event) {
+                    return _vm.goBack()
+                  }
+                }
+              },
+              [_vm._v("All Routes")]
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.my_route.customers, function(__customer) {
+              return _c("div", { key: __customer.id }, [
+                _vm._v(
+                  "\n    " +
+                    _vm._s(__customer.name) +
+                    " " +
+                    _vm._s(__customer.route_position) +
+                    "\n    "
+                ),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.editCustomer(__customer)
+                      }
+                    }
+                  },
+                  [_vm._v("Edit Customer")]
+                )
+              ])
+            })
+          ],
+          2
+        )
       : _vm._e()
   ])
 }

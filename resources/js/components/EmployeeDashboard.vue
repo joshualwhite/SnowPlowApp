@@ -10,20 +10,10 @@
           </div>
         </div>
       </div>
-      <div v-if="(chose_route)">
-        <button @click="goBack()" class="btn btn-secondary">All Routes</button>
-        <div v-for="__customer in my_route.customers" v-bind:key="__customer.id">
-          {{__customer.name}}
-          <button @click="editCustomer(__customer)" class="btn btn-primary">Edit Customer</button>
-
-        </div>
-      </div>
-
       <div v-if="edit_customer">
         <button @click="goBack2()" class="btn btn-secondary">Hide</button>
         <h4>{{customer.name}}</h4>
-
-        <form @submit.prevent="addCustomer" class="mb-3">
+        <form @submit.prevent="updateCustomer" class="mb-3">
           <div class="form-group">
             <textarea class="form-control" placeholder="Comments" v-model="customer.comments"></textarea>
           </div>
@@ -39,6 +29,15 @@
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
      </div>
+    <div v-if="(chose_route)">
+      <button @click="goBack()" class="btn btn-secondary">All Routes</button>
+      <div v-for="__customer in my_route.customers" v-bind:key="__customer.id">
+        {{__customer.name}} {{__customer.route_position}}
+        <button @click="editCustomer(__customer)" class="btn btn-primary">Edit Customer</button>
+      </div>
+    </div>
+
+
     </div>
 </template>
 
@@ -84,6 +83,10 @@ export default {
     goBack2(){
       this.edit_customer = false;
       this.customer = []; 
+    },
+    sort(){
+      const [first, ...rest] = this.my_route.customers;
+      this.my_route.customers = [...rest,first];
     }
   }
 };
