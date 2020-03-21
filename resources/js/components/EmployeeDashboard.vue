@@ -1,22 +1,22 @@
 <template>
     <div class="container">
+      <div  v-if="!chose_route">
         <h2>Routes</h2>
         <div v-for="__route in routes" v-bind:key="__route.id">
           <div v-if="__route.id != 1" >
               <h3 class="mt-4">{{__route.name}}</h3>
               <a class="mr-3" href="EMPLOYEE ID">{{__route.user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
-              <div class="btn-group dropright">
-                <button type="button" class="btn btn-secondary dropdown-toggle mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Customers
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                    <a v-for="customer in __route.customers" v-bind:key="customer.id" class="dropdown-item">{{customer.name + " " + customer.address}}</a>
-                </div>
-                <hr>
-              </div>
-            </div>
+              <button @click="chooseRoute(__route)" class="btn btn-secondary">Choose Route</button>
+          </div>
         </div>
-    </div> 
+      </div>
+      <div v-if="chose_route">
+        <button @click="goBack()" class="btn btn-secondary">All Routes</button>
+        <div v-for="__customer in my_route.customers" v-bind:key="__customer.id">
+          {{__customer.name}}
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -27,11 +27,13 @@ export default {
     return {
       routes: [],
       user: [],
+      my_route: [],
+      chose_route: false,
+      edit_customer: false,
     };
   },
   created() {
     this.fetchRoutes();
-    this.fetchUser();
   },
   methods: {
     fetchRoutes(page_url) {
@@ -43,14 +45,13 @@ export default {
         })
         .catch(err => console.log(err));
     },
-    fetchUser() {
-      page_url = page_url || '/api/usersAPI/current';
-      fetch(page_url)
-        .then(res => res.json())
-        .then(res => {
-          this.user = res.data;
-        })
-        .catch(err => console.log(err));
+    chooseRoute(route) {
+      this.chose_route = true;
+      this.my_route = route; 
+    },
+    goBack() {
+      this.chose_route = false;
+      this.my_route = [];
     }
   }
 };
