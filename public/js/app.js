@@ -2231,20 +2231,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 //
 //
 //
@@ -2346,16 +2332,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       this.edit_customer = false;
       this.customer = [];
     },
-    sort: function sort() {
-      var _this$my_route$custom = _toArray(this.my_route.customers),
-          first = _this$my_route$custom[0],
-          rest = _this$my_route$custom.slice(1);
-
-      this.my_route.customers = [].concat(_toConsumableArray(rest), [first]);
-    },
     updateCustomer: function updateCustomer() {
-      var _this2 = this;
-
       console.log(JSON.stringify(this.customer));
       fetch('api/customer', {
         method: 'put',
@@ -2366,14 +2343,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (res) {
         return res.json();
       }).then(function (data) {
-        _this2.clearForm();
-
         alert('Customer Updated');
-
-        _this2.fetchCustomers();
       })["catch"](function (err) {
         return console.log(err);
       });
+      this.edit_customer = false;
     }
   }
 });
@@ -2703,6 +2677,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2778,6 +2753,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.edit === false) {
         // Add
+        console.log(JSON.stringify(this.user));
         fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
@@ -43200,7 +43176,9 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(__user.email))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(__user.admin))]),
+            __user.admin == 1
+              ? _c("td", [_vm._v("Admin")])
+              : _c("td", [_vm._v("User")]),
             _vm._v(" "),
             _c("td", [
               __user.admin != 1
@@ -43267,9 +43245,9 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Phone Number")]),
       _vm._v(" "),
-      _c("th", [_vm._v("email")]),
+      _c("th", [_vm._v("Email")]),
       _vm._v(" "),
-      _c("th", [_vm._v("admin")]),
+      _c("th", [_vm._v("Role")]),
       _vm._v(" "),
       _c("th")
     ])

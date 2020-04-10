@@ -99,10 +99,6 @@ export default {
       this.edit_customer = false;
       this.customer = []; 
     },
-    sort(){
-      const [first, ...rest] = this.my_route.customers;
-      this.my_route.customers = [...rest,first];
-    },
     updateCustomer(){
       console.log(JSON.stringify(this.customer))
       fetch('api/customer', {
@@ -114,12 +110,10 @@ export default {
       })
         .then(res => res.json())
         .then(data => {
-          this.clearForm();
           alert('Customer Updated');
-          this.fetchCustomers();
         })
         .catch(err => console.log(err));
-      
+        this.edit_customer = false; 
     }
   }
 };

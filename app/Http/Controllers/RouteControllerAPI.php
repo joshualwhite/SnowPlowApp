@@ -19,28 +19,13 @@ class RouteControllerAPI extends Controller
         $routes = Route::all();
 
         foreach($routes as $route){
-           $route->customers = Customer::where('route_id', $route->id)->orderBy('route_position')->select('name', 'address', 'id', 'route_position', 'route_id')->get();
+           $route->customers = Customer::where('route_id', $route->id)->orderBy('route_position')->select('phone_number', 'status', 'name', 'address', 'id', 'route_position', 'route_id', 'address', 'comments')->get();
         }
 
         return RouteResource::collection($routes);
     }
 
     
-    /**
-     * Returns a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index2()
-    {
-        $routes = Route::all();
-
-        foreach($routes as $route){
-           $route->customers = Customer::where('route_id', $route->id)->orderBy('route_position')->get();
-        }
-
-        return RouteResource::collection($routes);
-    }
     /**
      * Returns a listing of the resource.
      *

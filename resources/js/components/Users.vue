@@ -38,15 +38,16 @@
           <tr>
             <th>Name</th>
             <th>Phone Number</th>
-            <th>email</th>
-            <th>admin</th>
+            <th>Email</th>
+            <th>Role</th>
             <th></th>
         </tr>
         <tr v-for="__user in filteredUsers" v-bind:key="__user.id">
             <td>{{__user.name}}</td>
             <td>{{__user.phone_number}}</td>
             <td>{{__user.email}}</td>
-            <td>{{__user.admin}}</td>
+            <td  v-if="__user.admin == 1">Admin</td>
+            <td  v-else>User</td>
             <td>
                 
                 <div v-if="__user.admin != 1" >
@@ -128,6 +129,7 @@ export default {
     addUser() {
       if (this.edit === false) {
         // Add
+        console.log(JSON.stringify(this.user));
         fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
