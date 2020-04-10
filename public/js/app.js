@@ -2314,10 +2314,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-=======
-//
->>>>>>> dac65bb701f5c5cf27dc94609b8d9166e721dcf2
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2391,11 +2387,6 @@ __webpack_require__.r(__webpack_exports__);
       this.customer = [];
     },
     updateCustomer: function updateCustomer() {
-<<<<<<< HEAD
-      var _this3 = this;
-
-=======
->>>>>>> dac65bb701f5c5cf27dc94609b8d9166e721dcf2
       console.log(JSON.stringify(this.customer));
       fetch('api/customer', {
         method: 'put',
@@ -2406,37 +2397,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (data) {
-<<<<<<< HEAD
-        //this.clearForm();
-        alert('Customer Updated');
-
-        _this3.fetchCustomers();
-      })["catch"](function (err) {
-        return console.log(err);
-      });
-      this.fetchRoutes();
-    },
-    getPercentDone: function getPercentDone(thisRoute) {
-      var total = 0;
-      var done = 0;
-      console.log(thisRoute.customers);
-
-      for (customer.status in thisRoute.customers) {
-        alert(thisRoute.customers.status);
-
-        if (thisRoute.customers.status != 0 && thisRoute.customers.status != 1) {
-          //alert("if")
-          total += 1;
-          done += 1;
-        } else {
-          //alert("else")
-          total += 1;
-        }
-      }
-
-      var percent = done / total * 100;
-      return percent;
-=======
         alert('Customer Updated');
       })["catch"](function (err) {
         return console.log(err);
@@ -2456,7 +2416,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return Math.floor(done / total * 100) + "%";
->>>>>>> dac65bb701f5c5cf27dc94609b8d9166e721dcf2
     }
   }
 });
@@ -42525,10 +42484,6 @@ var render = function() {
           [
             _c("h2", [_vm._v("Routes")]),
             _vm._v(" "),
-            _vm.routes[0].sort_by == 1
-              ? _c("div", [_vm._v("Starting From Bottom")])
-              : _c("div", [_vm._v("Starting From Top")]),
-            _vm._v(" "),
             _vm._l(_vm.routes, function(__route) {
               return _c("div", { key: __route.id }, [
                 __route.id != 1
@@ -59291,8 +59246,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
