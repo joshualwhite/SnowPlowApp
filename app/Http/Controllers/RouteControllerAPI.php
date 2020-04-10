@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\Route as RouteResource;
+use App\Http\Controllers\DB;
 use App\Route;
 use App\Customer;
 class RouteControllerAPI extends Controller
 {
+
     /**
      * Returns a listing of the resource.
      *
@@ -18,10 +20,21 @@ class RouteControllerAPI extends Controller
         $routes = Route::all();
 
         foreach($routes as $route){
-           $route->customers = Customer::where('route_id', $route->id)->select('id', 'name', 'phone_number', 'comments', 'rating', 'route_id', 'route_position', 'status', 'address')->orderBy('route_position')->get();
+            if($routes[0]->sort_by == 1){
+                $i = 0;
+                $route->customers = Customer::where('route_id', $route->id)->orderBy('route_position', 'desc')->select('phone_number', 'status', 'name', 'address', 'id', 'route_position', 'route_id', 'address', 'comments')->get();
+                foreach($route->customers as $customer)
+                    $customer->route_position = $i++;
+            }
+            else
+                $route->customers = Customer::where('route_id', $route->id)->orderBy('route_position', 'asc')->select('phone_number', 'status', 'name', 'address', 'id', 'route_position', 'route_id', 'address', 'comments')->get();
+ 
         }
+
         return RouteResource::collection($routes);
     }
+
+    
     /**
      * Returns a listing of the resource.
      *
@@ -109,21 +122,24 @@ class RouteControllerAPI extends Controller
             }
             $route->total = $total;
             $route->done = $done;
-            $route->customers = $customers;
+            $route->customers = $customers; 
         }
         return RouteResource::collection($routes);
     }
 
-    public function sort_by() {
-        if(Route::select('sort_by')->first()->sort_by){
-            DB::table('routes')->update(['sort_by' => 0]);
-            $status = 0;
-        }
-        else {
-            DB::table('routes')->update(['sort_by' => 1]);
-            $status = 1;
-        }
-        return $status; 
+    public function sort_bottom() {
+        Route::where('sort_by', '!=', 1)->update(array('sort_by' => 1));
+        return "Routes Starting From the Bottom";
+    }
+
+    public function sort_top() {
+        $routes = Route::where('sort_by', '!=', 0)->update(array('sort_by' => 0));
+        return "Routes Starting From the Top";
+    }
+
+    public function reset_routes(){
+        Customer::where('status', '!=', 0)->update(array('status' => 0));
+        return "Routes Reset Successfully!";
     }
 }
 

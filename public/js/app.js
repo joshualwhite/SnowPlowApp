@@ -1939,21 +1939,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       customers: [],
       routes: [],
-      sort_by_text: ''
+      alert: false,
+      message: ''
     };
   },
   created: function created() {
@@ -1974,26 +1966,58 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     resetRoutes: function resetRoutes() {
+      var _this2 = this;
+
       fetch('/api/routes/reset', {
         method: 'put'
       }).then(function (res) {
         return res.text();
+      }).then(function (res) {
+        return _this2.my_alert(res);
       }).then(function (res) {
         return console.log(res);
       })["catch"](function (err) {
         return console.log(err);
       });
     },
-    sortBy: function sortBy() {
-      fetch('/api/routes/sort', {
+    sortTop: function sortTop() {
+      var _this3 = this;
+
+      fetch('/api/routes/sort-top', {
         method: 'put'
       }).then(function (res) {
-        return res.data();
+        return res.text();
+      }).then(function (res) {
+        return _this3.my_alert(res);
       }).then(function (res) {
         return console.log(res);
       })["catch"](function (err) {
         return console.log(err);
       });
+    },
+    sortBottom: function sortBottom() {
+      var _this4 = this;
+
+      fetch('/api/routes/sort-bottom', {
+        method: 'put'
+      }).then(function (res) {
+        return res.text();
+      }).then(function (res) {
+        return _this4.my_alert(res);
+      }).then(function (res) {
+        return console.log(res);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    my_alert: function my_alert(message) {
+      this.alert = true;
+      this.message = message;
+      setTimeout(this.timeout, 10000);
+    },
+    timeout: function timeout() {
+      this.alert = false;
+      this.message = "";
     }
   }
 });
@@ -2009,6 +2033,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -2083,7 +2110,9 @@ __webpack_require__.r(__webpack_exports__);
       routes: [],
       customer_id: '',
       pagination: {},
-      edit: false
+      edit: false,
+      message: '',
+      alert: false
     };
   },
   created: function created() {
@@ -2146,7 +2175,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return console.log(res);
         }).then(function (data) {
-          alert('Customer Removed');
+          _this4.my_alert("Customer Deleted");
 
           _this4.fetchCustomers();
         })["catch"](function (err) {
@@ -2170,7 +2199,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           _this5.clearForm();
 
-          alert('Customer Added');
+          _this5.my_alert("Customer Created");
 
           _this5.fetchCustomers();
         })["catch"](function (err) {
@@ -2189,7 +2218,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           _this5.clearForm();
 
-          alert('Customer Updated');
+          _this5.my_alert("Customer Updated");
 
           _this5.fetchCustomers();
         })["catch"](function (err) {
@@ -2216,6 +2245,15 @@ __webpack_require__.r(__webpack_exports__);
       this.customer.phone_number = '';
       this.customer.comments = '';
       this.customer.route_id = 1;
+    },
+    my_alert: function my_alert(message) {
+      this.alert = true;
+      this.message = message;
+      setTimeout(this.timeout, 10000);
+    },
+    timeout: function timeout() {
+      this.alert = false;
+      this.message = "";
     }
   }
 });
@@ -2276,6 +2314,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+>>>>>>> dac65bb701f5c5cf27dc94609b8d9166e721dcf2
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2349,8 +2391,11 @@ __webpack_require__.r(__webpack_exports__);
       this.customer = [];
     },
     updateCustomer: function updateCustomer() {
+<<<<<<< HEAD
       var _this3 = this;
 
+=======
+>>>>>>> dac65bb701f5c5cf27dc94609b8d9166e721dcf2
       console.log(JSON.stringify(this.customer));
       fetch('api/customer', {
         method: 'put',
@@ -2361,6 +2406,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (data) {
+<<<<<<< HEAD
         //this.clearForm();
         alert('Customer Updated');
 
@@ -2390,6 +2436,27 @@ __webpack_require__.r(__webpack_exports__);
 
       var percent = done / total * 100;
       return percent;
+=======
+        alert('Customer Updated');
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+      this.edit_customer = false;
+    },
+    percentage: function percentage(customers) {
+      var done = 0;
+      var total = 0;
+      var i = 0;
+
+      for (i; i < customers.length; i++) {
+        var customer = customers[i];
+        console.log(customer.status);
+        if (customer.status != 0) done = done + 1;
+        total = total + 1;
+      }
+
+      return Math.floor(done / total * 100) + "%";
+>>>>>>> dac65bb701f5c5cf27dc94609b8d9166e721dcf2
     }
   }
 });
@@ -2407,6 +2474,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
 //
 //
 //
@@ -2492,7 +2562,9 @@ __webpack_require__.r(__webpack_exports__);
       route_id: '',
       edit: false,
       edit_customers: false,
-      customers_exist: false
+      customers_exist: false,
+      alert: false,
+      message: ''
     };
   },
   created: function created() {
@@ -2556,18 +2628,13 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return console.log(res);
         }).then(function (data) {
-          alert('Route Removed');
+          _this2.my_alert("Route Deleted");
 
           _this2.fetchRoutes();
         })["catch"](function (err) {
           return console.log(err);
         });
       }
-    },
-    test: function test() {
-      this.route.customers = this.edit_route.length > 0 ? this.edit_route : this.route.customers;
-      this.route.unassigned = this.unassigned;
-      console.log(JSON.stringify(this.route));
     },
     addRoute: function addRoute() {
       var _this3 = this;
@@ -2589,7 +2656,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           _this3.clearForm();
 
-          alert('Route Added');
+          _this3.my_alert("Route Added");
 
           _this3.fetchRoutes();
         })["catch"](function (err) {
@@ -2608,7 +2675,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           _this3.clearForm();
 
-          alert('Route Updated');
+          _this3.my_alert("Route Updated");
 
           _this3.fetchRoutes();
         })["catch"](function (err) {
@@ -2639,6 +2706,15 @@ __webpack_require__.r(__webpack_exports__);
       for (i in this.edit_route) {
         this.edit_route[i].route_position = i;
       }
+    },
+    my_alert: function my_alert(message) {
+      this.alert = true;
+      this.message = message;
+      setTimeout(this.timeout, 10000);
+    },
+    timeout: function timeout() {
+      this.alert = false;
+      this.message = "";
     }
   }
 });
@@ -2719,6 +2795,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2733,7 +2810,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       user_id: '',
       pagination: {},
-      edit: false
+      edit: false,
+      alert: false,
+      message: ''
     };
   },
   created: function created() {
@@ -2781,7 +2860,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          alert('User Removed');
+          _this3.my_alert("User Deleted");
 
           _this3.fetchUsers();
         })["catch"](function (err) {
@@ -2794,6 +2873,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.edit === false) {
         // Add
+        console.log(JSON.stringify(this.user));
         fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
@@ -2805,7 +2885,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           _this4.clearForm();
 
-          alert('User Added');
+          _this4.my_alert("User Added");
 
           _this4.fetchUsers();
         })["catch"](function (err) {
@@ -2825,7 +2905,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (data) {
           _this4.clearForm();
 
-          alert('User Updated');
+          _this4.my_alert("User Updated");
 
           _this4.fetchUsers();
         })["catch"](function (err) {
@@ -2849,6 +2929,15 @@ __webpack_require__.r(__webpack_exports__);
       this.user.email = '';
       this.user.id = null;
       this.user.admin = null;
+    },
+    my_alert: function my_alert(message) {
+      this.alert = true;
+      this.message = message;
+      setTimeout(this.timeout, 10000);
+    },
+    timeout: function timeout() {
+      this.alert = false;
+      this.message = "";
     }
   }
 });
@@ -41943,6 +42032,14 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h3", [_vm._v("Admin")]),
     _vm._v(" "),
+    _vm.alert
+      ? _c(
+          "div",
+          { staticClass: "alert alert-primary", attrs: { role: "alert" } },
+          [_vm._v("\n    " + _vm._s(_vm.message) + "\n  ")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "button",
       {
@@ -41953,7 +42050,7 @@ var render = function() {
           }
         }
       },
-      [_vm._v("Reset Route Status")]
+      [_vm._v("Reset Routes")]
     ),
     _vm._v(" "),
     _c(
@@ -41962,11 +42059,24 @@ var render = function() {
         staticClass: "btn btn-primary",
         on: {
           click: function($event) {
-            return _vm.sortBy()
+            return _vm.sortTop()
           }
         }
       },
-      [_vm._v("Sort")]
+      [_vm._v("Sort From Top")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function($event) {
+            return _vm.sortBottom()
+          }
+        }
+      },
+      [_vm._v("Sort From Bottom")]
     ),
     _vm._v(" "),
     _c("hr"),
@@ -42011,40 +42121,6 @@ var render = function() {
           })
         ],
         2
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-1" })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row mt-5" }, [
-      _c(
-        "div",
-        { staticClass: "col-5" },
-        [
-          _c("h4", [_vm._v("Customers to Be Billed")]),
-          _vm._v(" "),
-          _vm._l(_vm.routes, function(__route) {
-            return _c(
-              "div",
-              { key: __route.id },
-              _vm._l(__route.customers, function(__customer) {
-                return _c("div", { key: __customer.id }, [
-                  __customer.status == 4
-                    ? _c("div", [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(__customer.name) +
-                            "\n          "
-                        )
-                      ])
-                    : _vm._e()
-                ])
-              }),
-              0
-            )
-          })
-        ],
-        2
       )
     ])
   ])
@@ -42073,6 +42149,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("h2", [_vm._v("Customers")]),
+    _vm._v(" "),
+    _vm.alert
+      ? _c(
+          "div",
+          { staticClass: "alert alert-primary", attrs: { role: "alert" } },
+          [_vm._v("\n      " + _vm._s(_vm.message) + "\n  ")]
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "form",
@@ -42441,6 +42525,10 @@ var render = function() {
           [
             _c("h2", [_vm._v("Routes")]),
             _vm._v(" "),
+            _vm.routes[0].sort_by == 1
+              ? _c("div", [_vm._v("Starting From Bottom")])
+              : _c("div", [_vm._v("Starting From Top")]),
+            _vm._v(" "),
             _vm._l(_vm.routes, function(__route) {
               return _c("div", { key: __route.id }, [
                 __route.id != 1
@@ -42465,6 +42553,10 @@ var render = function() {
                       ]),
                       _c("div", { staticClass: "mr-2 mb-2" }),
                       _vm._v(" "),
+                      _c("div", { staticClass: "mr-2 mb-2" }, [
+                        _vm._v(_vm._s(_vm.percentage(__route.customers)))
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "button",
                         {
@@ -42479,45 +42571,6 @@ var render = function() {
                       )
                     ])
                   : _vm._e()
-              ])
-            })
-          ],
-          2
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.chose_route
-      ? _c(
-          "div",
-          [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                on: {
-                  click: function($event) {
-                    return _vm.goBack()
-                  }
-                }
-              },
-              [_vm._v("All Routes")]
-            ),
-            _vm._v(" "),
-            _vm._l(_vm.my_route.customers, function(__customer) {
-              return _c("div", { key: __customer.id }, [
-                _vm._v("\n      " + _vm._s(__customer.name) + "\n      "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        return _vm.editCustomer(__customer)
-                      }
-                    }
-                  },
-                  [_vm._v("Edit Customer")]
-                )
               ])
             })
           ],
@@ -42644,6 +42697,51 @@ var render = function() {
             ]
           )
         ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.chose_route
+      ? _c(
+          "div",
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                on: {
+                  click: function($event) {
+                    return _vm.goBack()
+                  }
+                }
+              },
+              [_vm._v("All Routes")]
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.my_route.customers, function(__customer) {
+              return _c("div", { key: __customer.id }, [
+                _vm._v(
+                  "\n     " +
+                    _vm._s(__customer.route_position + 1) +
+                    "      " +
+                    _vm._s(__customer.name) +
+                    "\n    "
+                ),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.editCustomer(__customer)
+                      }
+                    }
+                  },
+                  [_vm._v("Edit Customer")]
+                )
+              ])
+            })
+          ],
+          2
+        )
       : _vm._e()
   ])
 }
@@ -42674,6 +42772,14 @@ var render = function() {
     { staticClass: "container" },
     [
       _c("h2", [_vm._v("Routes")]),
+      _vm._v(" "),
+      _vm.alert
+        ? _c(
+            "div",
+            { staticClass: "alert alert-primary", attrs: { role: "alert" } },
+            [_vm._v("\n    " + _vm._s(_vm.message) + "\n    ")]
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "form",
@@ -42946,6 +43052,14 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h2", [_vm._v("Users")]),
     _vm._v(" "),
+    _vm.alert
+      ? _c(
+          "div",
+          { staticClass: "alert alert-primary", attrs: { role: "alert" } },
+          [_vm._v("\n      " + _vm._s(_vm.message) + "\n  ")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "form",
       {
@@ -43216,7 +43330,9 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(__user.email))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(__user.admin))]),
+            __user.admin == 1
+              ? _c("td", [_vm._v("Admin")])
+              : _c("td", [_vm._v("User")]),
             _vm._v(" "),
             _c("td", [
               __user.admin != 1
@@ -43283,9 +43399,9 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Phone Number")]),
       _vm._v(" "),
-      _c("th", [_vm._v("email")]),
+      _c("th", [_vm._v("Email")]),
       _vm._v(" "),
-      _c("th", [_vm._v("admin")]),
+      _c("th", [_vm._v("Role")]),
       _vm._v(" "),
       _c("th")
     ])
@@ -59175,8 +59291,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

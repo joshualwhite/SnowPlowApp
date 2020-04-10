@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <h2>Customers</h2>
+    <div class="alert alert-primary" role="alert" v-if="alert">
+        {{message}}
+    </div>
     <form @submit.prevent="addCustomer" class="mb-3">
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Name" v-model="customer.name">
@@ -75,7 +78,9 @@ export default {
       routes: [],
       customer_id: '',
       pagination: {},
-      edit: false
+      edit: false,
+      message: '',
+      alert: false,
     };
   },
   created() {
@@ -127,7 +132,7 @@ export default {
           .then(res => res.text())
           .then(res => console.log(res))
           .then(data => {
-            alert('Customer Removed');
+            this.my_alert("Customer Deleted");
             this.fetchCustomers();
           })
           .catch(err => console.log(err));
@@ -146,7 +151,7 @@ export default {
           .then(res => res.json())
           .then(data => {
             this.clearForm();
-            alert('Customer Added');
+            this.my_alert("Customer Created");
             this.fetchCustomers();
           })
           .catch(err => console.log(err));
@@ -162,7 +167,7 @@ export default {
           .then(res => res.json())
           .then(data => {
             this.clearForm();
-            alert('Customer Updated');
+            this.my_alert("Customer Updated");
             this.fetchCustomers();
           })
           .catch(err => console.log(err));
@@ -187,6 +192,15 @@ export default {
       this.customer.phone_number = '';
       this.customer.comments = '';
       this.customer.route_id = 1;
+    },
+    my_alert(message){
+      this.alert = true;
+      this.message = message;
+      setTimeout(this.timeout , 10000);
+    },
+    timeout(){
+      this.alert = false;
+      this.message = ""; 
     }
   }
 };

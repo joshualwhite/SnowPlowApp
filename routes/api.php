@@ -68,7 +68,8 @@ Route::put('route', 'RouteControllerAPI@store');
 Route::delete('route/{id}', 'RouteControllerAPI@destroy');
 // Sets all customer status to 0 or "Not Done"
 Route::put('routes/reset', 'RouteControllerAPI@reset_routes');
-// Sets sort_by to the 0 or 1 (switches back and forth)
-Route::put('routes/sort', 'RouteControllerAPI@sort_by');
+// Sets sort_by to the 0 or 1
+Route::put('routes/sort-top', 'RouteControllerAPI@sort_top');
+Route::put('routes/sort-bottom', 'RouteControllerAPI@sort_bottom');
 //get routes status
 Route::get('adminRoutes', 'RouteControllerAPI@routeStatus');

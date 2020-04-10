@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <h2>Users</h2>
+    <div class="alert alert-primary" role="alert" v-if="alert">
+        {{message}}
+    </div>
     <form @submit.prevent="addUser" class="mb-3">
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Name" v-model="user.name">
@@ -18,9 +21,6 @@
       <input name="admin" type="radio" v-model="user.admin" value=1> Admin
       <input name="admin" type="radio" v-model="user.admin" value=0> User
       <br />
-
-
-
       <button type="submit" class="btn btn-primary">Save</button>
     </form>
     <button @click="clearForm()" class="btn btn-danger mb-2">Cancel</button>
@@ -38,15 +38,16 @@
           <tr>
             <th>Name</th>
             <th>Phone Number</th>
-            <th>email</th>
-            <th>admin</th>
+            <th>Email</th>
+            <th>Role</th>
             <th></th>
         </tr>
         <tr v-for="__user in filteredUsers" v-bind:key="__user.id">
             <td>{{__user.name}}</td>
             <td>{{__user.phone_number}}</td>
             <td>{{__user.email}}</td>
-            <td>{{__user.admin}}</td>
+            <td  v-if="__user.admin == 1">Admin</td>
+            <td  v-else>User</td>
             <td>
                 
                 <div v-if="__user.admin != 1" >
@@ -78,7 +79,9 @@ export default {
       },
       user_id: '',
       pagination: {},
-      edit: false
+      edit: false,
+      alert: false,
+      message: '', 
     };
   },
   created() {
@@ -119,7 +122,7 @@ export default {
         })
           .then(res => res.json())
           .then(data => {
-            alert('User Removed');
+            this.my_alert("User Deleted");
             this.fetchUsers();
           })
           .catch(err => console.log(err));
@@ -128,6 +131,7 @@ export default {
     addUser() {
       if (this.edit === false) {
         // Add
+        console.log(JSON.stringify(this.user));
         fetch('api/usersAPI', {
           method: 'post',
           body: JSON.stringify(this.user),
@@ -138,7 +142,7 @@ export default {
           .then(res => res.json())
           .then(data => {
             this.clearForm();
-            alert('User Added');
+            this.my_alert("User Added");
             this.fetchUsers();
           })
           .catch(err => console.log(err));
@@ -155,7 +159,7 @@ export default {
           .then(res => res.json())
           .then(data => {
             this.clearForm();
-            alert('User Updated');
+            this.my_alert("User Updated");
             this.fetchUsers();
           })
           .catch(err => console.log(err));
@@ -177,6 +181,15 @@ export default {
       this.user.email = '';
       this.user.id = null;
       this.user.admin = null;
+    },
+    my_alert(message){
+      this.alert = true;
+      this.message = message;
+      setTimeout(this.timeout , 10000);
+    },
+    timeout(){
+      this.alert = false;
+      this.message = ""; 
     }
   }
 };

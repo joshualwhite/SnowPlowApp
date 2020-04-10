@@ -1,29 +1,20 @@
 <template>
     <div class="container">
-      <div  v-if="(!chose_route)">
+      <div v-if="(!chose_route)">
         <h2>Routes</h2>
         <div v-for="__route in routes" v-bind:key="__route.id">
           <div v-if="__route.id != 1" >
               <h3 class="mt-4">{{__route.name}}</h3>
               <h4 class="mt-4">{{getPercentDone(__route)}}% Completed.</h4>
               <a class="mr-3" href="EMPLOYEE ID">{{__route.user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
+              <div class="mr-2 mb-2">{{percentage(__route.customers)}}</div>
               <button @click="chooseRoute(__route)" class="btn btn-secondary">Choose Route</button>
           </div>
         </div>
       </div>
-      <div v-if="(chose_route)">
-        <button @click="goBack()" class="btn btn-secondary">All Routes</button>
-        <div v-for="__customer in my_route.customers" v-bind:key="__customer.id">
-          {{__customer.name}}
-          <button @click="editCustomer(__customer)" class="btn btn-primary">Edit Customer</button>
-
-        </div>
-      </div>
-
       <div v-if="edit_customer">
         <button @click="goBack2()" class="btn btn-secondary">Hide</button>
         <h4>{{customer.name}}</h4>
-
         <form @submit.prevent="updateCustomer" class="mb-3">
           <div class="form-group">
             <textarea class="form-control" placeholder="Comments" v-model="customer.comments"></textarea>
@@ -40,6 +31,15 @@
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
      </div>
+    <div v-if="(chose_route)">
+      <button @click="goBack()" class="btn btn-secondary">All Routes</button>
+      <div v-for="__customer in my_route.customers" v-bind:key="__customer.id">
+         {{__customer.route_position + 1}}      {{__customer.name}}
+        <button @click="editCustomer(__customer)" class="btn btn-primary">Edit Customer</button>
+      </div>
+    </div>
+
+
     </div>
 </template>
 
@@ -123,32 +123,23 @@ export default {
       })
         .then(res => res.json())
         .then(data => {
-          //this.clearForm();
           alert('Customer Updated');
-          this.fetchCustomers();
         })
         .catch(err => console.log(err));
-    this.fetchRoutes();
-      
+        this.edit_customer = false;
     },
-    getPercentDone(thisRoute){
-      let total = 0;
+    percentage(customers){
       let done = 0;
-      console.log(thisRoute.customers)
-      for(customer.status in thisRoute.customers){
-        alert(thisRoute.customers.status)
-        if (thisRoute.customers.status != 0 && thisRoute.customers.status != 1){
-          //alert("if")
-          total += 1;
-          done += 1;
-        }
-        else{
-          //alert("else")
-          total += 1;
-        }
+      let total = 0;
+      let i = 0;
+      for(i; i<customers.length; i++) {
+        let customer = customers[i];
+        console.log(customer.status);
+        if (customer.status != 0)
+          done = done + 1;
+        total = total + 1; 
       }
-      let percent = (done / total) * 100;
-      return percent;
+      return Math.floor((done / total) * 100) + "%";
     }
   }
 };
