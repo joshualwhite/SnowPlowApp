@@ -1,11 +1,12 @@
 <template>
     <div class="container">
-      <div  v-if="(!chose_route)">
+      <div v-if="(!chose_route)">
         <h2>Routes</h2>
         <div v-for="__route in routes" v-bind:key="__route.id">
           <div v-if="__route.id != 1" >
               <h3 class="mt-4">{{__route.name}}</h3>
               <a class="mr-3" href="EMPLOYEE ID">{{__route.user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
+              <div class="mr-2 mb-2">{{percentage(__route.customers)}}</div>
               <button @click="chooseRoute(__route)" class="btn btn-secondary">Choose Route</button>
           </div>
         </div>
@@ -32,7 +33,7 @@
     <div v-if="(chose_route)">
       <button @click="goBack()" class="btn btn-secondary">All Routes</button>
       <div v-for="__customer in my_route.customers" v-bind:key="__customer.id">
-        {{__customer.name}} {{__customer.route_position}}
+         {{__customer.route_position + 1}}      {{__customer.name}}
         <button @click="editCustomer(__customer)" class="btn btn-primary">Edit Customer</button>
       </div>
     </div>
@@ -113,7 +114,20 @@ export default {
           alert('Customer Updated');
         })
         .catch(err => console.log(err));
-        this.edit_customer = false; 
+        this.edit_customer = false;
+    },
+    percentage(customers){
+      let done = 0;
+      let total = 0;
+      let i = 0;
+      for(i; i<customers.length; i++) {
+        let customer = customers[i];
+        console.log(customer.status);
+        if (customer.status != 0)
+          done = done + 1;
+        total = total + 1; 
+      }
+      return Math.floor((done / total) * 100) + "%";
     }
   }
 };

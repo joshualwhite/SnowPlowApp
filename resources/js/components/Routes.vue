@@ -1,6 +1,9 @@
 <template>
     <div class="container">
         <h2>Routes</h2>
+        <div class="alert alert-primary" role="alert" v-if="alert">
+        {{message}}
+        </div>
         <form @submit.prevent="addRoute" class="mb-3">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Name" v-model="route.name">
@@ -86,7 +89,9 @@ export default {
       route_id: '',
       edit: false,
       edit_customers: false,
-      customers_exist: false
+      customers_exist: false,
+      alert: false,
+      message: '', 
     };
   },
   created() {
@@ -139,16 +144,11 @@ export default {
           .then(res => res.text())
           .then(res => console.log(res))
           .then(data => {
-            alert('Route Removed');
+            this.my_alert("Route Deleted");
             this.fetchRoutes();
           })
           .catch(err => console.log(err));
       }
-    },
-    test() {
-      this.route.customers = (this.edit_route.length > 0) ?  this.edit_route : this.route.customers;
-      this.route.unassigned = this.unassigned;
-      console.log(JSON.stringify(this.route));
     },
     addRoute() {
       this.route.customers = (this.edit_route.length > 0) ?  this.edit_route : this.route.customers;
@@ -166,7 +166,7 @@ export default {
           .then(res => res.json())
           .then(data => {
             this.clearForm();
-            alert('Route Added');
+            this.my_alert("Route Added");
             this.fetchRoutes();
           })
           .catch(err => console.log(err));
@@ -182,7 +182,7 @@ export default {
           .then(res => res.json())
           .then(data => {
             this.clearForm();
-            alert('Route Updated');
+            this.my_alert("Route Updated");
             this.fetchRoutes();
           })
           .catch(err => console.log(err));
@@ -212,7 +212,16 @@ export default {
       for(i in this.edit_route){
         this.edit_route[i].route_position = i;
       }
-    },    
+    },
+    my_alert(message){
+      this.alert = true;
+      this.message = message;
+      setTimeout(this.timeout , 10000);
+    },
+    timeout(){
+      this.alert = false;
+      this.message = ""; 
+    }
   }
 };
 </script>

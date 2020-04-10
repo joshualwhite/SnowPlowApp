@@ -1,8 +1,12 @@
 <template>
     <div class="container">
        <h3>Admin</h3>
-       <button @click="resetRoutes()" class="btn btn-danger">Reset Route Status</button>
-       <button @click="sortBy()" class="btn btn-primary">Sort</button>
+       <div class="alert alert-primary" role="alert" v-if="alert">
+        {{message}}
+      </div>
+       <button @click="resetRoutes()" class="btn btn-danger">Reset Routes</button>
+       <button @click="sortTop()" class="btn btn-primary">Sort From Top</button>
+       <button @click="sortBottom()" class="btn btn-primary">Sort From Bottom</button>
       <hr>
       <div class="row">
         <div class="col-5">
@@ -21,19 +25,6 @@
              </div>
            </div>
         </div>
-        <div class="col-1"></div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-5">
-          <h4>Customers to Be Billed</h4>
-          <div v-for="__route in routes" v-bind:key="__route.id">
-              <div v-for="__customer in __route.customers" v-bind:key="__customer.id">
-                <div v-if="__customer.status == 4">
-                  {{__customer.name}}
-              </div>
-             </div>
-          </div>
-        </div>
       </div>
     </div> 
 </template>
@@ -45,7 +36,8 @@ export default {
       customers: [],
       routes: [
       ],
-      sort_by_text: '',
+      alert: false,
+      message: ''
     };
   },
   created() {
@@ -67,17 +59,37 @@ export default {
           method: 'put',
         })
         .then(res => res.text())
+        .then(res => this.my_alert(res))
         .then(res => console.log(res))
         .catch(err => console.log(err));
     },
-    sortBy(){
-      fetch('/api/routes/sort', {
+    sortTop(){
+      fetch('/api/routes/sort-top', {
           method: 'put',
         })
-        .then(res => res.data())
+        .then(res => res.text())
+        .then(res => this.my_alert(res))
         .then(res => console.log(res))
         .catch(err => console.log(err));
     },
+    sortBottom(){
+      fetch('/api/routes/sort-bottom', {
+          method: 'put',
+        })
+        .then(res => res.text())
+        .then(res => this.my_alert(res))
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    },
+    my_alert(message){
+      this.alert = true;
+      this.message = message;
+      setTimeout(this.timeout , 10000);
+    },
+    timeout(){
+      this.alert = false;
+      this.message = ""; 
+    }
   }
 };
 </script>
