@@ -5,6 +5,7 @@
         <div v-for="__route in routes" v-bind:key="__route.id">
           <div v-if="__route.id != 1" >
               <h3 class="mt-4">{{__route.name}}</h3>
+              <h4 class="mt-4">{{getPercentDone(__route)}}% Completed.</h4>
               <a class="mr-3" href="EMPLOYEE ID">{{__route.user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
               <button @click="chooseRoute(__route)" class="btn btn-secondary">Choose Route</button>
           </div>
@@ -29,7 +30,7 @@
           </div>
           <div class="form-group">
             <select id="status" class="selectpicker form-control" v-model="customer.status">
-              <option disabled value=0>Not Done</option>
+              <option value=0>Not Done</option>
               <option value=1>Plow Ridge</option>
               <option value=2>Customers Plowed</option>
               <option value=3>No Need</option>
@@ -57,7 +58,7 @@ export default {
         phone_number: '',
         route_id: '', 
         comments:'',
-        status:'',
+        status:''
       },
       my_route: [],
       chose_route: false,
@@ -66,6 +67,7 @@ export default {
   },
   created() {
     this.fetchRoutes();
+    this.fetchCustomers();
   },
   methods: {
     fetchRoutes(page_url) {
@@ -74,6 +76,16 @@ export default {
         .then(res => res.json())
         .then(res => {
           this.routes = res.data;
+        })
+        .catch(err => console.log(err));
+    },
+    fetchCustomers(page_url) {
+      let vm = this;
+      page_url = page_url || '/api/customers';
+      fetch(page_url)
+        .then(res => res.json())
+        .then(res => {
+          this.customers = res.data;
         })
         .catch(err => console.log(err));
     },
@@ -111,12 +123,32 @@ export default {
       })
         .then(res => res.json())
         .then(data => {
-          this.clearForm();
+          //this.clearForm();
           alert('Customer Updated');
           this.fetchCustomers();
         })
         .catch(err => console.log(err));
+    this.fetchRoutes();
       
+    },
+    getPercentDone(thisRoute){
+      let total = 0;
+      let done = 0;
+      console.log(thisRoute.customers)
+      for(customer.status in thisRoute.customers){
+        alert(thisRoute.customers.status)
+        if (thisRoute.customers.status != 0 && thisRoute.customers.status != 1){
+          //alert("if")
+          total += 1;
+          done += 1;
+        }
+        else{
+          //alert("else")
+          total += 1;
+        }
+      }
+      let percent = (done / total) * 100;
+      return percent;
     }
   }
 };

@@ -2275,6 +2275,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2296,6 +2297,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.fetchRoutes();
+    this.fetchCustomers();
   },
   methods: {
     fetchRoutes: function fetchRoutes(page_url) {
@@ -2306,6 +2308,19 @@ __webpack_require__.r(__webpack_exports__);
         return res.json();
       }).then(function (res) {
         _this.routes = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    fetchCustomers: function fetchCustomers(page_url) {
+      var _this2 = this;
+
+      var vm = this;
+      page_url = page_url || '/api/customers';
+      fetch(page_url).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this2.customers = res.data;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -2334,7 +2349,7 @@ __webpack_require__.r(__webpack_exports__);
       this.customer = [];
     },
     updateCustomer: function updateCustomer() {
-      var _this2 = this;
+      var _this3 = this;
 
       console.log(JSON.stringify(this.customer));
       fetch('api/customer', {
@@ -2346,14 +2361,35 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (data) {
-        _this2.clearForm();
-
+        //this.clearForm();
         alert('Customer Updated');
 
-        _this2.fetchCustomers();
+        _this3.fetchCustomers();
       })["catch"](function (err) {
         return console.log(err);
       });
+      this.fetchRoutes();
+    },
+    getPercentDone: function getPercentDone(thisRoute) {
+      var total = 0;
+      var done = 0;
+      console.log(thisRoute.customers);
+
+      for (customer.status in thisRoute.customers) {
+        alert(thisRoute.customers.status);
+
+        if (thisRoute.customers.status != 0 && thisRoute.customers.status != 1) {
+          //alert("if")
+          total += 1;
+          done += 1;
+        } else {
+          //alert("else")
+          total += 1;
+        }
+      }
+
+      var percent = done / total * 100;
+      return percent;
     }
   }
 });
@@ -42413,6 +42449,12 @@ var render = function() {
                         _vm._v(_vm._s(__route.name))
                       ]),
                       _vm._v(" "),
+                      _c("h4", { staticClass: "mt-4" }, [
+                        _vm._v(
+                          _vm._s(_vm.getPercentDone(__route)) + "% Completed."
+                        )
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "a",
                         { staticClass: "mr-3", attrs: { href: "EMPLOYEE ID" } },
@@ -42571,7 +42613,7 @@ var render = function() {
                     }
                   },
                   [
-                    _c("option", { attrs: { disabled: "", value: "0" } }, [
+                    _c("option", { attrs: { value: "0" } }, [
                       _vm._v("Not Done")
                     ]),
                     _vm._v(" "),
