@@ -2313,7 +2313,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2368,6 +2367,7 @@ __webpack_require__.r(__webpack_exports__);
       this.my_route = route;
     },
     goBack: function goBack() {
+      window.location.reload();
       this.chose_route = false;
       this.my_route = [];
     },
@@ -2403,7 +2403,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.edit_customer = false;
     },
-    percentage: function percentage(customers) {
+    getPercentDone: function getPercentDone(customers) {
       var done = 0;
       var total = 0;
       var i = 0;
@@ -42492,12 +42492,6 @@ var render = function() {
                         _vm._v(_vm._s(__route.name))
                       ]),
                       _vm._v(" "),
-                      _c("h4", { staticClass: "mt-4" }, [
-                        _vm._v(
-                          _vm._s(_vm.getPercentDone(__route)) + "% Completed."
-                        )
-                      ]),
-                      _vm._v(" "),
                       _c(
                         "a",
                         { staticClass: "mr-3", attrs: { href: "EMPLOYEE ID" } },
@@ -42509,7 +42503,7 @@ var render = function() {
                       _c("div", { staticClass: "mr-2 mb-2" }),
                       _vm._v(" "),
                       _c("div", { staticClass: "mr-2 mb-2" }, [
-                        _vm._v(_vm._s(_vm.percentage(__route.customers)))
+                        _vm._v(_vm._s(_vm.getPercentDone(__route.customers)))
                       ]),
                       _vm._v(" "),
                       _c(
