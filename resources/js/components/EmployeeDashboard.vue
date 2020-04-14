@@ -4,9 +4,8 @@
         <h2>Routes</h2>
         <div v-for="__route in routes" v-bind:key="__route.id">
           <div v-if="__route.id != 1" >
-              <h3 class="mt-4">{{__route.name}}</h3>
+              <h3 class="mt-4">{{__route.name}} | {{getPercentDone(__route.customers)}}</h3>
               <a class="mr-3" href="EMPLOYEE ID">{{__route.user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
-              <div class="mr-2 mb-2">{{getPercentDone(__route.customers)}}</div>
               <button @click="chooseRoute(__route)" class="btn btn-secondary">Choose Route</button>
           </div>
         </div>
@@ -133,9 +132,11 @@ export default {
       let i = 0;
       for(i; i<customers.length; i++) {
         let customer = customers[i];
+        let stat = customer.status
         console.log(customer.status);
-        if (customer.status != 0)
+        if (stat != 1 && stat != 0){
           done = done + 1;
+        }
         total = total + 1; 
       }
       return Math.floor((done / total) * 100) + "%";

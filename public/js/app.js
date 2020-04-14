@@ -2312,7 +2312,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2410,8 +2409,13 @@ __webpack_require__.r(__webpack_exports__);
 
       for (i; i < customers.length; i++) {
         var customer = customers[i];
+        var stat = customer.status;
         console.log(customer.status);
-        if (customer.status != 0) done = done + 1;
+
+        if (stat != 1 && stat != 0) {
+          done = done + 1;
+        }
+
         total = total + 1;
       }
 
@@ -42489,7 +42493,11 @@ var render = function() {
                 __route.id != 1
                   ? _c("div", [
                       _c("h3", { staticClass: "mt-4" }, [
-                        _vm._v(_vm._s(__route.name))
+                        _vm._v(
+                          _vm._s(__route.name) +
+                            " | " +
+                            _vm._s(_vm.getPercentDone(__route.customers))
+                        )
                       ]),
                       _vm._v(" "),
                       _c(
@@ -42501,10 +42509,6 @@ var render = function() {
                         _vm._v("Employee 2")
                       ]),
                       _c("div", { staticClass: "mr-2 mb-2" }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "mr-2 mb-2" }, [
-                        _vm._v(_vm._s(_vm.getPercentDone(__route.customers)))
-                      ]),
                       _vm._v(" "),
                       _c(
                         "button",
