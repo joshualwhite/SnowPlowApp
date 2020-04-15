@@ -34,11 +34,13 @@
       <div v-for="__customer in my_route.customers" v-bind:key="__customer.id">
          {{__customer.route_position + 1}}      {{__customer.name}}
         <button @click="editCustomer(__customer)" class="btn btn-primary">Edit Customer</button>
+        <button style="float" @click="openGoogleMap(__customer.address)" class="btn btn-primary">Open In Maps</button>
+        </div>
       </div>
     </div>
 
 
-    </div>
+    
 </template>
 
 <script>
@@ -140,6 +142,21 @@ export default {
         total = total + 1; 
       }
       return Math.floor((done / total) * 100) + "%";
+    },
+    openGoogleMap(address) {
+        const urlSuffix = 
+           address +
+           ", " +
+           "" +           //street address two
+           ", " +
+           "Grand Forks" + // town
+           ", ";
+           //"58202";        //zip
+
+        window.open(
+          "https://www.google.com/maps/search/?api=1&query=" + urlSuffix,
+          "_blank"
+        );
     }
   }
 };

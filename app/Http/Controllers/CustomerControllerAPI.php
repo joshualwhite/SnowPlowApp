@@ -48,7 +48,8 @@ class CustomerControllerAPI extends Controller
         $customer->name = $request->input('name');
         $customer->address = $request->input('address');
         $customer->phone_number = $request->input('phone_number');
-        $customer->status = $request->input('status');
+        if ($request->input('status'))
+            $customer->status = $request->input('status');
         if($request->input('comments'))
             $customer->comments = $request->input('comments');
         else $customer->comments = "";

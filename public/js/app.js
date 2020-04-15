@@ -2312,6 +2312,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2420,6 +2422,13 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return Math.floor(done / total * 100) + "%";
+    },
+    openGoogleMap: function openGoogleMap(address) {
+      var urlSuffix = address + ", " + "" + //street address two
+      ", " + "Grand Forks" + // town
+      ", "; //"58202";        //zip
+
+      window.open("https://www.google.com/maps/search/?api=1&query=" + urlSuffix, "_blank");
     }
   }
 });
@@ -42689,6 +42698,20 @@ var render = function() {
                     }
                   },
                   [_vm._v("Edit Customer")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    staticStyle: {},
+                    on: {
+                      click: function($event) {
+                        return _vm.openGoogleMap(__customer.address)
+                      }
+                    }
+                  },
+                  [_vm._v("Open In Maps")]
                 )
               ])
             })
