@@ -53,9 +53,9 @@
                                         Admin <span class="caret"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
-                                        <a class="dropdown-item" href="{{ route('routes.index') }}">Routes</a>
-                                        <a class="dropdown-item" href="{{ route('customers.index') }}">Customers</a>
+                                        <a class="dropdown-item" href="{{ route('users') }}">Users</a>
+                                        <a class="dropdown-item" href="{{ route('routes') }}">Routes</a>
+                                        <a class="dropdown-item" href="{{ route('customers') }}">Customers</a>
                                         
                                     </div>
                                 </li>

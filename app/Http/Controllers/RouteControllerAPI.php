@@ -18,19 +18,8 @@ class RouteControllerAPI extends Controller
     public function index()
     {
         $routes = Route::all();
-
-        foreach($routes as $route){
-            if($routes[0]->sort_by == 1){
-                $i = 0;
-                $route->customers = Customer::where('route_id', $route->id)->orderBy('route_position', 'desc')->select('phone_number', 'status', 'name', 'address', 'id', 'route_position', 'route_id', 'address', 'comments')->get();
-                foreach($route->customers as $customer)
-                    $customer->route_position = $i++;
-            }
-            else
-                $route->customers = Customer::where('route_id', $route->id)->orderBy('route_position', 'asc')->select('phone_number', 'status', 'name', 'address', 'id', 'route_position', 'route_id', 'address', 'comments')->get();
- 
-        }
-
+        foreach($routes as $route)
+            $route->customers = Customer::where('route_id', $route->id)->orderBy('route_position', 'asc')->select('phone_number', 'status', 'name', 'address', 'id', 'route_position', 'route_id', 'address', 'comments')->get();
         return RouteResource::collection($routes);
     }
 
@@ -111,7 +100,7 @@ class RouteControllerAPI extends Controller
         $routes = Route::where('id', '!=' , 1)->get();
         $total = 0;
         foreach($routes as $route){
-            $customers = Customer::where('route_id', $route->id)->get();
+            $customers = Customer::where('route_id', $route->id)->select('status')->get();
             $total = 0;
             $done = 0;
             foreach($customers as $customer){
@@ -122,7 +111,6 @@ class RouteControllerAPI extends Controller
             }
             $route->total = $total;
             $route->done = $done;
-            $route->customers = $customers; 
         }
         return RouteResource::collection($routes);
     }

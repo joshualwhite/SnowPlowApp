@@ -25,7 +25,8 @@ Vue.component('users', require('./components/Users.vue').default);
 Vue.component('routes', require('./components/Routes.vue').default);
 Vue.component('admin-dashboard', require('./components/AdminDashboard.vue').default);
 Vue.component('employee-dashboard', require('./components/EmployeeDashboard.vue').default);
-
+Vue.component('employee-customer', require('./components/EmployeeCustomer.vue').default);
+Vue.component('employee-route', require('./components/EmployeeRoute.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

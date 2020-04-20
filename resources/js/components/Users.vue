@@ -97,7 +97,7 @@ export default {
   methods: {
     fetchUsers(page_url) {
       let vm = this;
-      page_url = page_url || '/api/usersAPI';
+      page_url = page_url || '/api/users';
       fetch(page_url)
         .then(res => res.json())
         .then(res => {
@@ -117,7 +117,7 @@ export default {
     },
     deleteUser(id) {
       if (confirm('Are You Sure?')) {
-        fetch(`api/usersAPI/`+id, {
+        fetch(`api/users/`+id, {
           method: 'delete'
         })
           .then(res => res.json())
@@ -131,8 +131,7 @@ export default {
     addUser() {
       if (this.edit === false) {
         // Add
-        console.log(JSON.stringify(this.user));
-        fetch('api/usersAPI', {
+        fetch('api/users', {
           method: 'post',
           body: JSON.stringify(this.user),
           headers: {
@@ -148,8 +147,7 @@ export default {
           .catch(err => console.log(err));
       } else {
         // Update
-        console.log(JSON.stringify(this.user));
-        fetch('api/usersAPI', {
+        fetch('api/users', {
           method: 'put',
           body: JSON.stringify(this.user),
           headers: {

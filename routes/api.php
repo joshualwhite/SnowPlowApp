@@ -26,15 +26,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * Returns Customer Resource
 **/
 
-// gets all customers
 Route::get('customers', 'CustomerControllerAPI@index');
-// gets a single customer by id
 Route::get('customer/{id}', 'CustomerControllerAPI@show');
-// creates a new customer
+Route::get('customers/route/{id}', 'CustomerControllerAPI@customers');
 Route::post('customer', 'CustomerControllerAPI@store');
-// updates an existing customer
 Route::put('customer', 'CustomerControllerAPI@store');
-// deletes a customer
 Route::delete('customer/{id}', 'CustomerControllerAPI@destroy');
 
 /**
@@ -42,11 +38,11 @@ Route::delete('customer/{id}', 'CustomerControllerAPI@destroy');
  * All methods on UserControllerAPI
  * Returns User Resource
 **/
-Route::get('usersAPI', 'UserControllerAPI@index');
-Route::delete('usersAPI/{id}', 'UserControllerAPI@destroy');
-Route::post('usersAPI', 'UserControllerAPI@store');
-Route::put('usersAPI', 'UserControllerAPI@store');
-Route::get('usersAPI/current', 'UserControllerAPI@current');
+Route::get('users', 'UserControllerAPI@index');
+Route::delete('users/{id}', 'UserControllerAPI@destroy');
+Route::post('users', 'UserControllerAPI@store');
+Route::put('users', 'UserControllerAPI@store');
+Route::get('users/current', 'UserControllerAPI@current');
 
 /**
  * (Snow Routes) API Routes (urls)
@@ -72,4 +68,4 @@ Route::put('routes/reset', 'RouteControllerAPI@reset_routes');
 Route::put('routes/sort-top', 'RouteControllerAPI@sort_top');
 Route::put('routes/sort-bottom', 'RouteControllerAPI@sort_bottom');
 //get routes status
-Route::get('adminRoutes', 'RouteControllerAPI@routeStatus');
+Route::get('route_status', 'RouteControllerAPI@routeStatus');
