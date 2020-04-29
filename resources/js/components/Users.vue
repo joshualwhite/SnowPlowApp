@@ -17,6 +17,12 @@
             <div class="form-group">
         <input type="text" class="form-control" placeholder="Email" v-model="user.email">
       </div>
+       <div class="form-group">
+         <select class="selectpicker form-control" v-model="user.route_id">
+         <option disabled value="">Select A Route</option>
+          <option v-for="route in routes" v-bind:value="route.id" v-bind:key="route.id">{{route.name}}</option>
+        </select>
+      </div>
       <span>Select Privileges:    </span>
       <input name="admin" type="radio" v-model="user.admin" value=1> Admin
       <input name="admin" type="radio" v-model="user.admin" value=0> User
@@ -76,7 +82,9 @@ export default {
         phone_number: '',
         password: '',
         admin: 0,
+        route_id: 1,
       },
+      routes: [],
       user_id: '',
       pagination: {},
       edit: false,
@@ -86,6 +94,7 @@ export default {
   },
   created() {
     this.fetchUsers();
+    this.fetchRoutes();
   },
   computed:{
     filteredUsers: function() {
@@ -95,6 +104,15 @@ export default {
     }
   },
   methods: {
+    fetchRoutes() {
+      let vm = this;
+      fetch('/api/routes/simple')
+      .then(res => res.json())
+        .then(res => {
+          this.routes = res.data;
+        })
+        .catch(err => console.log(err));
+    },
     fetchUsers(page_url) {
       let vm = this;
       page_url = page_url || '/api/usersAPI';
@@ -172,6 +190,7 @@ export default {
       this.user.email = user.email;
       this.user.id = user.id;
       this.user.admin = user.admin;
+      this.user.route_id = 1;
     },
     clearForm() {
       this.edit = false;
@@ -181,6 +200,7 @@ export default {
       this.user.email = '';
       this.user.id = null;
       this.user.admin = null;
+      this.user.route_id = 1;
     },
     my_alert(message){
       this.alert = true;

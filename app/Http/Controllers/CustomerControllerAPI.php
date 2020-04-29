@@ -50,6 +50,7 @@ class CustomerControllerAPI extends Controller
         $customer->phone_number = $request->input('phone_number');
         if ($request->input('status'))
             $customer->status = $request->input('status');
+        else $customer->status = 0;
         if($request->input('comments'))
             $customer->comments = $request->input('comments');
         else $customer->comments = "";

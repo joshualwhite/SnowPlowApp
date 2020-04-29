@@ -50,7 +50,7 @@ class UserControllerAPI extends Controller
         $user->name = $request->input('name');
         $user->phone_number = $request->input('phone_number');
         $user->email = $request->input('email');
-        
+        $user->route_id = $request->input('route_id');
         $password = ($request->isMethod('put')) ? "" : $request->input('password');
         $user->password = Hash::make($password);
 

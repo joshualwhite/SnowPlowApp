@@ -75,6 +75,7 @@ class RouteControllerAPI extends Controller
             $edit_customer->route_position = 0;
             $edit_customer->save();     
         }
+ 
         if($route->save())
             return new RouteResource($route);    
     }

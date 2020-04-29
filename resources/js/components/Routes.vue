@@ -136,6 +136,8 @@ export default {
         }
       }
     },
+
+
     deleteRoute(id) {
       if (confirm('Are You Sure?')) {
         fetch('api/route/' + id, {

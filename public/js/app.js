@@ -2768,6 +2768,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2778,8 +2784,10 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         phone_number: '',
         password: '',
-        admin: 0
+        admin: 0,
+        route_id: 1
       },
+      routes: [],
       user_id: '',
       pagination: {},
       edit: false,
@@ -2789,6 +2797,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.fetchUsers();
+    this.fetchRoutes();
   },
   computed: {
     filteredUsers: function filteredUsers() {
@@ -2800,15 +2809,27 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    fetchUsers: function fetchUsers(page_url) {
+    fetchRoutes: function fetchRoutes() {
       var _this2 = this;
+
+      var vm = this;
+      fetch('/api/routes/simple').then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this2.routes = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    fetchUsers: function fetchUsers(page_url) {
+      var _this3 = this;
 
       var vm = this;
       page_url = page_url || '/api/usersAPI';
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this2.users = res.data;
+        _this3.users = res.data;
         vm.makePagination(res.meta, res.links);
       })["catch"](function (err) {
         return console.log(err);
@@ -2824,7 +2845,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pagination = pagination;
     },
     deleteUser: function deleteUser(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (confirm('Are You Sure?')) {
         fetch("api/usersAPI/" + id, {
@@ -2832,16 +2853,16 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this3.my_alert("User Deleted");
+          _this4.my_alert("User Deleted");
 
-          _this3.fetchUsers();
+          _this4.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
       }
     },
     addUser: function addUser() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (this.edit === false) {
         // Add
@@ -2855,11 +2876,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this4.clearForm();
+          _this5.clearForm();
 
-          _this4.my_alert("User Added");
+          _this5.my_alert("User Added");
 
-          _this4.fetchUsers();
+          _this5.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -2875,11 +2896,11 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this4.clearForm();
+          _this5.clearForm();
 
-          _this4.my_alert("User Updated");
+          _this5.my_alert("User Updated");
 
-          _this4.fetchUsers();
+          _this5.fetchUsers();
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -2892,6 +2913,7 @@ __webpack_require__.r(__webpack_exports__);
       this.user.email = user.email;
       this.user.id = user.id;
       this.user.admin = user.admin;
+      this.user.route_id = 1;
     },
     clearForm: function clearForm() {
       this.edit = false;
@@ -2901,6 +2923,7 @@ __webpack_require__.r(__webpack_exports__);
       this.user.email = '';
       this.user.id = null;
       this.user.admin = null;
+      this.user.route_id = 1;
     },
     my_alert: function my_alert(message) {
       this.alert = true;
@@ -43142,6 +43165,54 @@ var render = function() {
               }
             }
           })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.user.route_id,
+                  expression: "user.route_id"
+                }
+              ],
+              staticClass: "selectpicker form-control",
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.user,
+                    "route_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", value: "" } }, [
+                _vm._v("Select A Route")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.routes, function(route) {
+                return _c(
+                  "option",
+                  { key: route.id, domProps: { value: route.id } },
+                  [_vm._v(_vm._s(route.name))]
+                )
+              })
+            ],
+            2
+          )
         ]),
         _vm._v(" "),
         _c("span", [_vm._v("Select Privileges:    ")]),
