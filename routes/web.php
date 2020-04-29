@@ -19,16 +19,11 @@ Auth::routes();
 
 Route::get('customers/index', 'PagesController@index');
 
-
-
-Route::get('/home', 'HomeController@index')->name('home')->middleware('is_admin');
-
-Route::resource('customers', 'CustomerController')->middleware('is_admin');
-Route::resource('routes', 'RouteController')->middleware('is_admin');
-Route::resource('users', 'UserController')->middleware('is_admin');
-
-Route::post('/reset', 'RouteController@reset')->middleware('is_admin');
-Route::post('/sortBy', 'RouteController@sortBy')->middleware('is_admin');
+Route::get('/customer/{id}', 'PagesController@customer');
+Route::get('/route/{id}', 'PagesController@route');
+Route::get('/customers', 'PagesController@customers')->name('customers')->middleware('is_admin');
+Route::get('/routes', 'PagesController@routes')->name('routes')->middleware('is_admin');
+Route::get('/users', 'PagesController@users')->name('users')->middleware('is_admin');
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('is_admin');
-Route::delete('customers/{id}', 'CustomerControllerAPI@destroy')->middleware('is_admin');
+

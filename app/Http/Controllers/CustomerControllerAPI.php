@@ -73,7 +73,23 @@ class CustomerControllerAPI extends Controller
         return new CustomerResource($customer);
     }
 
-    /**
+    public function customers($id)
+    {
+        $route = Route::find(1);
+        $route = $route->sort_by;
+        error_log($route);
+
+        if($route == 1){
+            $i = 0;
+            $customers = Customer::where('route_id', $id)->orderBy('route_position', 'desc')->select('status', 'name','id', 'route_position', 'route_id')->get();
+            foreach($customers as $customer)
+                $customer->route_position = $i++;
+        }
+        else
+            $customers = Customer::where('route_id', $id)->orderBy('route_position', 'asc')->select('status', 'name','id', 'route_position', 'route_id')->get();
+        return CustomerResource::collection($customers);
+    }
+        /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

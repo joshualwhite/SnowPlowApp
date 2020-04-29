@@ -1932,13 +1932,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1955,9 +1948,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchRoutes: function fetchRoutes(page_url) {
       var _this = this;
 
-      var vm = this;
-      page_url = page_url || '/api/adminRoutes';
-      fetch(page_url).then(function (res) {
+      fetch('/api/route_status').then(function (res) {
         return res.json();
       }).then(function (res) {
         _this.routes = res.data;
@@ -1974,8 +1965,6 @@ __webpack_require__.r(__webpack_exports__);
         return res.text();
       }).then(function (res) {
         return _this2.my_alert(res);
-      }).then(function (res) {
-        return console.log(res);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -1989,8 +1978,6 @@ __webpack_require__.r(__webpack_exports__);
         return res.text();
       }).then(function (res) {
         return _this3.my_alert(res);
-      }).then(function (res) {
-        return console.log(res);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -2004,8 +1991,6 @@ __webpack_require__.r(__webpack_exports__);
         return res.text();
       }).then(function (res) {
         return _this4.my_alert(res);
-      }).then(function (res) {
-        return console.log(res);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -2018,6 +2003,9 @@ __webpack_require__.r(__webpack_exports__);
     timeout: function timeout() {
       this.alert = false;
       this.message = "";
+    },
+    getPercentDone: function getPercentDone(route) {
+      return Math.floor(route.done / route.total * 100) + "%";
     }
   }
 });
@@ -2132,7 +2120,6 @@ __webpack_require__.r(__webpack_exports__);
     fetchRoutes: function fetchRoutes() {
       var _this2 = this;
 
-      var vm = this;
       fetch('/api/routes/simple').then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -2141,16 +2128,15 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     },
-    fetchCustomers: function fetchCustomers(page_url) {
+    fetchCustomers: function fetchCustomers() {
       var _this3 = this;
 
-      var vm = this;
-      page_url = page_url || '/api/customers';
-      fetch(page_url).then(function (res) {
+      fetch('/api/customers').then(function (res) {
         return res.json();
       }).then(function (res) {
         _this3.customers = res.data;
-        vm.makePagination(res.meta, res.links);
+
+        _this3.makePagination(res.meta, res.links);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -2260,10 +2246,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeDashboard.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmployeeDashboard.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeCustomer.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmployeeCustomer.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2298,6 +2284,164 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      customer: {
+        customer_id: '',
+        id: '',
+        name: '',
+        address: '',
+        phone_number: '',
+        route_id: '',
+        comments: '',
+        status: '',
+        rating: ''
+      },
+      alert: false,
+      message: ''
+    };
+  },
+  created: function created() {
+    var uri = window.location.href.split('/');
+    uri = uri[4];
+    this.fetchCustomer(uri);
+  },
+  methods: {
+    fetchCustomer: function fetchCustomer(id) {
+      var _this = this;
+
+      fetch('/api/customer/' + id).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this.customer = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    updateCustomer: function updateCustomer() {
+      var _this2 = this;
+
+      this.customer.customer_id = this.customer.id;
+      fetch('/api/customer', {
+        method: 'put',
+        body: JSON.stringify(this.customer),
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        _this2.my_alert('Customer Status Updated');
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+      this.edit_customer = false;
+    },
+    openGoogleMap: function openGoogleMap(address) {
+      var urlSuffix = address + ", " + "" + //street address two
+      ", " + "Grand Forks" + // town
+      ", "; //"58202";        //zip
+
+      window.open("https://www.google.com/maps/search/?api=1&query=" + urlSuffix, "_blank");
+    },
+    my_alert: function my_alert(message) {
+      this.alert = true;
+      this.message = message;
+      setTimeout(this.timeout, 10000);
+    },
+    timeout: function timeout() {
+      this.alert = false;
+      this.message = "";
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeDashboard.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmployeeDashboard.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      routes: [],
+      user: [],
+      customers: []
+    };
+  },
+  created: function created() {
+    this.fetchRoutes();
+    this.fetchCustomers();
+  },
+  methods: {
+    fetchRoutes: function fetchRoutes() {
+      var _this = this;
+
+      fetch('/api/route_status').then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this.routes = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    fetchCustomers: function fetchCustomers() {
+      var _this2 = this;
+
+      fetch('/api/customers').then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this2.customers = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    getPercentDone: function getPercentDone(route) {
+      return Math.floor(route.done / route.total * 100) + "%";
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeRoute.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmployeeRoute.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2317,45 +2461,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      routes: [],
-      user: [],
-      customer: {
-        id: '',
+      route: {
         name: '',
-        address: '',
-        phone_number: '',
-        route_id: '',
-        comments: '',
-        status: ''
+        sort_by: '',
+        id: ''
       },
-      my_route: [],
-      chose_route: false,
-      edit_customer: false
+      customers: [],
+      status: {
+        0: {
+          css: 'badge badge-danger',
+          message: 'Not Done'
+        },
+        1: {
+          css: 'badge badge-warning',
+          message: 'Plow Ridge'
+        },
+        4: {
+          css: 'badge badge-primary',
+          message: 'Completed'
+        },
+        3: {
+          css: 'badge badge-secondary',
+          message: 'No Need'
+        },
+        2: {
+          css: 'badge badge-secondary',
+          message: 'Customer'
+        }
+      }
     };
   },
   created: function created() {
-    this.fetchRoutes();
-    this.fetchCustomers();
+    var uri = window.location.href.split('/');
+    uri = uri[4];
+    this.fetchCustomers(uri);
+    this.fetchRoute(uri);
   },
   methods: {
-    fetchRoutes: function fetchRoutes(page_url) {
+    fetchRoute: function fetchRoute(route_id) {
       var _this = this;
 
-      page_url = page_url || '/api/routes';
-      fetch(page_url).then(function (res) {
+      fetch('/api/route/' + route_id).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.routes = res.data;
+        _this.route = res.data;
       })["catch"](function (err) {
         return console.log(err);
       });
     },
-    fetchCustomers: function fetchCustomers(page_url) {
+    fetchCustomers: function fetchCustomers(route_id) {
       var _this2 = this;
 
-      var vm = this;
-      page_url = page_url || '/api/customers';
-      fetch(page_url).then(function (res) {
+      fetch('/api/customers/route/' + route_id).then(function (res) {
         return res.json();
       }).then(function (res) {
         _this2.customers = res.data;
@@ -2363,72 +2520,8 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     },
-    chooseRoute: function chooseRoute(route) {
-      this.chose_route = true;
-      this.my_route = route;
-    },
-    goBack: function goBack() {
-      window.location.reload();
-      this.chose_route = false;
-      this.my_route = [];
-    },
-    editCustomer: function editCustomer(customer) {
-      this.edit_customer = true;
-      this.customer.id = customer.id;
-      this.customer.customer_id = customer.id;
-      this.customer.name = customer.name;
-      this.customer.address = customer.address;
-      this.customer.phone_number = customer.phone_number;
-      this.customer.comments = customer.comments;
-      this.customer.route_id = customer.route_id;
-      this.customer.status = customer.status;
-    },
-    goBack2: function goBack2() {
-      this.edit_customer = false;
-      this.customer = [];
-    },
-    updateCustomer: function updateCustomer() {
-      console.log(JSON.stringify(this.customer));
-      fetch('api/customer', {
-        method: 'put',
-        body: JSON.stringify(this.customer),
-        headers: {
-          'content-type': 'application/json'
-        }
-      }).then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        alert('Customer Updated');
-      })["catch"](function (err) {
-        return console.log(err);
-      });
-      this.edit_customer = false;
-    },
-    getPercentDone: function getPercentDone(customers) {
-      var done = 0;
-      var total = 0;
-      var i = 0;
-
-      for (i; i < customers.length; i++) {
-        var customer = customers[i];
-        var stat = customer.status;
-        console.log(customer.status);
-
-        if (stat != 1 && stat != 0) {
-          done = done + 1;
-        }
-
-        total = total + 1;
-      }
-
-      return Math.floor(done / total * 100) + "%";
-    },
-    openGoogleMap: function openGoogleMap(address) {
-      var urlSuffix = address + ", " + "" + //street address two
-      ", " + "Grand Forks" + // town
-      ", "; //"58202";        //zip
-
-      window.open("https://www.google.com/maps/search/?api=1&query=" + urlSuffix, "_blank");
+    get_url: function get_url(id) {
+      return "snowplowdev.test/customer/" + id;
     }
   }
 });
@@ -2543,12 +2636,10 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchRoutes();
   },
   methods: {
-    fetchRoutes: function fetchRoutes(page_url) {
+    fetchRoutes: function fetchRoutes() {
       var _this = this;
 
-      var vm = this;
-      page_url = page_url || '/api/routes';
-      fetch(page_url).then(function (res) {
+      fetch('/api/routes').then(function (res) {
         return res.json();
       }).then(function (res) {
         _this.routes = res.data;
@@ -2813,6 +2904,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var vm = this;
+<<<<<<< HEAD
       fetch('/api/routes/simple').then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -2826,6 +2918,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var vm = this;
       page_url = page_url || '/api/usersAPI';
+=======
+      page_url = page_url || '/api/users';
+>>>>>>> 963fb9f3e0da87da1f8f241d9ae35b0f2077a5fc
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -2848,7 +2943,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       if (confirm('Are You Sure?')) {
-        fetch("api/usersAPI/" + id, {
+        fetch("api/users/" + id, {
           method: 'delete'
         }).then(function (res) {
           return res.json();
@@ -2866,8 +2961,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.edit === false) {
         // Add
-        console.log(JSON.stringify(this.user));
-        fetch('api/usersAPI', {
+        fetch('api/users', {
           method: 'post',
           body: JSON.stringify(this.user),
           headers: {
@@ -2886,8 +2980,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         // Update
-        console.log(JSON.stringify(this.user));
-        fetch('api/usersAPI', {
+        fetch('api/users', {
           method: 'put',
           body: JSON.stringify(this.user),
           headers: {
@@ -42024,101 +42117,103 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("h3", [_vm._v("Admin")]),
-    _vm._v(" "),
-    _vm.alert
-      ? _c(
-          "div",
-          { staticClass: "alert alert-primary", attrs: { role: "alert" } },
-          [_vm._v("\n    " + _vm._s(_vm.message) + "\n  ")]
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-danger",
-        on: {
-          click: function($event) {
-            return _vm.resetRoutes()
-          }
-        }
-      },
-      [_vm._v("Reset Routes")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-primary",
-        on: {
-          click: function($event) {
-            return _vm.sortTop()
-          }
-        }
-      },
-      [_vm._v("Sort From Top")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-primary",
-        on: {
-          click: function($event) {
-            return _vm.sortBottom()
-          }
-        }
-      },
-      [_vm._v("Sort From Bottom")]
-    ),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("h3", [_vm._v("Admin")]),
+      _vm._v(" "),
+      _vm.alert
+        ? _c(
+            "div",
+            { staticClass: "alert alert-primary", attrs: { role: "alert" } },
+            [_vm._v("\n    " + _vm._s(_vm.message) + "\n  ")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c(
-        "div",
-        { staticClass: "col-5" },
-        [
-          _c("h4", [_vm._v("Incomplete")]),
-          _vm._v(" "),
-          _vm._l(_vm.routes, function(__route) {
-            return _c("div", { key: __route.id }, [
-              __route.done != __route.total
-                ? _c("div", [
-                    _c("span", [_vm._v(_vm._s(__route.name))]),
-                    _c("span", { staticClass: "float-right" }, [
-                      _vm._v("Customers Remaining:" + _vm._s(__route.total))
-                    ])
-                  ])
-                : _vm._e()
-            ])
-          })
-        ],
-        2
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          on: {
+            click: function($event) {
+              return _vm.resetRoutes()
+            }
+          }
+        },
+        [_vm._v("Reset Routes")]
       ),
       _vm._v(" "),
       _c(
-        "div",
-        { staticClass: "col-5" },
-        [
-          _c("h4", [_vm._v("Complete")]),
-          _vm._v(" "),
-          _vm._l(_vm.routes, function(__route) {
-            return _c("div", { key: __route.id }, [
-              __route.done == __route.total
-                ? _c("div", [
-                    _c("span", [_c("b", [_vm._v(_vm._s(__route.name))])])
-                  ])
-                : _vm._e()
-            ])
-          })
-        ],
-        2
-      )
-    ])
-  ])
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function($event) {
+              return _vm.sortTop()
+            }
+          }
+        },
+        [_vm._v("Sort From Top")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function($event) {
+              return _vm.sortBottom()
+            }
+          }
+        },
+        [_vm._v("Sort From Bottom")]
+      ),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("h3", [_vm._v("Routes")]),
+      _vm._v(" "),
+      _vm._l(_vm.routes, function(__route) {
+        return _c("div", { key: __route.id }, [
+          __route.id != 1
+            ? _c("div", [
+                _c("h3", { staticClass: "mt-4" }, [
+                  _vm._v(
+                    _vm._s(__route.name) +
+                      " | " +
+                      _vm._s(_vm.getPercentDone(__route))
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  { staticClass: "list-inline" },
+                  _vm._l(__route.employees, function(employee) {
+                    return _c(
+                      "li",
+                      { key: employee.name, staticClass: "list-inline-item" },
+                      [_vm._v(_vm._s(employee.name))]
+                    )
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { href: "/route/" + __route.id }
+                  },
+                  [_vm._v("View Route")]
+                )
+              ])
+            : _vm._e()
+        ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -42498,6 +42593,159 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeCustomer.vue?vue&type=template&id=0cdacdd2&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmployeeCustomer.vue?vue&type=template&id=0cdacdd2& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm.alert
+      ? _c(
+          "div",
+          { staticClass: "alert alert-primary", attrs: { role: "alert" } },
+          [_vm._v("\n    " + _vm._s(_vm.message) + "\n  ")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-dark",
+          attrs: { href: "/route/" + _vm.customer.route_id }
+        },
+        [_vm._v("Go Back ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary float-right",
+          staticStyle: {},
+          on: {
+            click: function($event) {
+              return _vm.openGoogleMap(_vm.customer.address)
+            }
+          }
+        },
+        [_vm._v("Open In Maps")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("h4", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.customer.name))]),
+    _vm._v(" "),
+    _c("h5", [_vm._v(_vm._s(_vm.customer.address))]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        staticClass: "mb-3",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.updateCustomer($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.customer.comments,
+                expression: "customer.comments"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { rows: "4", placeholder: "Comments" },
+            domProps: { value: _vm.customer.comments },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.customer, "comments", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.customer.status,
+                  expression: "customer.status"
+                }
+              ],
+              staticClass: "selectpicker form-control",
+              attrs: { id: "status" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.customer,
+                    "status",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "0" } }, [_vm._v("Not Done")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "1" } }, [_vm._v("Plow Ridge")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "2" } }, [
+                _vm._v("Customers Plowed")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "3" } }, [_vm._v("No Need")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "4" } }, [_vm._v("We Completed")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          [_vm._v("Save")]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeDashboard.vue?vue&type=template&id=dd0d3caa&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmployeeDashboard.vue?vue&type=template&id=dd0d3caa& ***!
@@ -42513,238 +42761,138 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    !_vm.chose_route
-      ? _c(
-          "div",
-          [
-            _c("h2", [_vm._v("Routes")]),
-            _vm._v(" "),
-            _vm._l(_vm.routes, function(__route) {
-              return _c("div", { key: __route.id }, [
-                __route.id != 1
-                  ? _c("div", [
-                      _c("h3", { staticClass: "mt-4" }, [
-                        _vm._v(
-                          _vm._s(__route.name) +
-                            " | " +
-                            _vm._s(_vm.getPercentDone(__route.customers))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        { staticClass: "mr-3", attrs: { href: "EMPLOYEE ID" } },
-                        [_vm._v(_vm._s(__route.user))]
-                      ),
-                      _c("a", { attrs: { href: "EMPLOYEE ID" } }, [
-                        _vm._v("Employee 2")
-                      ]),
-                      _c("div", { staticClass: "mr-2 mb-2" }),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          on: {
-                            click: function($event) {
-                              return _vm.chooseRoute(__route)
-                            }
-                          }
-                        },
-                        [_vm._v("Choose Route")]
-                      )
-                    ])
-                  : _vm._e()
-              ])
-            })
-          ],
-          2
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.edit_customer
-      ? _c("div", [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary",
-              on: {
-                click: function($event) {
-                  return _vm.goBack2()
-                }
-              }
-            },
-            [_vm._v("Hide")]
-          ),
-          _vm._v(" "),
-          _c("h4", [_vm._v(_vm._s(_vm.customer.name))]),
-          _vm._v(" "),
-          _c(
-            "form",
-            {
-              staticClass: "mb-3",
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.updateCustomer($event)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "form-group" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.customer.comments,
-                      expression: "customer.comments"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { placeholder: "Comments" },
-                  domProps: { value: _vm.customer.comments },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.customer, "comments", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer.status,
-                        expression: "customer.status"
-                      }
-                    ],
-                    staticClass: "selectpicker form-control",
-                    attrs: { id: "status" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.customer,
-                          "status",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "0" } }, [
-                      _vm._v("Not Done")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "1" } }, [
-                      _vm._v("Plow Ridge")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [
-                      _vm._v("Customers Plowed")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [
-                      _vm._v("No Need")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "4" } }, [
-                      _vm._v("We Completed")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                [_vm._v("Save")]
-              )
-            ]
-          )
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.chose_route
-      ? _c(
-          "div",
-          [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                on: {
-                  click: function($event) {
-                    return _vm.goBack()
-                  }
-                }
-              },
-              [_vm._v("All Routes")]
-            ),
-            _vm._v(" "),
-            _vm._l(_vm.my_route.customers, function(__customer) {
-              return _c("div", { key: __customer.id }, [
-                _vm._v(
-                  "\n     " +
-                    _vm._s(__customer.route_position + 1) +
-                    "      " +
-                    _vm._s(__customer.name) +
-                    "\n    "
-                ),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        return _vm.editCustomer(__customer)
-                      }
-                    }
-                  },
-                  [_vm._v("Edit Customer")]
-                ),
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("h2", [_vm._v("Routes")]),
+      _vm._v(" "),
+      _vm._l(_vm.routes, function(__route) {
+        return _c("div", { key: __route.id }, [
+          __route.id != 1
+            ? _c("div", [
+                _c("h3", { staticClass: "mt-4" }, [
+                  _vm._v(
+                    _vm._s(__route.name) +
+                      " | " +
+                      _vm._s(_vm.getPercentDone(__route))
+                  )
+                ]),
                 _vm._v(" "),
                 _c(
-                  "button",
+                  "a",
+                  { staticClass: "mr-3", attrs: { href: "EMPLOYEE ID" } },
+                  [_vm._v(_vm._s(__route.user))]
+                ),
+                _c("a", { attrs: { href: "EMPLOYEE ID" } }, [
+                  _vm._v("Employee 2")
+                ]),
+                _c("div", { staticClass: "mr-2 mb-2" }),
+                _vm._v(" "),
+                _c(
+                  "a",
                   {
                     staticClass: "btn btn-primary",
-                    staticStyle: {},
-                    on: {
-                      click: function($event) {
-                        return _vm.openGoogleMap(__customer.address)
-                      }
-                    }
+                    attrs: { href: "/route/" + __route.id }
                   },
-                  [_vm._v("Open In Maps")]
+                  [_vm._v("Choose Route")]
                 )
               ])
-            })
-          ],
-          2
-        )
-      : _vm._e()
-  ])
+            : _vm._e()
+        ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeRoute.vue?vue&type=template&id=16c55e60&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmployeeRoute.vue?vue&type=template&id=16c55e60& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("h3", [_vm._v(_vm._s(_vm.route.name))]),
+    _vm._v(" "),
+    _c(
+      "a",
+      {
+        staticClass: "btn btn-secondary",
+        attrs: { href: "http://snowplowdev.test/home" }
+      },
+      [_vm._v("All Routes")]
+    ),
+    _vm._v(" "),
+    _c("table", { staticClass: "mt-3 table table-striped" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.customers, function(__customer) {
+          return _c("tr", { key: __customer.id }, [
+            _c("th", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s(__customer.route_position + 1))
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _c("span", { class: _vm.status[__customer.status].css }, [
+                _vm._v(_vm._s(_vm.status[__customer.status].message))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(__customer.name))]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary ml-auto",
+                  attrs: { href: "/customer/" + __customer.id }
+                },
+                [_vm._v("Details")]
+              )
+            ])
+          ])
+        }),
+        0
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -58918,6 +59066,8 @@ Vue.component('users', __webpack_require__(/*! ./components/Users.vue */ "./reso
 Vue.component('routes', __webpack_require__(/*! ./components/Routes.vue */ "./resources/js/components/Routes.vue")["default"]);
 Vue.component('admin-dashboard', __webpack_require__(/*! ./components/AdminDashboard.vue */ "./resources/js/components/AdminDashboard.vue")["default"]);
 Vue.component('employee-dashboard', __webpack_require__(/*! ./components/EmployeeDashboard.vue */ "./resources/js/components/EmployeeDashboard.vue")["default"]);
+Vue.component('employee-customer', __webpack_require__(/*! ./components/EmployeeCustomer.vue */ "./resources/js/components/EmployeeCustomer.vue")["default"]);
+Vue.component('employee-route', __webpack_require__(/*! ./components/EmployeeRoute.vue */ "./resources/js/components/EmployeeRoute.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -59113,6 +59263,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/EmployeeCustomer.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/EmployeeCustomer.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EmployeeCustomer_vue_vue_type_template_id_0cdacdd2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EmployeeCustomer.vue?vue&type=template&id=0cdacdd2& */ "./resources/js/components/EmployeeCustomer.vue?vue&type=template&id=0cdacdd2&");
+/* harmony import */ var _EmployeeCustomer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EmployeeCustomer.vue?vue&type=script&lang=js& */ "./resources/js/components/EmployeeCustomer.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EmployeeCustomer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EmployeeCustomer_vue_vue_type_template_id_0cdacdd2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EmployeeCustomer_vue_vue_type_template_id_0cdacdd2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/EmployeeCustomer.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/EmployeeCustomer.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/EmployeeCustomer.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeCustomer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./EmployeeCustomer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeCustomer.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeCustomer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/EmployeeCustomer.vue?vue&type=template&id=0cdacdd2&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/EmployeeCustomer.vue?vue&type=template&id=0cdacdd2& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeCustomer_vue_vue_type_template_id_0cdacdd2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./EmployeeCustomer.vue?vue&type=template&id=0cdacdd2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeCustomer.vue?vue&type=template&id=0cdacdd2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeCustomer_vue_vue_type_template_id_0cdacdd2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeCustomer_vue_vue_type_template_id_0cdacdd2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/EmployeeDashboard.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/EmployeeDashboard.vue ***!
@@ -59177,6 +59396,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeDashboard_vue_vue_type_template_id_dd0d3caa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeDashboard_vue_vue_type_template_id_dd0d3caa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/EmployeeRoute.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/EmployeeRoute.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EmployeeRoute_vue_vue_type_template_id_16c55e60___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EmployeeRoute.vue?vue&type=template&id=16c55e60& */ "./resources/js/components/EmployeeRoute.vue?vue&type=template&id=16c55e60&");
+/* harmony import */ var _EmployeeRoute_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EmployeeRoute.vue?vue&type=script&lang=js& */ "./resources/js/components/EmployeeRoute.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EmployeeRoute_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EmployeeRoute_vue_vue_type_template_id_16c55e60___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EmployeeRoute_vue_vue_type_template_id_16c55e60___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/EmployeeRoute.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/EmployeeRoute.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/EmployeeRoute.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeRoute_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./EmployeeRoute.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeRoute.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeRoute_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/EmployeeRoute.vue?vue&type=template&id=16c55e60&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/EmployeeRoute.vue?vue&type=template&id=16c55e60& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeRoute_vue_vue_type_template_id_16c55e60___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./EmployeeRoute.vue?vue&type=template&id=16c55e60& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EmployeeRoute.vue?vue&type=template&id=16c55e60&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeRoute_vue_vue_type_template_id_16c55e60___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeRoute_vue_vue_type_template_id_16c55e60___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -59338,8 +59626,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/snowplowapp/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\SnowPlowDev\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

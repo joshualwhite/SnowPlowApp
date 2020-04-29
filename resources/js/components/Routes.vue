@@ -98,10 +98,8 @@ export default {
     this.fetchRoutes();
   },
   methods: {
-    fetchRoutes(page_url) {
-      let vm = this;
-      page_url = page_url || '/api/routes';
-      fetch(page_url)
+    fetchRoutes() {
+      fetch('/api/routes')
         .then(res => res.json())
         .then(res => {
           this.routes = res.data;

@@ -1,46 +1,14 @@
 <template>
     <div class="container">
-      <div v-if="(!chose_route)">
-        <h2>Routes</h2>
-        <div v-for="__route in routes" v-bind:key="__route.id">
-          <div v-if="__route.id != 1" >
-              <h3 class="mt-4">{{__route.name}} | {{getPercentDone(__route.customers)}}</h3>
-              <a class="mr-3" href="EMPLOYEE ID">{{__route.user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
-              <button @click="chooseRoute(__route)" class="btn btn-secondary">Choose Route</button>
-          </div>
-        </div>
-      </div>
-      <div v-if="edit_customer">
-        <button @click="goBack2()" class="btn btn-secondary">Hide</button>
-        <h4>{{customer.name}}</h4>
-        <form @submit.prevent="updateCustomer" class="mb-3">
-          <div class="form-group">
-            <textarea class="form-control" placeholder="Comments" v-model="customer.comments"></textarea>
-          </div>
-          <div class="form-group">
-            <select id="status" class="selectpicker form-control" v-model="customer.status">
-              <option value=0>Not Done</option>
-              <option value=1>Plow Ridge</option>
-              <option value=2>Customers Plowed</option>
-              <option value=3>No Need</option>
-              <option value=4>We Completed</option>
-            </select>
-          </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-     </div>
-    <div v-if="(chose_route)">
-      <button @click="goBack()" class="btn btn-secondary">All Routes</button>
-      <div v-for="__customer in my_route.customers" v-bind:key="__customer.id">
-         {{__customer.route_position + 1}}      {{__customer.name}}
-        <button @click="editCustomer(__customer)" class="btn btn-primary">Edit Customer</button>
-        <button style="float" @click="openGoogleMap(__customer.address)" class="btn btn-primary">Open In Maps</button>
+      <h2>Routes</h2>
+      <div v-for="__route in routes" v-bind:key="__route.id">
+        <div v-if="__route.id != 1" >
+            <h3 class="mt-4">{{__route.name}} | {{getPercentDone(__route)}}</h3>
+            <a class="mr-3" href="EMPLOYEE ID">{{__route.user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
+            <a class="btn btn-primary" :href="`/route/${__route.id}`">Choose Route</a>
         </div>
       </div>
     </div>
-
-
-    
 </template>
 
 <script>
@@ -50,18 +18,7 @@ export default {
     return {
       routes: [],
       user: [],
-      customer: {
-        id: '',
-        name: '',
-        address: '',
-        phone_number: '',
-        route_id: '', 
-        comments:'',
-        status:''
-      },
-      my_route: [],
-      chose_route: false,
-      edit_customer: false,
+      customers: []
     };
   },
   created() {
@@ -69,95 +26,25 @@ export default {
     this.fetchCustomers();
   },
   methods: {
-    fetchRoutes(page_url) {
-      page_url = page_url || '/api/routes';
-      fetch(page_url)
+    fetchRoutes() {
+      fetch('/api/route_status')
         .then(res => res.json())
         .then(res => {
           this.routes = res.data;
         })
         .catch(err => console.log(err));
     },
-    fetchCustomers(page_url) {
-      let vm = this;
-      page_url = page_url || '/api/customers';
-      fetch(page_url)
+    fetchCustomers() {
+      fetch('/api/customers')
         .then(res => res.json())
         .then(res => {
           this.customers = res.data;
         })
         .catch(err => console.log(err));
     },
-    chooseRoute(route) {
-      this.chose_route = true;
-      this.my_route = route; 
+    getPercentDone(route){
+      return Math.floor((route.done/route.total) * 100) + "%";
     },
-    goBack() {
-      window.location.reload()
-      this.chose_route = false;
-      this.my_route = [];
-    },
-    editCustomer(customer){
-      this.edit_customer = true;
-      this.customer.id = customer.id;
-      this.customer.customer_id = customer.id;
-      this.customer.name = customer.name;
-      this.customer.address = customer.address;
-      this.customer.phone_number = customer.phone_number;
-      this.customer.comments = customer.comments;
-      this.customer.route_id = customer.route_id;      
-      this.customer.status = customer.status;
-    },
-    goBack2(){
-      this.edit_customer = false;
-      this.customer = []; 
-    },
-    updateCustomer(){
-      console.log(JSON.stringify(this.customer))
-      fetch('api/customer', {
-        method: 'put',
-        body: JSON.stringify(this.customer),
-        headers: {
-          'content-type': 'application/json'
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          alert('Customer Updated');
-        })
-        .catch(err => console.log(err));
-        this.edit_customer = false;
-    },
-    getPercentDone(customers){
-      let done = 0;
-      let total = 0;
-      let i = 0;
-      for(i; i<customers.length; i++) {
-        let customer = customers[i];
-        let stat = customer.status
-        console.log(customer.status);
-        if (stat != 1 && stat != 0){
-          done = done + 1;
-        }
-        total = total + 1; 
-      }
-      return Math.floor((done / total) * 100) + "%";
-    },
-    openGoogleMap(address) {
-        const urlSuffix = 
-           address +
-           ", " +
-           "" +           //street address two
-           ", " +
-           "Grand Forks" + // town
-           ", ";
-           //"58202";        //zip
-
-        window.open(
-          "https://www.google.com/maps/search/?api=1&query=" + urlSuffix,
-          "_blank"
-        );
-    }
   }
 };
 </script>

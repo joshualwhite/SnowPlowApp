@@ -96,7 +96,6 @@ export default {
   },
   methods: {
     fetchRoutes() {
-      let vm = this;
       fetch('/api/routes/simple')
       .then(res => res.json())
         .then(res => {
@@ -104,14 +103,12 @@ export default {
         })
         .catch(err => console.log(err));
     },
-    fetchCustomers(page_url) {
-      let vm = this;
-      page_url = page_url || '/api/customers';
-      fetch(page_url)
+    fetchCustomers() {
+      fetch('/api/customers')
         .then(res => res.json())
         .then(res => {
           this.customers = res.data;
-          vm.makePagination(res.meta, res.links);
+          this.makePagination(res.meta, res.links);
         })
         .catch(err => console.log(err));
     },
