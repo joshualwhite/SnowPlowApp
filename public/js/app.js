@@ -1930,6 +1930,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -42158,14 +42160,17 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "mr-3", attrs: { href: "EMPLOYEE ID" } },
-                  [_vm._v(_vm._s(__route.user))]
+                  "ul",
+                  { staticClass: "list-inline" },
+                  _vm._l(__route.employees, function(employee) {
+                    return _c(
+                      "li",
+                      { key: employee.name, staticClass: "list-inline-item" },
+                      [_vm._v(_vm._s(employee.name))]
+                    )
+                  }),
+                  0
                 ),
-                _c("a", { attrs: { href: "EMPLOYEE ID" } }, [
-                  _vm._v("Employee 2")
-                ]),
-                _c("div", { staticClass: "mr-2 mb-2" }),
                 _vm._v(" "),
                 _c(
                   "a",

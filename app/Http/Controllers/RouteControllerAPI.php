@@ -7,6 +7,8 @@ use App\Http\Resources\Route as RouteResource;
 use App\Http\Controllers\DB;
 use App\Route;
 use App\Customer;
+use App\User;
+
 class RouteControllerAPI extends Controller
 {
 
@@ -111,6 +113,8 @@ class RouteControllerAPI extends Controller
             }
             $route->total = $total;
             $route->done = $done;
+            $employees = User::where('route_id', $route->id)->select('name')->get();
+            $route->employees = $employees;
         }
         return RouteResource::collection($routes);
     }
