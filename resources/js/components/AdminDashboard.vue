@@ -14,7 +14,7 @@
         <div v-if="__route.id != 1" >
             <h3 class="mt-4">{{__route.name}} | {{getPercentDone(__route)}}</h3>
             <ul class="list-inline">
-              <li class="list-inline-item" v-for="employee in __route.employees" v-bind:key="employee.name">{{employee.name}}</li>
+              <li class="list-inline-item" v-for="employee in __route.employees" v-bind:key="employee.id">{{employee.name}}</li>
             </ul>
             <a class="btn btn-primary" :href="`/route/${__route.id}`">View Route</a>
         </div>

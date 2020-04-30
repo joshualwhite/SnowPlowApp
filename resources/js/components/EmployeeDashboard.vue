@@ -4,7 +4,9 @@
       <div v-for="__route in routes" v-bind:key="__route.id">
         <div v-if="__route.id != 1" >
             <h3 class="mt-4">{{__route.name}} | {{getPercentDone(__route)}}</h3>
-            <a class="mr-3" href="EMPLOYEE ID">{{__route.user}}</a><a href="EMPLOYEE ID">Employee 2</a><div class="mr-2 mb-2"></div>
+            <ul class="list-inline">
+              <li class="list-inline-item" v-for="employee in __route.employees" v-bind:key="employee.id">{{employee.name}}</li>
+            </ul>            
             <a class="btn btn-primary" :href="`/route/${__route.id}`">Choose Route</a>
         </div>
       </div>

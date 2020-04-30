@@ -20,8 +20,10 @@ class RouteControllerAPI extends Controller
     public function index()
     {
         $routes = Route::all();
-        foreach($routes as $route)
+        foreach($routes as $route) {
             $route->customers = Customer::where('route_id', $route->id)->orderBy('route_position', 'asc')->select('phone_number', 'status', 'name', 'address', 'id', 'route_position', 'route_id', 'address', 'comments')->get();
+            $route->employees = User::where('route_id', $route->id)->select('name', 'id')->get();
+        }
         return RouteResource::collection($routes);
     }
 
@@ -114,7 +116,7 @@ class RouteControllerAPI extends Controller
             }
             $route->total = $total;
             $route->done = $done;
-            $employees = User::where('route_id', $route->id)->select('name')->get();
+            $employees = User::where('route_id', $route->id)->select('name', 'id')->get();
             $route->employees = $employees;
         }
         return RouteResource::collection($routes);

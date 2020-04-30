@@ -2381,6 +2381,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2539,6 +2541,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+//
 //
 //
 //
@@ -2904,7 +2907,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var vm = this;
-<<<<<<< HEAD
       fetch('/api/routes/simple').then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -2917,10 +2919,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var vm = this;
-      page_url = page_url || '/api/usersAPI';
-=======
       page_url = page_url || '/api/users';
->>>>>>> 963fb9f3e0da87da1f8f241d9ae35b0f2077a5fc
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -42192,7 +42191,7 @@ var render = function() {
                   _vm._l(__route.employees, function(employee) {
                     return _c(
                       "li",
-                      { key: employee.name, staticClass: "list-inline-item" },
+                      { key: employee.id, staticClass: "list-inline-item" },
                       [_vm._v(_vm._s(employee.name))]
                     )
                   }),
@@ -42780,14 +42779,17 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "mr-3", attrs: { href: "EMPLOYEE ID" } },
-                  [_vm._v(_vm._s(__route.user))]
+                  "ul",
+                  { staticClass: "list-inline" },
+                  _vm._l(__route.employees, function(employee) {
+                    return _c(
+                      "li",
+                      { key: employee.id, staticClass: "list-inline-item" },
+                      [_vm._v(_vm._s(employee.name))]
+                    )
+                  }),
+                  0
                 ),
-                _c("a", { attrs: { href: "EMPLOYEE ID" } }, [
-                  _vm._v("Employee 2")
-                ]),
-                _c("div", { staticClass: "mr-2 mb-2" }),
                 _vm._v(" "),
                 _c(
                   "a",
@@ -43096,14 +43098,17 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "mr-3", attrs: { href: "EMPLOYEE ID" } },
-                  [_vm._v(_vm._s(__route.user))]
+                  "ul",
+                  { staticClass: "list-inline" },
+                  _vm._l(__route.employees, function(employee) {
+                    return _c(
+                      "li",
+                      { key: employee.id, staticClass: "list-inline-item" },
+                      [_vm._v(_vm._s(employee.name))]
+                    )
+                  }),
+                  0
                 ),
-                _c("a", { attrs: { href: "EMPLOYEE ID" } }, [
-                  _vm._v("Employee 2")
-                ]),
-                _c("div", { staticClass: "mr-2 mb-2" }),
                 _vm._v(" "),
                 _c("div", { staticClass: "float-right" }, [
                   _c(
